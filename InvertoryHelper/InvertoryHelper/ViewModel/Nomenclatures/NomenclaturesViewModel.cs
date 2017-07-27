@@ -15,15 +15,23 @@ namespace InvertoryHelper.ViewModel.Nomenclatures
 
         public NomenclaturesViewModel()
         {
+            Title = "Loading";
+
+            LoadNomenclaturesList();
+        }
+
+        private async void LoadNomenclaturesList()
+        {
+            var nomenclaturesList = await DataRepository.Instance.GetNomenclaturesAsync();
+
+            NomenclaturesList = new ObservableCollection<Nomenclature>(nomenclaturesList);
+
+            OnPropertyChanged("NomenclaturesList");
+
             Title = "Nomenclatures";
 
-            using (var db = DependencyService.Get<IDataRepository>())
-            {
-                if (!IsBusy)
-                    NomenclaturesList = new ObservableCollection<Nomenclature>(db.GetNomenclatures());
+            OnPropertyChanged("Title");
 
-                OnPropertyChanged("NomenclaturesList");
-            }
         }
     }
 }

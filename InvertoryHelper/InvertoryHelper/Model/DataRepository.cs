@@ -2,153 +2,114 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using InvertoryHelper.Common;
 using SQLite.Net;
 using SQLite.Net.Platform.XamarinAndroid;
 using SQLiteNetExtensions.Extensions;
 using Xamarin.Forms;
 using InvertoryHelper.Model;
+using SQLite.Net.Async;
+using SQLiteNetExtensionsAsync.Extensions;
+using System.Linq.Expressions;
+using System.Diagnostics;
 
-[assembly:Dependency(typeof(DataRepository))]
+[assembly: Dependency(typeof(DataRepository))]
 namespace InvertoryHelper.Model
 {
     public class DataRepository : IDataRepository
     {
-        private SQLiteConnection db;
 
-        public DataRepository()
+        private static readonly DataRepository instance = new DataRepository();
+
+        public static DataRepository Instance
+        {
+            get => instance;
+        }
+
+        private SQLiteAsyncConnection db;
+        private List<Nomenclature> nomenclaturesList;
+        private List<Characteristic> characteristicsList;
+        private List<Unit> unitList;
+        private List<Price> priceList;
+        private List<Barcode> barcodeslList;
+        private List<Storage> storagesList;
+
+        public bool IsLoading { get; private set; }
+
+        private DataRepository()
         {
             var path = Path.Combine(DependencyService.Get<ISpecPlatform>().GetDatabasePath(), "InvertoryHelperDB");
 
             switch (Device.RuntimePlatform)
             {
                 case Device.Android:
-                    db = new SQLiteConnection(new SQLitePlatformAndroidN(), path);
+                    db = new SQLite.Net.Async.SQLiteAsyncConnection(new Func<SQLiteConnectionWithLock>(
+                        () => new SQLiteConnectionWithLock(new SQLitePlatformAndroidN(), new SQLiteConnectionString(path, true))));
+
                     break;
 
-                //Other platforms
+                    //Other platforms
             }
+
+
+            Task.Run(CreateDbAsync);
+
         }
 
-        public List<Nomenclature> GetNomenclatures()
+        private async Task CheckLoad()
         {
-            var tmp = db.GetAllWithChildren<Nomenclature>();
-            var tmp2 = tmp.ToList();
-            return tmp2;
+
+            while (IsLoading)
+            {
+                await Task.Delay(100);
+            }
+
         }
 
-        public Nomenclature GetNomenclature(Guid uid)
+        public async Task<List<Nomenclature>> GetNomenclaturesAsync(Func<Nomenclature, bool> e = null)
         {
-            throw new NotImplementedException();
+            await CheckLoad();
+
+            if (e == null)
+                return nomenclaturesList.ToList();
+            else
+                return nomenclaturesList.Where(e).ToList();
+
         }
 
-        public List<Unit> GetUnits()
-        {
-            return db.GetAllWithChildren<Unit>().ToList();
-        }
-
-        public Unit GetUnit(Guid uid)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<NomenclaturesKind> GetNomenclaturesKinds()
-        {
-            return db.GetAllWithChildren<NomenclaturesKind>().ToList();
-        }
-
-        public NomenclaturesKind GetNomenclaturesKind(Guid uid)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Characteristic> GetCharacteristics()
-        {
-            return db.GetAllWithChildren<Characteristic>().ToList();
-        }
-
-        public Characteristic GetCharacteristic(Guid uid)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Storage> GetStorages()
-        {
-            return db.GetAllWithChildren<Storage>().ToList();
-        }
-
-        public Storage GetStorage(Guid uid)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Barcode> GetBarcodes()
-        {
-            return db.GetAllWithChildren<Barcode>().ToList();
-        }
-
-        public Barcode GetBarcode(Guid uid)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Barcode GetBarcode(string code)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Guid SaveNomenclature(Nomenclature nomenclature)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Guid SaveCharacteristic(Characteristic characteristic)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Guid SaveUnit(Unit unit)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Guid SaveNomenclaturesKind(NomenclaturesKind nomenclaturesKind)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Guid SaveStorage(Storage storage)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Price> GetPrices()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Price GetPrice(Nomenclature nomenclature, Characteristic characteristic)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Dispose()
-        {
-            //db.Close();
-            //db = null;
-        }
-
-        public void CreateDb()
+        private async Task CreateDbAsync()
         {
             if (db != null)
             {
-                db.CreateTable<Unit>();
-                db.CreateTable<NomenclaturesKind>();
-                db.CreateTable<Nomenclature>();
-                db.CreateTable<Characteristic>();
-                db.CreateTable<Barcode>();
-                db.CreateTable<Price>();
-                db.CreateTable<Storage>();
+
+                IsLoading = true;
+
+                try
+                {
+                    await db.CreateTableAsync<Unit>();
+                    await db.CreateTableAsync<NomenclaturesKind>();
+                    await db.CreateTableAsync<Nomenclature>();
+                    await db.CreateTableAsync<Characteristic>();
+                    await db.CreateTableAsync<Barcode>();
+                    await db.CreateTableAsync<Price>();
+                    await db.CreateTableAsync<Storage>();
+
+                    nomenclaturesList = await db.GetAllWithChildrenAsync<Nomenclature>();
+                    characteristicsList = await db.GetAllWithChildrenAsync<Characteristic>();
+                    unitList = await db.GetAllWithChildrenAsync<Unit>();
+                    priceList = await db.GetAllWithChildrenAsync<Price>();
+                    barcodeslList = await db.GetAllWithChildrenAsync<Barcode>();
+                    storagesList = await db.GetAllWithChildrenAsync<Storage>();
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex);
+                }
+                finally
+                {
+                    IsLoading = false;
+                }
 
             }
         }

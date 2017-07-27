@@ -6,25 +6,15 @@ using SQLiteNetExtensions.Attributes;
 namespace InvertoryHelper.Model
 {
     [Table("Nomenclatures")]
-    public class Nomenclature : ObservableObject
+    public class Nomenclature
     {
-        private string name;
-
         [PrimaryKey]
         [Unique]
         [AutoIncrement]
         public Guid Uid { get; set; }
 
         [MaxLength(150)]
-        public string Name
-        {
-            get => name;
-            set
-            {
-                name = value;
-                OnPropertyChanged("Name");
-            }
-        }
+        public string Name { get; set; }
 
         [ForeignKey(typeof(Unit))]
         public Guid BaseUnitUid { get; set; }

@@ -15,7 +15,7 @@
             Orientation="Vertical"
             VerticalOptions="FillAndExpand">
 
-            <dg:DataGrid ItemsSource="{Binding NomenclaturesList}">
+            <dg:DataGrid ItemsSource="{Binding NomenclaturesList}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
                 <dg:DataGrid.Columns>
                     <dg:DataGridColumn Title="Name" PropertyName="Name" />
                     <dg:DataGridColumn Title="Unit" PropertyName="Unit" />

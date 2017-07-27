@@ -13,10 +13,7 @@ namespace InvertoryHelper.ViewModel
 
         public MainViewModel()
         {
-            using (var db = DependencyService.Get<IDataRepository>())
-            {
-                db.CreateDb();
-            }
+            var repo = DataRepository.Instance;
         }
 
         public ICommand OpenRefereccesPage => new Command(() =>
