@@ -16,6 +16,9 @@ namespace InvertoryHelper.Model
         [MaxLength(150)]
         public string Name { get; set; }
 
+        [MaxLength(40)]
+        public string Artikul { get; set; }
+
         [ForeignKey(typeof(Unit))]
         public Guid BaseUnitUid { get; set; }
 

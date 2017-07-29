@@ -15,14 +15,55 @@
             Orientation="Vertical"
             VerticalOptions="FillAndExpand">
 
-            <dg:DataGrid ItemsSource="{Binding NomenclaturesList}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <StackLayout
+                HorizontalOptions="FillAndExpand"
+                Orientation="Horizontal"
+                VerticalOptions="Start">
+                <Entry
+                    x:Name="SearchEntry"
+                    HorizontalOptions="FillAndExpand"
+                    Keyboard="Text"
+                    Text="{Binding SearchText}" />
+                <Button Command="{Binding SearchCommand}" Text="Search" />
+
+            </StackLayout>
+
+            <dg:DataGrid
+                Padding="5"
+                HorizontalOptions="FillAndExpand"
+                ItemsSource="{Binding NomenclaturesList}"
+                SelectedItem="{Binding SelectedNomenclature,Mode=TwoWay}"
+                SelectionEnabled="True"
+                VerticalOptions="FillAndExpand">
                 <dg:DataGrid.Columns>
-                    <dg:DataGridColumn Title="Name" PropertyName="Name" />
+                    <dg:DataGridColumn
+                        Title="Artikul"
+                        Width="*"
+                        HorizontalContentAlignment="Start"
+                        PropertyName="Artikul" />
+                    <dg:DataGridColumn
+                        Title="Name"
+                        Width="3*"
+                        HorizontalContentAlignment="Start"
+                        PropertyName="Name" />
                     <dg:DataGridColumn Title="Unit" PropertyName="Unit" />
 
                 </dg:DataGrid.Columns>
             </dg:DataGrid>
 
+            <StackLayout
+                HorizontalOptions="FillAndExpand"
+                Orientation="Horizontal"
+                VerticalOptions="End">
+                <Button
+                    Command="{Binding AddCommand}"
+                    HorizontalOptions="FillAndExpand"
+                    Text="Add" />
+                <Button
+                    Command="{Binding EditCommand}"
+                    HorizontalOptions="FillAndExpand"
+                    Text="Edit" />
+            </StackLayout>
 
         </StackLayout>
     </ContentPage.Content>

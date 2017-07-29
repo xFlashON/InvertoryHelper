@@ -1,26 +1,55 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 
 <ContentPage
     x:Class="InvertoryHelper.View.Nomenclatures.NomenclatureItemPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    BindingContext="NomenclaturesViewModel">
+    Title="{Binding Title}">
 
     <ContentPage.Content>
+
         <StackLayout
             HorizontalOptions="FillAndExpand"
             Orientation="Vertical"
-            VerticalOptions="FillAndExpand">
+            VerticalOptions="Fill">
 
-            <ListView
-                HorizontalOptions="FillAndExpand"
-                ItemsSource="{Binding Path=NomenclaturesList}"
-                VerticalOptions="FillAndExpand" />
-            <StackLayout Orientation="Horizontal">
-                <Button Text="Add" />
-                <Button Text="Edit" />
+            <TableView Intent="Data">
+
+                <TableView.Root>
+
+                    <TableRoot>
+
+                        <TableSection Title="Name">
+                            <EntryCell Text="{Binding Name}" />
+                        </TableSection>
+
+                        <TableSection Title="Artikul">
+                            <EntryCell Text="{Binding Artikul}" Keyboard="Numeric"/>
+                        </TableSection>
+
+                        <TableSection Title="Base unit">
+                            <ViewCell>
+                                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                                    <Picker HorizontalOptions="FillAndExpand" SelectedItem="{Binding BaseUnit}" ItemsSource ="{Binding BaseUnitsList}"></Picker>
+                                </StackLayout>
+                            </ViewCell>
+                        </TableSection>
+
+                        <TableSection Title="Nomenklature kind">
+                            <EntryCell Text="{Binding BaseNomenklatureKind}" />
+                        </TableSection>
+
+                    </TableRoot>
+                </TableView.Root>
+            </TableView>
+
+            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                <Button Text="Save" Command="{Binding SaveButton}" HorizontalOptions="FillAndExpand"></Button>
+                <Button Text="Cancel" Command="{Binding CancelButton}" HorizontalOptions="FillAndExpand"></Button>
             </StackLayout>
 
         </StackLayout>
+
+
     </ContentPage.Content>
 </ContentPage>

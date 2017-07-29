@@ -8,5 +8,6 @@ namespace InvertoryHelper.Model
     public interface IDataRepository
     {
         Task<List<Nomenclature>> GetNomenclaturesAsync(Func<Nomenclature, bool> e = null);
+        Task<List<Unit>> GetUnitsAsync(Func<Unit, bool> e = null);
     }
 }

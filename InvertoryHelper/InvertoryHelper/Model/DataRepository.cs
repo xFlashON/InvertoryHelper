@@ -78,6 +78,16 @@ namespace InvertoryHelper.Model
 
         }
 
+        public async Task<List<Unit>> GetUnitsAsync(Func<Unit, bool> e = null)
+        {
+            await CheckLoad();
+
+            if (e == null)
+                return unitList.ToList();
+            else
+                return unitList.Where(e).ToList();
+        }
+
         private async Task CreateDbAsync()
         {
             if (db != null)
@@ -94,6 +104,27 @@ namespace InvertoryHelper.Model
                     await db.CreateTableAsync<Barcode>();
                     await db.CreateTableAsync<Price>();
                     await db.CreateTableAsync<Storage>();
+
+                    if(await db.Table<Nomenclature>().CountAsync() == 0)
+                    for (int i = 1; i<= 100; i++)
+                    {
+                            await db.InsertAsync(new Nomenclature()
+                            {
+                                Name = string.Format("Nomenclature {0}", i),
+                                Artikul = i.ToString(),
+                                Uid = new Guid()
+                            });
+                    }
+
+                    if (await db.Table<Unit>().CountAsync() == 0)
+                        for (int i = 1; i <= 10; i++)
+                        {
+                            await db.InsertAsync(new Unit()
+                            {
+                                Name = string.Format("Unit {0}", i),
+                                Uid = new Guid()
+                            });
+                        }
 
                     nomenclaturesList = await db.GetAllWithChildrenAsync<Nomenclature>();
                     characteristicsList = await db.GetAllWithChildrenAsync<Characteristic>();
@@ -113,5 +144,7 @@ namespace InvertoryHelper.Model
 
             }
         }
+
+
     }
 }

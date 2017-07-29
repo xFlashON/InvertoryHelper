@@ -10,7 +10,6 @@ namespace InvertoryHelper.ViewModel
     {
         public INavigation navigation;
 
-
         public MainViewModel()
         {
             var repo = DataRepository.Instance;

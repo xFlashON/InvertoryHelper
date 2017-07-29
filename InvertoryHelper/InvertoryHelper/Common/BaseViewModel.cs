@@ -5,7 +5,17 @@ namespace InvertoryHelper.Common
     public class BaseViewModel : INotifyPropertyChanged
     {
         private bool isBusy;
-        public string Title { get; set; }
+
+        private string title;
+        public string Title
+        {
+            get => title;
+            set
+            {
+                title = value;
+                OnPropertyChanged("Title");
+            }
+        }
         public bool IsInitialized { get; set; }
 
         /// <summary>

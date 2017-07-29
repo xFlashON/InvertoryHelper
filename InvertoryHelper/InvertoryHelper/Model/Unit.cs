@@ -13,5 +13,10 @@ namespace InvertoryHelper.Model
 
         [MaxLength(50)]
         public string Name { get; set; }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }
