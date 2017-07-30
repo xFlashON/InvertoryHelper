@@ -71,10 +71,18 @@ namespace InvertoryHelper.Model
         {
             await CheckLoad();
 
+            try {
+
             if (e == null)
                 return nomenclaturesList.ToList();
             else
                 return nomenclaturesList.Where(e).ToList();
+            }
+            catch ( Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                return new List<Nomenclature>();
+            }
 
         }
 
@@ -86,6 +94,35 @@ namespace InvertoryHelper.Model
                 return unitList.ToList();
             else
                 return unitList.Where(e).ToList();
+        }
+
+        public async Task<Guid>  SaveNomenclatureAsync(Nomenclature nomenclature)
+        {
+
+            try
+            {
+                
+                int index = nomenclaturesList.FindIndex((N) => N.Uid == nomenclature.Uid);
+
+                if (index != -1)
+                {
+                    await db.UpdateWithChildrenAsync(nomenclature);
+                    nomenclaturesList[index] = nomenclature;
+                }
+                else
+                {
+                    await db.InsertAsync(nomenclature);
+                    nomenclaturesList.Add(nomenclature);
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                return Guid.Empty;
+            }
+
+            return nomenclature.Uid;
+
         }
 
         private async Task CreateDbAsync()

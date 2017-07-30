@@ -18,5 +18,11 @@ namespace InvertoryHelper.Model
         {
             return Name;
         }
+
+        public override bool Equals(object obj)
+        {
+            return (obj as Unit).Uid==Uid;
+        }
+
     }
 }

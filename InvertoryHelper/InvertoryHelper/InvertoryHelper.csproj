@@ -45,6 +45,7 @@
     <Compile Include="Model\DataRepository.cs" />
     <Compile Include="Model\IDataRepository.cs" />
     <Compile Include="Common\ISpecPlatform.cs" />
+    <Compile Include="ViewModel\Nomenclatures\NomenclatureModel.cs" />
     <Compile Include="Model\NomenclaturesKind.cs" />
     <Compile Include="Model\Nomenclature.cs" />
     <Compile Include="Model\Price.cs" />

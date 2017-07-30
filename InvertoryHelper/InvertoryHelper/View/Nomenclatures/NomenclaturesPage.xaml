@@ -46,7 +46,7 @@
                         Width="3*"
                         HorizontalContentAlignment="Start"
                         PropertyName="Name" />
-                    <dg:DataGridColumn Title="Unit" PropertyName="Unit" />
+                    <dg:DataGridColumn Title="Unit" PropertyName="BaseUnit.Name" />
 
                 </dg:DataGrid.Columns>
             </dg:DataGrid>

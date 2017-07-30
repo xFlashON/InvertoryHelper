@@ -17,6 +17,14 @@ namespace InvertoryHelper.View.Nomenclatures
 
             BindingContext = vm;
 
+            MessagingCenter.Subscribe<string>(this, "DisplayAlert", DisplayMessage);
+
         }
+
+        private async void DisplayMessage (string message)
+        {
+            await DisplayAlert("Message", message,"Close");
+        }
+
     }
 }

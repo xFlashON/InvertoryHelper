@@ -45,7 +45,7 @@ namespace InvertoryHelper.ViewModel.Nomenclatures
             set
             {
                 nomenclature.BaseUnit = value;
-                OnPropertyChanged("Unit");
+                OnPropertyChanged("BaseUnit");
             }
         }
 
@@ -59,23 +59,28 @@ namespace InvertoryHelper.ViewModel.Nomenclatures
             }
         }
 
-        public Command SaveButton { get => new Command(async () => { await Navigation.PopAsync(); }); }
+        public Command SaveButton { get => new Command(async () => 
+        {
+            MessagingCenter.Send<Nomenclature>(nomenclature,"SaveNomenclature");
+            await Navigation.PopAsync();
+        }); }
         public Command CancelButton { get => new Command(async () => { await Navigation.PopAsync(); }); }
 
-        public NomenclatureItemViewModel(Nomenclature Nomenclature = null)
+        public NomenclatureItemViewModel(NomenclatureModel Nomenclature = null)
         {
 
-            this.nomenclature = Nomenclature ?? new Nomenclature();
+            nomenclature = new Nomenclature();
 
             if (Nomenclature == null)
                 Title = "Add nomenclature";
             else
             {
                 Title = "Edit nomenclature";
-                OnPropertyChanged("Nomenclature");
-                OnPropertyChanged("Artikul");
-                OnPropertyChanged("BaseUnit");
-                OnPropertyChanged("BaseNomenklatureKind");
+                nomenclature.Uid = Nomenclature.Uid;
+                Name = Nomenclature.Name;
+                Artikul = Nomenclature.Artikul;
+                BaseUnit = Nomenclature.BaseUnit;
+                BaseNomenklatureKind = Nomenclature.NomenclaturesKind;
             }
 
             LoadUnitsList();

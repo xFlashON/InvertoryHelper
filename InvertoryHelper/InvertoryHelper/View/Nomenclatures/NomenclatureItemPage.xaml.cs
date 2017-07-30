@@ -9,7 +9,7 @@ namespace InvertoryHelper.View.Nomenclatures
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class NomenclatureItemPage : ContentPage
     {
-        public NomenclatureItemPage(INavigation Navigation=null, Nomenclature nomenclature = null)
+        public NomenclatureItemPage(INavigation Navigation=null, NomenclatureModel nomenclature = null)
         {
             InitializeComponent();
 

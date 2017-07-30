@@ -2,6 +2,7 @@
 using InvertoryHelper.Common;
 using SQLite.Net.Attributes;
 using SQLiteNetExtensions.Attributes;
+using InvertoryHelper.ViewModel.Nomenclatures;
 
 namespace InvertoryHelper.Model
 {
@@ -30,5 +31,12 @@ namespace InvertoryHelper.Model
 
         [OneToOne]
         public NomenclaturesKind NomenclaturesKind { get; set; }
+
+        public Nomenclature()
+        {
+            Name = string.Empty;
+            Artikul = string.Empty;
+        }
+
     }
 }

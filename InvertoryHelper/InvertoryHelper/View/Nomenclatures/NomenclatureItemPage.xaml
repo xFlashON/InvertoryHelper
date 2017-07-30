@@ -24,13 +24,16 @@
                         </TableSection>
 
                         <TableSection Title="Artikul">
-                            <EntryCell Text="{Binding Artikul}" Keyboard="Numeric"/>
+                            <EntryCell Keyboard="Numeric" Text="{Binding Artikul}" />
                         </TableSection>
 
                         <TableSection Title="Base unit">
                             <ViewCell>
-                                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
-                                    <Picker HorizontalOptions="FillAndExpand" SelectedItem="{Binding BaseUnit}" ItemsSource ="{Binding BaseUnitsList}"></Picker>
+                                <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                                    <Picker
+                                        HorizontalOptions="FillAndExpand"
+                                        ItemsSource="{Binding BaseUnitsList}"
+                                        SelectedItem="{Binding BaseUnit}" />
                                 </StackLayout>
                             </ViewCell>
                         </TableSection>
@@ -43,9 +46,15 @@
                 </TableView.Root>
             </TableView>
 
-            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
-                <Button Text="Save" Command="{Binding SaveButton}" HorizontalOptions="FillAndExpand"></Button>
-                <Button Text="Cancel" Command="{Binding CancelButton}" HorizontalOptions="FillAndExpand"></Button>
+            <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                <Button
+                    Command="{Binding SaveButton}"
+                    HorizontalOptions="FillAndExpand"
+                    Text="Save" />
+                <Button
+                    Command="{Binding CancelButton}"
+                    HorizontalOptions="FillAndExpand"
+                    Text="Cancel" />
             </StackLayout>
 
         </StackLayout>
