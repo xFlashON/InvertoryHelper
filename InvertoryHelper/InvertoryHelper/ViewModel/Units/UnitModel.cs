@@ -1,18 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using InvertoryHelper.Model;
 
 namespace InvertoryHelper.ViewModel.Units
 {
     public class UnitModel : INotifyPropertyChanged
     {
+        private string name;
 
         public Guid Uid;
-        private string name;
 
 
         public UnitModel(Unit unit)
@@ -43,6 +39,5 @@ namespace InvertoryHelper.ViewModel.Units
             if (PropertyChanged != null)
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
         }
-
     }
 }

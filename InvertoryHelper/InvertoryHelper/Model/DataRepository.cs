@@ -1,42 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using InvertoryHelper.Common;
-using SQLite.Net;
-using SQLite.Net.Platform.XamarinAndroid;
-using SQLiteNetExtensions.Extensions;
-using Xamarin.Forms;
 using InvertoryHelper.Model;
+using SQLite.Net;
 using SQLite.Net.Async;
+using SQLite.Net.Platform.XamarinAndroid;
 using SQLiteNetExtensionsAsync.Extensions;
-using System.Linq.Expressions;
-using System.Diagnostics;
+using Xamarin.Forms;
 
 [assembly: Dependency(typeof(DataRepository))]
+
 namespace InvertoryHelper.Model
 {
     public class DataRepository : IDataRepository
     {
-
-        private static readonly DataRepository instance = new DataRepository();
-
-        public static DataRepository Instance
-        {
-            get => instance;
-        }
-
-        private SQLiteAsyncConnection db;
-        private List<Nomenclature> nomenclaturesList;
-        private List<Characteristic> characteristicsList;
-        private List<NomenclaturesKind> nomenclatureKindsList;
-        private List<Unit> unitList;
-        private List<Price> priceList;
         private List<Barcode> barcodeslList;
-        private List<Storage> storagesList;
+        private List<Characteristic> characteristicsList;
 
-        public bool IsLoading { get; private set; }
+        private readonly SQLiteAsyncConnection db;
+        private List<NomenclaturesKind> nomenclatureKindsList;
+        private List<Nomenclature> nomenclaturesList;
+        private List<Price> priceList;
+        private List<Storage> storagesList;
+        private List<Unit> unitList;
 
         private DataRepository()
         {
@@ -45,46 +35,37 @@ namespace InvertoryHelper.Model
             switch (Device.RuntimePlatform)
             {
                 case Device.Android:
-                    db = new SQLite.Net.Async.SQLiteAsyncConnection(new Func<SQLiteConnectionWithLock>(
-                        () => new SQLiteConnectionWithLock(new SQLitePlatformAndroidN(), new SQLiteConnectionString(path, true))));
+                    db = new SQLiteAsyncConnection(() => new SQLiteConnectionWithLock(new SQLitePlatformAndroidN(),
+                        new SQLiteConnectionString(path, true)));
 
                     break;
 
-                    //Other platforms
+                //Other platforms
             }
 
 
             Task.Run(CreateDbAsync);
-
         }
 
-        private async Task CheckLoad()
-        {
+        public static DataRepository Instance { get; } = new DataRepository();
 
-            while (IsLoading)
-            {
-                await Task.Delay(100);
-            }
-
-        }
+        public bool IsLoading { get; private set; }
 
         public async Task<List<Nomenclature>> GetNomenclaturesAsync(Func<Nomenclature, bool> e = null)
         {
             await CheckLoad();
 
-            try {
-
-            if (e == null)
-                return nomenclaturesList;
-            else
+            try
+            {
+                if (e == null)
+                    return nomenclaturesList;
                 return nomenclaturesList.Where(e).ToList();
             }
-            catch ( Exception ex)
+            catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
                 return new List<Nomenclature>();
             }
-
         }
 
         public async Task<List<Unit>> GetUnitsAsync(Func<Unit, bool> e = null)
@@ -93,8 +74,7 @@ namespace InvertoryHelper.Model
 
             if (e == null)
                 return unitList;
-            else
-                return unitList.Where(e).ToList();
+            return unitList.Where(e).ToList();
         }
 
         public async Task<List<NomenclaturesKind>> GetNomenclatureKindsAsync(Func<NomenclaturesKind, bool> e = null)
@@ -103,17 +83,14 @@ namespace InvertoryHelper.Model
 
             if (e == null)
                 return nomenclatureKindsList;
-            else
-                return nomenclatureKindsList.Where(e).ToList();
+            return nomenclatureKindsList.Where(e).ToList();
         }
 
-        public async Task<Guid>  SaveNomenclatureAsync(Nomenclature nomenclature)
+        public async Task<Guid> SaveNomenclatureAsync(Nomenclature nomenclature)
         {
-
             try
             {
-                
-                int index = nomenclaturesList.FindIndex((N) => N.Uid == nomenclature.Uid);
+                var index = nomenclaturesList.FindIndex(N => N.Uid == nomenclature.Uid);
 
                 if (index != -1)
                 {
@@ -133,15 +110,13 @@ namespace InvertoryHelper.Model
             }
 
             return nomenclature.Uid;
-
         }
 
         public async Task<Guid> SaveUnitAsync(Unit unit)
         {
             try
             {
-
-                int index = unitList.FindIndex((N) => N.Uid == unit.Uid);
+                var index = unitList.FindIndex(N => N.Uid == unit.Uid);
 
                 if (index != -1)
                 {
@@ -167,8 +142,7 @@ namespace InvertoryHelper.Model
         {
             try
             {
-
-                int index = nomenclatureKindsList.FindIndex((N) => N.Uid == nomenclatureKind.Uid);
+                var index = nomenclatureKindsList.FindIndex(N => N.Uid == nomenclatureKind.Uid);
 
                 if (index != -1)
                 {
@@ -190,11 +164,16 @@ namespace InvertoryHelper.Model
             return nomenclatureKind.Uid;
         }
 
+        private async Task CheckLoad()
+        {
+            while (IsLoading)
+                await Task.Delay(100);
+        }
+
         private async Task CreateDbAsync()
         {
             if (db != null)
             {
-
                 IsLoading = true;
 
                 try
@@ -207,26 +186,22 @@ namespace InvertoryHelper.Model
                     await db.CreateTableAsync<Price>();
                     await db.CreateTableAsync<Storage>();
 
-                    if(await db.Table<Nomenclature>().CountAsync() == 0)
-                    for (int i = 1; i<= 100; i++)
-                    {
-                            await db.InsertAsync(new Nomenclature()
+                    if (await db.Table<Nomenclature>().CountAsync() == 0)
+                        for (var i = 1; i <= 100; i++)
+                            await db.InsertAsync(new Nomenclature
                             {
                                 Name = string.Format("Nomenclature {0}", i),
                                 Artikul = i.ToString(),
                                 Uid = new Guid()
                             });
-                    }
 
                     if (await db.Table<Unit>().CountAsync() == 0)
-                        for (int i = 1; i <= 10; i++)
-                        {
-                            await db.InsertAsync(new Unit()
+                        for (var i = 1; i <= 10; i++)
+                            await db.InsertAsync(new Unit
                             {
                                 Name = string.Format("Unit {0}", i),
                                 Uid = new Guid()
                             });
-                        }
 
                     nomenclaturesList = await db.GetAllWithChildrenAsync<Nomenclature>();
                     characteristicsList = await db.GetAllWithChildrenAsync<Characteristic>();
@@ -244,9 +219,7 @@ namespace InvertoryHelper.Model
                 {
                     IsLoading = false;
                 }
-
             }
         }
-
     }
 }

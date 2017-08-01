@@ -1,19 +1,29 @@
 ﻿using InvertoryHelper.Common;
 using InvertoryHelper.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace InvertoryHelper.ViewModel.Units
 {
     public class UnitItemViewModel : BaseViewModel
     {
-        private Unit unit;
-
         public INavigation Navigation;
+        private readonly Unit unit;
+
+        public UnitItemViewModel(UnitModel Unit = null)
+        {
+            unit = new Unit();
+
+            if (Unit == null)
+            {
+                Title = "Add unit";
+            }
+            else
+            {
+                Title = "Edit unit";
+                unit.Uid = Unit.Uid;
+                Name = Unit.Name;
+            }
+        }
 
         public string Name
         {
@@ -25,29 +35,12 @@ namespace InvertoryHelper.ViewModel.Units
             }
         }
 
-        public Command SaveButton
+        public Command SaveButton => new Command(async () =>
         {
-            get => new Command(async () =>
-            {
-                MessagingCenter.Send<Unit>(unit, "SaveUnit");
-                await Navigation?.PopAsync();
-            });
-        }
-        public Command CancelButton { get => new Command(async () => { await Navigation?.PopAsync(); }); }
+            MessagingCenter.Send(unit, "SaveUnit");
+            await Navigation?.PopAsync();
+        });
 
-        public UnitItemViewModel(UnitModel Unit = null)
-        {
-            unit = new Unit();
-
-            if (Unit == null)
-                Title = "Add unit";
-            else
-            {
-                Title = "Edit unit";
-                unit.Uid = Unit.Uid;
-                Name = Unit.Name;
-            }
-        }
+        public Command CancelButton => new Command(async () => { await Navigation?.PopAsync(); });
     }
 }
-

@@ -1,6 +1,4 @@
-﻿
-using InvertoryHelper.Model;
-using InvertoryHelper.ViewModel.Nomenclatures;
+﻿using InvertoryHelper.ViewModel.Nomenclatures;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -9,7 +7,7 @@ namespace InvertoryHelper.View.Nomenclatures
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class NomenclatureItemPage : ContentPage
     {
-        public NomenclatureItemPage(INavigation Navigation=null, NomenclatureModel nomenclature = null)
+        public NomenclatureItemPage(INavigation Navigation = null, NomenclatureModel nomenclature = null)
         {
             InitializeComponent();
 

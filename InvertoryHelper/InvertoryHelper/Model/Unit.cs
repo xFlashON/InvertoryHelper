@@ -21,13 +21,15 @@ namespace InvertoryHelper.Model
 
         public override bool Equals(object obj)
         {
-            return ((obj as Unit).Uid==Uid&& (obj as Unit).Name == Name);
+            if (obj is Unit)
+                return (obj as Unit).Uid == Uid && (obj as Unit).Name == Name;
+            return
+                false;
         }
 
         public override int GetHashCode()
         {
             return base.GetHashCode();
         }
-
     }
 }

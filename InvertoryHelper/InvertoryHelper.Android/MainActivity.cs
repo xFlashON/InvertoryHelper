@@ -19,6 +19,7 @@ namespace InvertoryHelper.Droid
 
             Forms.Init(this, bundle);
             LoadApplication(new App());
+
         }
     }
 }

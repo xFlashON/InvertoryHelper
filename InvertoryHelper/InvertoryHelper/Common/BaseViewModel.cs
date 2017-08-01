@@ -7,6 +7,7 @@ namespace InvertoryHelper.Common
         private bool isBusy;
 
         private string title;
+
         public string Title
         {
             get => title;
@@ -16,6 +17,7 @@ namespace InvertoryHelper.Common
                 OnPropertyChanged("Title");
             }
         }
+
         public bool IsInitialized { get; set; }
 
         /// <summary>

@@ -1,23 +1,29 @@
-﻿using InvertoryHelper.Model;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using InvertoryHelper.Model;
 
 namespace InvertoryHelper.ViewModel.Nomenclatures
 {
     public class NomenclatureModel : INotifyPropertyChanged
     {
-
-        private string name;
         private string artikul;
         private Unit baseUnit;
+
+        private string name;
         private NomenclaturesKind nomenclatureKind;
 
+        public NomenclatureModel()
+        {
+        }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public NomenclatureModel(Nomenclature nomenclature)
+        {
+            Uid = nomenclature.Uid;
+            Name = nomenclature.Name;
+            Artikul = nomenclature.Artikul;
+            BaseUnit = nomenclature.BaseUnit;
+            NomenclaturesKind = nomenclature.NomenclaturesKind;
+        }
 
         public Guid Uid { get; set; }
 
@@ -63,20 +69,8 @@ namespace InvertoryHelper.ViewModel.Nomenclatures
             }
         }
 
-        public NomenclatureModel()
-        {
 
-        }
-
-        public NomenclatureModel(Nomenclature nomenclature)
-        {
-            Uid = nomenclature.Uid;
-            Name = nomenclature.Name;
-            Artikul = nomenclature.Artikul;
-            BaseUnit = nomenclature.BaseUnit;
-            NomenclaturesKind = nomenclature.NomenclaturesKind;
-
-        }
+        public event PropertyChangedEventHandler PropertyChanged;
 
         protected void OnPropertyChanged(string propertyName)
         {

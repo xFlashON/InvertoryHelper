@@ -1,14 +1,18 @@
 ﻿using System;
-using InvertoryHelper.Common;
 using SQLite.Net.Attributes;
 using SQLiteNetExtensions.Attributes;
-using InvertoryHelper.ViewModel.Nomenclatures;
 
 namespace InvertoryHelper.Model
 {
     [Table("Nomenclatures")]
     public class Nomenclature
     {
+        public Nomenclature()
+        {
+            Name = string.Empty;
+            Artikul = string.Empty;
+        }
+
         [PrimaryKey]
         [Unique]
         [AutoIncrement]
@@ -31,12 +35,5 @@ namespace InvertoryHelper.Model
 
         [OneToOne]
         public NomenclaturesKind NomenclaturesKind { get; set; }
-
-        public Nomenclature()
-        {
-            Name = string.Empty;
-            Artikul = string.Empty;
-        }
-
     }
 }

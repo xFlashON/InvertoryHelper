@@ -1,26 +1,20 @@
-﻿using InvertoryHelper.Model;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using InvertoryHelper.Model;
 
 namespace InvertoryHelper.ViewModel.NomenclatureKinds
 {
     public class NomenclatureKindModel : INotifyPropertyChanged
     {
-
-       
         private string name;
-
-        public Guid Uid { get; set; }
 
         public NomenclatureKindModel(NomenclaturesKind nomenclatureKind)
         {
             Uid = nomenclatureKind.Uid;
             name = nomenclatureKind.Name;
         }
+
+        public Guid Uid { get; set; }
 
         public string Name
         {
@@ -44,6 +38,5 @@ namespace InvertoryHelper.ViewModel.NomenclatureKinds
             if (PropertyChanged != null)
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
         }
-
     }
 }

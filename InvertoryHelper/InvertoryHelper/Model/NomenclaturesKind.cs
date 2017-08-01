@@ -26,7 +26,9 @@ namespace InvertoryHelper.Model
 
         public override bool Equals(object obj)
         {
-            return ((obj as NomenclaturesKind).Uid == Uid && (obj as NomenclaturesKind).Name == Name);
+            if (obj is NomenclaturesKind)
+                return (obj as NomenclaturesKind).Uid == Uid && (obj as NomenclaturesKind).Name == Name;
+            return false;
         }
 
         public override int GetHashCode()

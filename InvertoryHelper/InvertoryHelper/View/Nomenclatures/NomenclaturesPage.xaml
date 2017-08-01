@@ -4,6 +4,7 @@
     x:Class="InvertoryHelper.View.Nomenclatures.NomenclaturesPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ac="clr-namespace:Xamarin;assembly=Xamarin.CustomControls.AccordionView"
     xmlns:dg="clr-namespace:Xamarin.Forms.DataGrid;assembly=Xamarin.Forms.DataGrid"
     xmlns:el="clr-namespace:Android.Widget;assembly=Mono.Android"
     Title="{Binding Title}">
@@ -16,32 +17,40 @@
             Orientation="Vertical"
             VerticalOptions="FillAndExpand">
 
-           
-
             <StackLayout
-                HorizontalOptions="FillAndExpand"
-                Orientation="Horizontal"
-                VerticalOptions="Start">
-                <Picker Title="Nomenclatue kind"
+                x:Name="FilterLayout"
+                IsVisible="True"
+                Orientation="Horizontal">
+
+
+                <StackLayout
                     HorizontalOptions="FillAndExpand"
-                    ItemsSource="{Binding NomenclatureKindsList}"
-                    SelectedItem="{Binding SelectedNomenclstureKind, Mode=TwoWay}" />
-                <Button Command="{Binding ClearNomenclatureKindCommand}" Text="Clear" />
+                    Orientation="Horizontal"
+                    VerticalOptions="Start">
+                    <Picker
+                        Title="Nomenclatue kind"
+                        HorizontalOptions="FillAndExpand"
+                        ItemsSource="{Binding NomenclatureKindsList}"
+                        SelectedItem="{Binding SelectedNomenclstureKind, Mode=TwoWay}" />
+                    <Button Command="{Binding ClearNomenclatureKindCommand}" Text="Clear" />
+
+                </StackLayout>
+
+                <StackLayout
+                    HorizontalOptions="FillAndExpand"
+                    Orientation="Horizontal"
+                    VerticalOptions="Start">
+                    <Entry
+                        x:Name="SearchEntry"
+                        HorizontalOptions="FillAndExpand"
+                        Keyboard="Text"
+                        Text="{Binding SearchText}" />
+                    <Button Command="{Binding SearchCommand}" Text="Search" />
+
+                </StackLayout>
 
             </StackLayout>
 
-            <StackLayout
-                HorizontalOptions="FillAndExpand"
-                Orientation="Horizontal"
-                VerticalOptions="Start">
-                <Entry
-                    x:Name="SearchEntry"
-                    HorizontalOptions="FillAndExpand"
-                    Keyboard="Text"
-                    Text="{Binding SearchText}" />
-                <Button Command="{Binding SearchCommand}" Text="Search" />
-
-            </StackLayout>
 
             <dg:DataGrid
                 Padding="5"

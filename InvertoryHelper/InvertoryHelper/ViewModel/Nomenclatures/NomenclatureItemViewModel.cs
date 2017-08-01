@@ -1,80 +1,23 @@
-﻿using InvertoryHelper.Common;
+﻿using System.Collections.ObjectModel;
+using InvertoryHelper.Common;
 using InvertoryHelper.Model;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace InvertoryHelper.ViewModel.Nomenclatures
 {
     public class NomenclatureItemViewModel : BaseViewModel
     {
-        private Nomenclature nomenclature;
-
         public INavigation Navigation;
-
-        public ObservableCollection<Unit> BaseUnitsList { get; set; }
-
-        public ObservableCollection<NomenclaturesKind> NomenclatureKindsList { get; set;}
-
-        public string Name
-        {
-            get { return nomenclature.Name; }
-            set
-            {
-                nomenclature.Name = value;
-                OnPropertyChanged("Name");
-            }
-        }
-
-
-        public String Artikul
-        {
-            get { return nomenclature.Artikul; }
-            set
-            {
-                nomenclature.Artikul = value;
-                OnPropertyChanged("Artikul");
-            }
-        }
-
-        public Unit BaseUnit
-        {
-            get { return nomenclature.BaseUnit; }
-            set
-            {
-                nomenclature.BaseUnit = value;
-                OnPropertyChanged("BaseUnit");
-            }
-        }
-
-        public NomenclaturesKind BaseNomenclatureKind
-        {
-            get { return nomenclature.NomenclaturesKind; }
-            set
-            {
-                nomenclature.NomenclaturesKind = value;
-                OnPropertyChanged("BaseNomenclatureKind");
-            }
-        }
-
-        public Command SaveButton { get => new Command(async () => 
-        {
-            MessagingCenter.Send<Nomenclature>(nomenclature,"SaveNomenclature");
-            await Navigation.PopAsync();
-        }); }
-        public Command CancelButton { get => new Command(async () => { await Navigation.PopAsync(); }); }
+        private readonly Nomenclature nomenclature;
 
         public NomenclatureItemViewModel(NomenclatureModel Nomenclature = null)
         {
-
             nomenclature = new Nomenclature();
 
             if (Nomenclature == null)
+            {
                 Title = "Add nomenclature";
+            }
             else
             {
                 Title = "Edit nomenclature";
@@ -87,8 +30,60 @@ namespace InvertoryHelper.ViewModel.Nomenclatures
 
             LoadUnitsList();
             LoadNomenclatureKindsList();
-
         }
+
+        public ObservableCollection<Unit> BaseUnitsList { get; set; }
+
+        public ObservableCollection<NomenclaturesKind> NomenclatureKindsList { get; set; }
+
+        public string Name
+        {
+            get => nomenclature.Name;
+            set
+            {
+                nomenclature.Name = value;
+                OnPropertyChanged("Name");
+            }
+        }
+
+
+        public string Artikul
+        {
+            get => nomenclature.Artikul;
+            set
+            {
+                nomenclature.Artikul = value;
+                OnPropertyChanged("Artikul");
+            }
+        }
+
+        public Unit BaseUnit
+        {
+            get => nomenclature.BaseUnit;
+            set
+            {
+                nomenclature.BaseUnit = value;
+                OnPropertyChanged("BaseUnit");
+            }
+        }
+
+        public NomenclaturesKind BaseNomenclatureKind
+        {
+            get => nomenclature.NomenclaturesKind;
+            set
+            {
+                nomenclature.NomenclaturesKind = value;
+                OnPropertyChanged("BaseNomenclatureKind");
+            }
+        }
+
+        public Command SaveButton => new Command(async () =>
+        {
+            MessagingCenter.Send(nomenclature, "SaveNomenclature");
+            await Navigation.PopAsync();
+        });
+
+        public Command CancelButton => new Command(async () => { await Navigation.PopAsync(); });
 
         private async void LoadUnitsList()
         {
@@ -96,7 +91,6 @@ namespace InvertoryHelper.ViewModel.Nomenclatures
             BaseUnitsList = new ObservableCollection<Unit>(UnitsList);
 
             OnPropertyChanged("BaseUnitsList");
-
         }
 
         private async void LoadNomenclatureKindsList()
@@ -105,9 +99,6 @@ namespace InvertoryHelper.ViewModel.Nomenclatures
             NomenclatureKindsList = new ObservableCollection<NomenclaturesKind>(NomenclatureKinds);
 
             OnPropertyChanged("NomenclatureKindsList");
-
         }
-
     }
-
 }

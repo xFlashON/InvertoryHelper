@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace InvertoryHelper.Model
@@ -17,6 +16,5 @@ namespace InvertoryHelper.Model
         Task<Guid> SaveUnitAsync(Unit unit);
 
         Task<Guid> SaveNomenclatureKindAsync(NomenclaturesKind nomenclatureKind);
-
     }
 }

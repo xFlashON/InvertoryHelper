@@ -11,7 +11,7 @@ namespace InvertoryHelper.View
         {
             InitializeComponent();
 
-            BindingContext = new SettingsViewModel(){navigation = Navigation};
+            BindingContext = new SettingsViewModel {navigation = Navigation};
         }
     }
 }
