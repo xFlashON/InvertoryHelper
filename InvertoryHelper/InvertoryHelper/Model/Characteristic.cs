@@ -1,5 +1,6 @@
 ﻿using System;
 using SQLite.Net.Attributes;
+using SQLiteNetExtensions.Attributes;
 
 namespace InvertoryHelper.Model
 {
@@ -13,5 +14,12 @@ namespace InvertoryHelper.Model
 
         [MaxLength(150)]
         public string Name { get; set; }
+
+
+        [ForeignKey(typeof(NomenclaturesKind))]
+        public Guid NomenclaturesKindUid { get; set; }
+
+        [ManyToOne]
+        public NomenclaturesKind NomenclaturesKind { get; set; }
     }
 }

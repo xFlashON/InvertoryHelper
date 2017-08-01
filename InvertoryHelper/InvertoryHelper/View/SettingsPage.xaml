@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 
 <ContentPage
     x:Class="InvertoryHelper.View.SettingsPage"
@@ -19,6 +19,12 @@
                         Command="{Binding OpenReference}"
                         CommandParameter="Units"
                         Text="Units" />
+                </ViewCell>
+                <ViewCell>
+                    <Button
+                        Command="{Binding OpenReference}"
+                        CommandParameter="NomenclatureKinds"
+                        Text="Nomenclature kinds" />
                 </ViewCell>
             </TableSection>
         </TableRoot>

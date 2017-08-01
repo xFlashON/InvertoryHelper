@@ -30,6 +30,7 @@ namespace InvertoryHelper.Model
         private SQLiteAsyncConnection db;
         private List<Nomenclature> nomenclaturesList;
         private List<Characteristic> characteristicsList;
+        private List<NomenclaturesKind> nomenclatureKindsList;
         private List<Unit> unitList;
         private List<Price> priceList;
         private List<Barcode> barcodeslList;
@@ -74,7 +75,7 @@ namespace InvertoryHelper.Model
             try {
 
             if (e == null)
-                return nomenclaturesList.ToList();
+                return nomenclaturesList;
             else
                 return nomenclaturesList.Where(e).ToList();
             }
@@ -91,9 +92,19 @@ namespace InvertoryHelper.Model
             await CheckLoad();
 
             if (e == null)
-                return unitList.ToList();
+                return unitList;
             else
                 return unitList.Where(e).ToList();
+        }
+
+        public async Task<List<NomenclaturesKind>> GetNomenclatureKindsAsync(Func<NomenclaturesKind, bool> e = null)
+        {
+            await CheckLoad();
+
+            if (e == null)
+                return nomenclatureKindsList;
+            else
+                return nomenclatureKindsList.Where(e).ToList();
         }
 
         public async Task<Guid>  SaveNomenclatureAsync(Nomenclature nomenclature)
@@ -123,6 +134,60 @@ namespace InvertoryHelper.Model
 
             return nomenclature.Uid;
 
+        }
+
+        public async Task<Guid> SaveUnitAsync(Unit unit)
+        {
+            try
+            {
+
+                int index = unitList.FindIndex((N) => N.Uid == unit.Uid);
+
+                if (index != -1)
+                {
+                    await db.UpdateAsync(unit);
+                    unitList[index] = unit;
+                }
+                else
+                {
+                    await db.InsertAsync(unit);
+                    unitList.Add(unit);
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                return Guid.Empty;
+            }
+
+            return unit.Uid;
+        }
+
+        public async Task<Guid> SaveNomenclatureKindAsync(NomenclaturesKind nomenclatureKind)
+        {
+            try
+            {
+
+                int index = nomenclatureKindsList.FindIndex((N) => N.Uid == nomenclatureKind.Uid);
+
+                if (index != -1)
+                {
+                    await db.UpdateAsync(nomenclatureKind);
+                    nomenclatureKindsList[index] = nomenclatureKind;
+                }
+                else
+                {
+                    await db.InsertAsync(nomenclatureKind);
+                    nomenclatureKindsList.Add(nomenclatureKind);
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                return Guid.Empty;
+            }
+
+            return nomenclatureKind.Uid;
         }
 
         private async Task CreateDbAsync()
@@ -166,13 +231,14 @@ namespace InvertoryHelper.Model
                     nomenclaturesList = await db.GetAllWithChildrenAsync<Nomenclature>();
                     characteristicsList = await db.GetAllWithChildrenAsync<Characteristic>();
                     unitList = await db.GetAllWithChildrenAsync<Unit>();
+                    nomenclatureKindsList = await db.GetAllWithChildrenAsync<NomenclaturesKind>();
                     priceList = await db.GetAllWithChildrenAsync<Price>();
                     barcodeslList = await db.GetAllWithChildrenAsync<Barcode>();
                     storagesList = await db.GetAllWithChildrenAsync<Storage>();
                 }
                 catch (Exception ex)
                 {
-                    Debug.WriteLine(ex);
+                    Debug.WriteLine(ex.Message);
                 }
                 finally
                 {
@@ -181,7 +247,6 @@ namespace InvertoryHelper.Model
 
             }
         }
-
 
     }
 }

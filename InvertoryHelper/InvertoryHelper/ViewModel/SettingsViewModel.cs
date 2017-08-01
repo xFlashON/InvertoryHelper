@@ -2,6 +2,8 @@
 using InvertoryHelper.Common;
 using InvertoryHelper.View.Nomenclatures;
 using Xamarin.Forms;
+using InvertoryHelper.View.Units;
+using InvertoryHelper.View.NomenclatureKinds;
 
 namespace InvertoryHelper.ViewModel
 {
@@ -18,10 +20,21 @@ namespace InvertoryHelper.ViewModel
                 case "Nomenclatures":
                 {
                     if (navigation != null)
-                        await navigation.PushAsync(new NomenclaturesPage());
+                        await navigation?.PushAsync(new NomenclaturesPage());
                 }
                     break;
                 case "Units":
+                    {
+                        if (navigation != null)
+                            await navigation?.PushAsync(new UnitsPage());
+                    }
+
+                    break;
+                case "NomenclatureKinds":
+                    {
+                        if (navigation != null)
+                            await navigation?.PushAsync(new NomenclatureKindsPage());
+                    }
 
                     break;
             }

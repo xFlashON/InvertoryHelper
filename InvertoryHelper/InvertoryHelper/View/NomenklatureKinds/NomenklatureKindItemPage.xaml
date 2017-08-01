@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="InvertoryHelper.View.NomenclatureKinds.NomenclatureKindItemPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="{Binding Title}">
+    <ContentPage.Content>
+        <StackLayout
+            HorizontalOptions="FillAndExpand"
+            Orientation="Vertical"
+            VerticalOptions="Fill">
+
+            <TableView Intent="Data">
+
+                <TableView.Root>
+
+                    <TableRoot>
+
+                        <TableSection Title="Name">
+                            <EntryCell Text="{Binding Name}" />
+                        </TableSection>
+
+                    </TableRoot>
+                </TableView.Root>
+            </TableView>
+
+            <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+
+                <Button
+                    Command="{Binding CancelButton}"
+                    HorizontalOptions="FillAndExpand"
+                    Text="Cancel" />
+
+                <Button
+                    Command="{Binding SaveButton}"
+                    HorizontalOptions="FillAndExpand"
+                    Text="Save" />
+
+            </StackLayout>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

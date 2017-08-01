@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="InvertoryHelper.View.NomenclatureKinds.NomenclatureKindsPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="{Binding Title}">
+    <ContentPage.Content>
+        <StackLayout
+            HorizontalOptions="FillAndExpand"
+            Orientation="Vertical"
+            VerticalOptions="FillAndExpand">
+
+            <ListView
+                HorizontalOptions="FillAndExpand"
+                ItemsSource="{Binding NomenclatureKindsList}"
+                SelectedItem="{Binding SelectedNomenclatureKind}"
+                VerticalOptions="FillAndExpand">
+
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.View>
+                                <Label FontSize="Medium" Text="{Binding Name}" />
+                            </ViewCell.View>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+
+
+            <StackLayout
+                HorizontalOptions="FillAndExpand"
+                Orientation="Horizontal"
+                VerticalOptions="End">
+                <Button
+                    Command="{Binding AddCommand}"
+                    HorizontalOptions="FillAndExpand"
+                    Text="Add" />
+                <Button
+                    Command="{Binding EditCommand}"
+                    HorizontalOptions="FillAndExpand"
+                    Text="Edit" />
+            </StackLayout>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

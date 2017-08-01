@@ -18,5 +18,20 @@ namespace InvertoryHelper.Model
 
         [OneToMany]
         public List<Characteristic> CharacteristicsList { get; set; }
+
+        public override string ToString()
+        {
+            return Name;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return ((obj as NomenclaturesKind).Uid == Uid && (obj as NomenclaturesKind).Name == Name);
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
     }
 }

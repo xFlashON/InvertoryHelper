@@ -54,7 +54,13 @@
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\Nomenclatures\NomenclaturesViewModel.cs" />
     <Compile Include="ViewModel\Nomenclatures\NomenclatureItemViewModel.cs" />
+    <Compile Include="ViewModel\NomenklatureKinds\NomenklatureKindModel.cs" />
+    <Compile Include="ViewModel\NomenklatureKinds\NomenklatureKindsViewModel.cs" />
+    <Compile Include="ViewModel\NomenklatureKinds\NomenklatureKindItemViewModel.cs" />
     <Compile Include="ViewModel\SettingsViewModel.cs" />
+    <Compile Include="ViewModel\Units\UnitItemViewModel.cs" />
+    <Compile Include="ViewModel\Units\UnitModel.cs" />
+    <Compile Include="ViewModel\Units\UnitsViewModel.cs" />
     <Compile Include="View\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -65,8 +71,20 @@
     <Compile Include="View\Nomenclatures\NomenclaturesPage.xaml.cs">
       <DependentUpon>NomenclaturesPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\NomenklatureKinds\NomenklatureKindItemPage.xaml.cs">
+      <DependentUpon>NomenklatureKindItemPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\NomenklatureKinds\NomenklatureKindsPage.xaml.cs">
+      <DependentUpon>NomenklatureKindsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Units\UnitItemPage.xaml.cs">
+      <DependentUpon>UnitItemPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Units\UnitsPage.xaml.cs">
+      <DependentUpon>UnitsPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -137,6 +155,30 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="View\SettingsPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="View\Units\UnitsPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="View\Units\UnitItemPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="View\NomenklatureKinds\NomenklatureKindsPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="View\NomenklatureKinds\NomenklatureKindItemPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

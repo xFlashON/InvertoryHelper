@@ -4,6 +4,8 @@ using InvertoryHelper.Model;
 using Xamarin.Forms;
 using InvertoryHelper.View.Nomenclatures;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace InvertoryHelper.ViewModel.Nomenclatures
 {
@@ -13,6 +15,21 @@ namespace InvertoryHelper.ViewModel.Nomenclatures
 
         public ObservableCollection<NomenclatureModel> NomenclaturesList { get; set; }
 
+        public List<NomenclaturesKind> NomenclatureKindsList { get; set; }
+
+        private NomenclaturesKind selectedNomenclstureKind;
+
+        public NomenclaturesKind SelectedNomenclstureKind
+        {
+            get => selectedNomenclstureKind;
+            set
+            {
+                selectedNomenclstureKind = value;
+                OnPropertyChanged("SelectedNomenclstureKind");
+                SearchNomenclatures();
+            }
+        }
+
         public INavigation Navigation;
 
         public string SearchText { get; set; }
@@ -21,6 +38,8 @@ namespace InvertoryHelper.ViewModel.Nomenclatures
 
         public Command AddCommand { get { return new Command(() => AddNomenclature()); } }
         public Command EditCommand { get { return new Command(() => EditNomenclature()); } }
+
+        public Command ClearNomenclatureKindCommand { get => new Command(() => SelectedNomenclstureKind = null); }
 
         public NomenclaturesViewModel()
         {
@@ -35,6 +54,8 @@ namespace InvertoryHelper.ViewModel.Nomenclatures
 
             MessagingCenter.Subscribe<Nomenclature>(this, "SaveNomenclature", SaveNomenclature);
 
+            LoadNomenclatureKindsList();
+
         }
 
         private async void LoadNomenclaturesList()
@@ -44,14 +65,14 @@ namespace InvertoryHelper.ViewModel.Nomenclatures
 
                 IsBusy = true;
 
-                NomenclaturesList.Clear();
-
                 var nomenclaturesList = await DataRepository.Instance.GetNomenclaturesAsync();
 
-                foreach( var N in nomenclaturesList)
-                {
-                    NomenclaturesList.Add(new NomenclatureModel(N));
-                }
+                if (SelectedNomenclstureKind != null)
+                    nomenclaturesList = nomenclaturesList.Where((N) => N.NomenclaturesKind!=null && N.NomenclaturesKind.Uid == SelectedNomenclstureKind.Uid).ToList();
+
+                NomenclaturesList = new ObservableCollection<NomenclatureModel>(nomenclaturesList.Select((N) => new NomenclatureModel(N)).ToList());
+
+                OnPropertyChanged("NomenclaturesList");
 
                 Title = "Nomenclatures";
 
@@ -65,7 +86,7 @@ namespace InvertoryHelper.ViewModel.Nomenclatures
 
             if (!IsBusy)
             {
-                if (SearchText == null ||  SearchText == string.Empty)
+                if (SearchText == null || SearchText == string.Empty)
                     LoadNomenclaturesList();
                 else
                 {
@@ -73,25 +94,26 @@ namespace InvertoryHelper.ViewModel.Nomenclatures
 
                     Title = "Searching";
 
-                    var nomenclaturesList = await DataRepository.Instance.GetNomenclaturesAsync(new System.Func<Nomenclature, bool>((N)=> 
+                    var nomenclaturesList = await DataRepository.Instance.GetNomenclaturesAsync(new System.Func<Nomenclature, bool>((N) =>
                     {
-                        if (N.Name.Contains(SearchText)||(N.Artikul != null && N.Artikul.Contains(SearchText)))
+                        if (N.Name.ToUpper().Contains(SearchText.ToUpper()) || (N.Artikul != null && N.Artikul.ToUpper().Contains(SearchText.ToUpper())))
                             return true;
                         else
                             return false;
                     }));
 
-                    NomenclaturesList.Clear();
+                    if (SelectedNomenclstureKind != null)
+                        nomenclaturesList = nomenclaturesList.Where((N) => N.NomenclaturesKind != null && N.NomenclaturesKind.Uid == SelectedNomenclstureKind.Uid).ToList();
 
-                    foreach (var N in nomenclaturesList)
-                    {
-                        NomenclaturesList.Add(new NomenclatureModel(N));
-                    }
+                    NomenclaturesList = new ObservableCollection<NomenclatureModel>(nomenclaturesList.Select((N) => new NomenclatureModel(N)).ToList());
+
+                    OnPropertyChanged("NomenclaturesList");
 
                     Title = "Nomenclatures";
 
                     IsBusy = false;
                 }
+
             }
 
         }
@@ -99,20 +121,18 @@ namespace InvertoryHelper.ViewModel.Nomenclatures
         private async void AddNomenclature()
         {
 
-            if (Navigation != null)
-                await Navigation.PushAsync(new NomenclatureItemPage(Navigation));
+            await Navigation?.PushAsync(new NomenclatureItemPage(Navigation));
 
         }
 
         private async void EditNomenclature()
         {
-            if (SelectedNomenclature!=null)
-                if (Navigation != null)
-                    await Navigation.PushAsync(new NomenclatureItemPage(Navigation,SelectedNomenclature));
+            if (SelectedNomenclature != null)
+                await Navigation?.PushAsync(new NomenclatureItemPage(Navigation, SelectedNomenclature));
 
         }
 
-        private async void SaveNomenclature (Nomenclature nomenclature)
+        private async void SaveNomenclature(Nomenclature nomenclature)
         {
             if (nomenclature != null)
             {
@@ -120,13 +140,22 @@ namespace InvertoryHelper.ViewModel.Nomenclatures
 
                 if (uid == Guid.Empty)
                 {
-                    MessagingCenter.Send<String>("Error! Nomenklature is not saved!","DisplayAlert");
+                    MessagingCenter.Send<String>("Error! Nomenclature is not saved!", "DisplayAlert");
                     return;
                 }
 
                 SearchNomenclatures();
 
             }
+        }
+
+        private async void LoadNomenclatureKindsList()
+        {
+            var NomenclatureKinds = await DataRepository.Instance.GetNomenclatureKindsAsync();
+            NomenclatureKindsList = new List<NomenclaturesKind>(NomenclatureKinds);
+
+            OnPropertyChanged("NomenclatureKindsLis");
+
         }
 
     }

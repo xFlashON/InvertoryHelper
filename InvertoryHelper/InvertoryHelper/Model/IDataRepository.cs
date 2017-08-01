@@ -10,8 +10,13 @@ namespace InvertoryHelper.Model
         Task<List<Nomenclature>> GetNomenclaturesAsync(Func<Nomenclature, bool> e = null);
         Task<List<Unit>> GetUnitsAsync(Func<Unit, bool> e = null);
 
+        Task<List<NomenclaturesKind>> GetNomenclatureKindsAsync(Func<NomenclaturesKind, bool> e = null);
+
         Task<Guid> SaveNomenclatureAsync(Nomenclature nomenclature);
- 
+
+        Task<Guid> SaveUnitAsync(Unit unit);
+
+        Task<Guid> SaveNomenclatureKindAsync(NomenclaturesKind nomenclatureKind);
 
     }
 }

@@ -5,6 +5,7 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:dg="clr-namespace:Xamarin.Forms.DataGrid;assembly=Xamarin.Forms.DataGrid"
+    xmlns:el="clr-namespace:Android.Widget;assembly=Mono.Android"
     Title="{Binding Title}">
 
     <ContentPage.Content>
@@ -14,6 +15,20 @@
             HorizontalOptions="FillAndExpand"
             Orientation="Vertical"
             VerticalOptions="FillAndExpand">
+
+           
+
+            <StackLayout
+                HorizontalOptions="FillAndExpand"
+                Orientation="Horizontal"
+                VerticalOptions="Start">
+                <Picker Title="Nomenclatue kind"
+                    HorizontalOptions="FillAndExpand"
+                    ItemsSource="{Binding NomenclatureKindsList}"
+                    SelectedItem="{Binding SelectedNomenclstureKind, Mode=TwoWay}" />
+                <Button Command="{Binding ClearNomenclatureKindCommand}" Text="Clear" />
+
+            </StackLayout>
 
             <StackLayout
                 HorizontalOptions="FillAndExpand"
@@ -32,7 +47,7 @@
                 Padding="5"
                 HorizontalOptions="FillAndExpand"
                 ItemsSource="{Binding NomenclaturesList}"
-                SelectedItem="{Binding SelectedNomenclature,Mode=TwoWay}"
+                SelectedItem="{Binding SelectedNomenclature}"
                 SelectionEnabled="True"
                 VerticalOptions="FillAndExpand">
                 <dg:DataGrid.Columns>

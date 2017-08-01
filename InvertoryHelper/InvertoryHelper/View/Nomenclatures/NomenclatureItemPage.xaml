@@ -38,8 +38,15 @@
                             </ViewCell>
                         </TableSection>
 
-                        <TableSection Title="Nomenklature kind">
-                            <EntryCell Text="{Binding BaseNomenklatureKind}" />
+                        <TableSection Title="Nomenclature kind">
+                            <ViewCell>
+                                <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                                    <Picker
+                                        HorizontalOptions="FillAndExpand"
+                                        ItemsSource="{Binding NomenclatureKindsList}"
+                                        SelectedItem="{Binding BaseNomenclatureKind}" />
+                                </StackLayout>
+                            </ViewCell>
                         </TableSection>
 
                     </TableRoot>
@@ -47,14 +54,17 @@
             </TableView>
 
             <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
-                <Button
-                    Command="{Binding SaveButton}"
-                    HorizontalOptions="FillAndExpand"
-                    Text="Save" />
+
                 <Button
                     Command="{Binding CancelButton}"
                     HorizontalOptions="FillAndExpand"
                     Text="Cancel" />
+
+                <Button
+                    Command="{Binding SaveButton}"
+                    HorizontalOptions="FillAndExpand"
+                    Text="Save" />
+
             </StackLayout>
 
         </StackLayout>

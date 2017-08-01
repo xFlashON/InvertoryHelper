@@ -16,7 +16,9 @@ namespace InvertoryHelper.ViewModel.Nomenclatures
 
         public INavigation Navigation;
 
-        public ObservableCollection<Unit> BaseUnitsList { get; set;}
+        public ObservableCollection<Unit> BaseUnitsList { get; set; }
+
+        public ObservableCollection<NomenclaturesKind> NomenclatureKindsList { get; set;}
 
         public string Name
         {
@@ -49,13 +51,13 @@ namespace InvertoryHelper.ViewModel.Nomenclatures
             }
         }
 
-        public NomenclaturesKind BaseNomenklatureKind
+        public NomenclaturesKind BaseNomenclatureKind
         {
             get { return nomenclature.NomenclaturesKind; }
             set
             {
                 nomenclature.NomenclaturesKind = value;
-                OnPropertyChanged("BaseNomenklatureKind");
+                OnPropertyChanged("BaseNomenclatureKind");
             }
         }
 
@@ -80,10 +82,11 @@ namespace InvertoryHelper.ViewModel.Nomenclatures
                 Name = Nomenclature.Name;
                 Artikul = Nomenclature.Artikul;
                 BaseUnit = Nomenclature.BaseUnit;
-                BaseNomenklatureKind = Nomenclature.NomenclaturesKind;
+                BaseNomenclatureKind = Nomenclature.NomenclaturesKind;
             }
 
             LoadUnitsList();
+            LoadNomenclatureKindsList();
 
         }
 
@@ -93,6 +96,15 @@ namespace InvertoryHelper.ViewModel.Nomenclatures
             BaseUnitsList = new ObservableCollection<Unit>(UnitsList);
 
             OnPropertyChanged("BaseUnitsList");
+
+        }
+
+        private async void LoadNomenclatureKindsList()
+        {
+            var NomenclatureKinds = await DataRepository.Instance.GetNomenclatureKindsAsync();
+            NomenclatureKindsList = new ObservableCollection<NomenclaturesKind>(NomenclatureKinds);
+
+            OnPropertyChanged("NomenclatureKindsList");
 
         }
 
