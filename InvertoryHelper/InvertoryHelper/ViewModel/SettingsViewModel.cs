@@ -1,5 +1,6 @@
 ﻿using System.Windows.Input;
 using InvertoryHelper.Common;
+using InvertoryHelper.View.Characteristics;
 using InvertoryHelper.View.NomenclatureKinds;
 using InvertoryHelper.View.Nomenclatures;
 using InvertoryHelper.View.Units;
@@ -34,6 +35,13 @@ namespace InvertoryHelper.ViewModel
                 {
                     if (navigation != null)
                         await navigation?.PushAsync(new NomenclatureKindsPage());
+                }
+                    break;
+
+                case "Characteristics":
+                {
+                    if (navigation != null)
+                        await navigation?.PushAsync(new CharacteristicsPage());
                 }
 
                     break;

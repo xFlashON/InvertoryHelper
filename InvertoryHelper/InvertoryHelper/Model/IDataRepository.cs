@@ -19,6 +19,8 @@ namespace InvertoryHelper.Model
 
         Task<Guid> SaveUnitAsync(Unit unit);
 
+        Task<Guid> SaveCharacteristicAsync(Characteristic characteristic);
+
         Task<Guid> SaveNomenclatureKindAsync(NomenclaturesKind nomenclatureKind);
     }
 }

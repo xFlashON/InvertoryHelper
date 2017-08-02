@@ -1,11 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-
 <ContentPage
-    x:Class="InvertoryHelper.View.Units.UnitsPage"
+    x:Class="InvertoryHelper.View.Characteristics.CharacteristicsPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:common="clr-namespace:InvertoryHelper.Common;assembly=InvertoryHelper"
-    xmlns:dg="clr-namespace:Xamarin.Forms.DataGrid;assembly=Xamarin.Forms.DataGrid"
     Title="{Binding Title}">
     <ContentPage.Content>
         <StackLayout
@@ -15,8 +13,8 @@
 
             <ListView
                 HorizontalOptions="FillAndExpand"
-                ItemsSource="{Binding UnitsList}"
-                SelectedItem="{Binding SelectedUnit}"
+                ItemsSource="{Binding CharacteristicsList}"
+                SelectedItem="{Binding SelectedCharacteristic}"
                 VerticalOptions="FillAndExpand">
 
                 <ListView.ItemTemplate>
@@ -47,4 +45,5 @@
 
         </StackLayout>
     </ContentPage.Content>
+
 </ContentPage>

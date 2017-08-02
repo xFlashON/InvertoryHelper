@@ -71,6 +71,15 @@ namespace InvertoryHelper.Resourses {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Добавить характеристику.
+        /// </summary>
+        internal static string AddCharacteristic {
+            get {
+                return ResourceManager.GetString("AddCharacteristic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Добавить номенклатуру.
         /// </summary>
         internal static string AddNomenclature {
@@ -125,6 +134,15 @@ namespace InvertoryHelper.Resourses {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Характеристики.
+        /// </summary>
+        internal static string Characteristics {
+            get {
+                return ResourceManager.GetString("Characteristics", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Очистить.
         /// </summary>
         internal static string Clear {
@@ -157,6 +175,15 @@ namespace InvertoryHelper.Resourses {
         internal static string Edit {
             get {
                 return ResourceManager.GetString("Edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Изменить характеристику.
+        /// </summary>
+        internal static string EditCharacteristic {
+            get {
+                return ResourceManager.GetString("EditCharacteristic", resourceCulture);
             }
         }
         

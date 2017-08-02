@@ -52,6 +52,9 @@
     <Compile Include="Model\DataRepository.cs" />
     <Compile Include="Model\IDataRepository.cs" />
     <Compile Include="Common\ISpecPlatform.cs" />
+    <Compile Include="ViewModel\Characteristics\CharacteristicItemViewModel.cs" />
+    <Compile Include="ViewModel\Characteristics\CharacteristicModel.cs" />
+    <Compile Include="ViewModel\Characteristics\CharacteristicsViewModel.cs" />
     <Compile Include="ViewModel\Nomenclatures\NomenclatureModel.cs" />
     <Compile Include="Model\NomenclaturesKind.cs" />
     <Compile Include="Model\Nomenclature.cs" />
@@ -68,6 +71,12 @@
     <Compile Include="ViewModel\Units\UnitItemViewModel.cs" />
     <Compile Include="ViewModel\Units\UnitModel.cs" />
     <Compile Include="ViewModel\Units\UnitsViewModel.cs" />
+    <Compile Include="View\Characteristics\CharacteristicItemPage.xaml.cs">
+      <DependentUpon>CharacteristicItemPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Characteristics\CharacteristicsPage.xaml.cs">
+      <DependentUpon>CharacteristicsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -190,6 +199,18 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="View\NomenklatureKinds\NomenklatureKindItemPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="View\Characteristics\CharacteristicsPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="View\Characteristics\CharacteristicItemPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

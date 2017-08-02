@@ -4,7 +4,8 @@
     x:Class="InvertoryHelper.View.SettingsPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:common="clr-namespace:InvertoryHelper.Common;assembly=InvertoryHelper" Title="{common:Translate References}">
+    xmlns:common="clr-namespace:InvertoryHelper.Common;assembly=InvertoryHelper"
+    Title="{common:Translate References}">
     <TableView>
         <TableRoot>
             <TableSection Title="{common:Translate Documents}" />
@@ -26,6 +27,12 @@
                         Command="{Binding OpenReference}"
                         CommandParameter="NomenclatureKinds"
                         Text="{common:Translate NomenclatureKinds}" />
+                </ViewCell>
+                <ViewCell>
+                    <Button
+                        Command="{Binding OpenReference}"
+                        CommandParameter="Characteristics"
+                        Text="{common:Translate Characteristics}" />
                 </ViewCell>
             </TableSection>
         </TableRoot>

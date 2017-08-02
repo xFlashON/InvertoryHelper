@@ -158,6 +158,32 @@ namespace InvertoryHelper.Model
             return unit.Uid;
         }
 
+        public async Task<Guid> SaveCharacteristicAsync(Characteristic characteristic)
+        {
+            try
+            {
+                var index = characteristicsList.FindIndex(N => N.Uid == characteristic.Uid);
+
+                if (index != -1)
+                {
+                    await db.UpdateAsync(characteristic);
+                    characteristicsList[index] = characteristic;
+                }
+                else
+                {
+                    await db.InsertAsync(characteristic);
+                    characteristicsList.Add(characteristic);
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                return Guid.Empty;
+            }
+
+            return characteristic.Uid;
+        }
+
         public async Task<Guid> SaveNomenclatureKindAsync(NomenclaturesKind nomenclatureKind)
         {
             try
