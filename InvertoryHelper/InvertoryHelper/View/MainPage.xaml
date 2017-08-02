@@ -1,11 +1,12 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 
 <ContentPage
     x:Class="InvertoryHelper.View.MainPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:common="clr-namespace:InvertoryHelper.Common;assembly=InvertoryHelper"
     xmlns:local="clr-namespace:InvertoryHelper.View"
-    Title="Invertory Helper">
+    Title="{common:Translate MainTitle}">
 
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -18,12 +19,12 @@
     </ContentPage.Resources>
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Order="Primary" />
-        <ToolbarItem Order="Secondary" Text="Settings" />
+
         <ToolbarItem
             Command="{Binding OpenRefereccesPage}"
             Order="Secondary"
-            Text="References" />
+            Text="{common:Translate References}" />
+        <ToolbarItem Order="Secondary" Text="{common:Translate Settings}" />
     </ContentPage.ToolbarItems>
 
     <Grid Padding="10">
@@ -33,9 +34,9 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Button Grid.Row="0" Text="Orders" />
-        <Button Grid.Row="1" Text="Recounts" />
-        <Button Grid.Row="2" Text="Price checking" />
+        <Button Grid.Row="0" Text="{common:Translate Orders}" />
+        <Button Grid.Row="1" Text="{common:Translate Recounts}" />
+        <Button Grid.Row="2" Text="{common:Translate PriceChecking}" />
 
     </Grid>
 

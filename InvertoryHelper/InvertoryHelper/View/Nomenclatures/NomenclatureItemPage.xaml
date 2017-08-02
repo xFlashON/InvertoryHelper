@@ -1,9 +1,10 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 
 <ContentPage
     x:Class="InvertoryHelper.View.Nomenclatures.NomenclatureItemPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:common="clr-namespace:InvertoryHelper.Common;assembly=InvertoryHelper"
     Title="{Binding Title}">
 
     <ContentPage.Content>
@@ -19,15 +20,15 @@
 
                     <TableRoot>
 
-                        <TableSection Title="Name">
+                        <TableSection Title="{common:Translate Name}">
                             <EntryCell Text="{Binding Name}" />
                         </TableSection>
 
-                        <TableSection Title="Artikul">
+                        <TableSection Title="{common:Translate Artikul}">
                             <EntryCell Keyboard="Numeric" Text="{Binding Artikul}" />
                         </TableSection>
 
-                        <TableSection Title="Base unit">
+                        <TableSection Title="{common:Translate BaseUnit}">
                             <ViewCell>
                                 <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
                                     <Picker
@@ -38,7 +39,7 @@
                             </ViewCell>
                         </TableSection>
 
-                        <TableSection Title="Nomenclature kind">
+                        <TableSection Title="{common:Translate NomenclatureKind}">
                             <ViewCell>
                                 <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
                                     <Picker
@@ -58,12 +59,12 @@
                 <Button
                     Command="{Binding CancelButton}"
                     HorizontalOptions="FillAndExpand"
-                    Text="Cancel" />
+                    Text="{common:Translate Cancel}" />
 
                 <Button
                     Command="{Binding SaveButton}"
                     HorizontalOptions="FillAndExpand"
-                    Text="Save" />
+                    Text="{common:Translate Save}" />
 
             </StackLayout>
 
@@ -71,4 +72,5 @@
 
 
     </ContentPage.Content>
+
 </ContentPage>

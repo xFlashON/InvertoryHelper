@@ -1,30 +1,31 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 
 <ContentPage
     x:Class="InvertoryHelper.View.SettingsPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:common="clr-namespace:InvertoryHelper.Common;assembly=InvertoryHelper" Title="{common:Translate References}">
     <TableView>
         <TableRoot>
-            <TableSection Title="Documents" />
-            <TableSection Title="References">
+            <TableSection Title="{common:Translate Documents}" />
+            <TableSection Title="{common:Translate Directories}">
                 <ViewCell>
                     <Button
                         Command="{Binding OpenReference}"
                         CommandParameter="Nomenclatures"
-                        Text="Nomenclatures" />
+                        Text="{common:Translate Nomenclatures}" />
                 </ViewCell>
                 <ViewCell>
                     <Button
                         Command="{Binding OpenReference}"
                         CommandParameter="Units"
-                        Text="Units" />
+                        Text="{common:Translate Units}" />
                 </ViewCell>
                 <ViewCell>
                     <Button
                         Command="{Binding OpenReference}"
                         CommandParameter="NomenclatureKinds"
-                        Text="Nomenclature kinds" />
+                        Text="{common:Translate NomenclatureKinds}" />
                 </ViewCell>
             </TableSection>
         </TableRoot>

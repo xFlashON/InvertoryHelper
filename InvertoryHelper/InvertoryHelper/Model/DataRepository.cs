@@ -86,6 +86,26 @@ namespace InvertoryHelper.Model
             return nomenclatureKindsList.Where(e).ToList();
         }
 
+        public async Task<List<Barcode>> GetBarcodesAsync(Func<Barcode, bool> e = null)
+        {
+            await CheckLoad();
+
+            if (e == null)
+                return barcodeslList;
+            return barcodeslList.Where(e).ToList();
+        }
+
+        public async Task<List<Characteristic>> GetCharacteristicsAsync(Func<Characteristic, bool> e = null)
+        {
+
+            await CheckLoad();
+
+            if (e == null)
+                return characteristicsList;
+            return characteristicsList.Where(e).ToList();
+
+        }
+
         public async Task<Guid> SaveNomenclatureAsync(Nomenclature nomenclature)
         {
             try
@@ -221,5 +241,6 @@ namespace InvertoryHelper.Model
                 }
             }
         }
+
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using InvertoryHelper.Common;
 using InvertoryHelper.Model;
+using InvertoryHelper.Resourses;
 using Xamarin.Forms;
 
 namespace InvertoryHelper.ViewModel.Nomenclatures
@@ -16,11 +17,11 @@ namespace InvertoryHelper.ViewModel.Nomenclatures
 
             if (Nomenclature == null)
             {
-                Title = "Add nomenclature";
+                Title = Resource.AddNomenclature;
             }
             else
             {
-                Title = "Edit nomenclature";
+                Title = Resource.EditNomenclature;
                 nomenclature.Uid = Nomenclature.Uid;
                 Name = Nomenclature.Name;
                 Artikul = Nomenclature.Artikul;

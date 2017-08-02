@@ -1,5 +1,6 @@
 ﻿using InvertoryHelper.Common;
 using InvertoryHelper.Model;
+using InvertoryHelper.Resourses;
 using Xamarin.Forms;
 
 namespace InvertoryHelper.ViewModel.NomenclatureKinds
@@ -15,11 +16,11 @@ namespace InvertoryHelper.ViewModel.NomenclatureKinds
 
             if (NomenclaturesKind == null)
             {
-                Title = "Add nomenclatures kind";
+                Title = Resource.AddNomenclatureKind;
             }
             else
             {
-                Title = "Edit nomenclatures kind";
+                Title = Resource.EditNomenclatureKind;
                 nomenclatureKind.Uid = NomenclaturesKind.Uid;
                 Name = NomenclaturesKind.Name;
             }

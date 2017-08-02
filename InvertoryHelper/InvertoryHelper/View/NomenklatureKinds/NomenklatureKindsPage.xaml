@@ -4,6 +4,7 @@
     x:Class="InvertoryHelper.View.NomenclatureKinds.NomenclatureKindsPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:common="clr-namespace:InvertoryHelper.Common;assembly=InvertoryHelper"
     Title="{Binding Title}">
     <ContentPage.Content>
         <StackLayout
@@ -36,11 +37,11 @@
                 <Button
                     Command="{Binding AddCommand}"
                     HorizontalOptions="FillAndExpand"
-                    Text="Add" />
+                    Text="{common:Translate Add}" />
                 <Button
                     Command="{Binding EditCommand}"
                     HorizontalOptions="FillAndExpand"
-                    Text="Edit" />
+                    Text="{common:Translate Edit}" />
             </StackLayout>
 
         </StackLayout>

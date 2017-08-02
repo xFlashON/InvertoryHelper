@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using InvertoryHelper.Common;
 using InvertoryHelper.Model;
 using InvertoryHelper.View.Nomenclatures;
 using Xamarin.Forms;
+using InvertoryHelper.Resourses;
 
 namespace InvertoryHelper.ViewModel.Nomenclatures
 {
@@ -17,7 +19,7 @@ namespace InvertoryHelper.ViewModel.Nomenclatures
 
         public NomenclaturesViewModel()
         {
-            Title = "Loading";
+            Title = Resource.Loading;
 
             NomenclaturesList = new ObservableCollection<NomenclatureModel>();
 
@@ -85,7 +87,7 @@ namespace InvertoryHelper.ViewModel.Nomenclatures
 
                 OnPropertyChanged("NomenclaturesList");
 
-                Title = "Nomenclatures";
+                Title = Resource.Nomenclatures;
 
                 IsBusy = false;
             }
@@ -94,7 +96,7 @@ namespace InvertoryHelper.ViewModel.Nomenclatures
         private async void SearchNomenclatures()
         {
             if (!IsBusy)
-                if (SearchText == null || SearchText == string.Empty)
+                if (string.IsNullOrEmpty(SearchText))
                 {
                     LoadNomenclaturesList();
                 }
@@ -102,7 +104,7 @@ namespace InvertoryHelper.ViewModel.Nomenclatures
                 {
                     IsBusy = true;
 
-                    Title = "Searching";
+                    Title = Resource.Searching;
 
                     var nomenclaturesList = await DataRepository.Instance.GetNomenclaturesAsync(N =>
                     {
@@ -122,7 +124,7 @@ namespace InvertoryHelper.ViewModel.Nomenclatures
 
                     OnPropertyChanged("NomenclaturesList");
 
-                    Title = "Nomenclatures";
+                    Title = Resource.Nomenclatures;
 
                     IsBusy = false;
                 }
@@ -136,7 +138,9 @@ namespace InvertoryHelper.ViewModel.Nomenclatures
         private async void EditNomenclature()
         {
             if (SelectedNomenclature != null)
+            {
                 await Navigation?.PushAsync(new NomenclatureItemPage(Navigation, SelectedNomenclature));
+            }
         }
 
         private async void SaveNomenclature(Nomenclature nomenclature)
@@ -157,8 +161,8 @@ namespace InvertoryHelper.ViewModel.Nomenclatures
 
         private async void LoadNomenclatureKindsList()
         {
-            var NomenclatureKinds = await DataRepository.Instance.GetNomenclatureKindsAsync();
-            NomenclatureKindsList = new List<NomenclaturesKind>(NomenclatureKinds);
+            var nomenclatureKinds = await DataRepository.Instance.GetNomenclatureKindsAsync();
+            NomenclatureKindsList = new List<NomenclaturesKind>(nomenclatureKinds);
 
             OnPropertyChanged("NomenclatureKindsLis");
         }

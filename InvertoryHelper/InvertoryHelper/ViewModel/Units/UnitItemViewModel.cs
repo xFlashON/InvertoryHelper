@@ -1,5 +1,6 @@
 ﻿using InvertoryHelper.Common;
 using InvertoryHelper.Model;
+using InvertoryHelper.Resourses;
 using Xamarin.Forms;
 
 namespace InvertoryHelper.ViewModel.Units
@@ -15,11 +16,11 @@ namespace InvertoryHelper.ViewModel.Units
 
             if (Unit == null)
             {
-                Title = "Add unit";
+                Title = Resource.AddUnit;
             }
             else
             {
-                Title = "Edit unit";
+                Title = Resource.EditUnit;
                 unit.Uid = Unit.Uid;
                 Name = Unit.Name;
             }

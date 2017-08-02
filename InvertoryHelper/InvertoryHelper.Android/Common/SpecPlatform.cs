@@ -7,6 +7,7 @@ using InvertoryHelper.Common;
 using InvertoryHelper.Droid.Common;
 using Xamarin.Forms;
 using Android.Content;
+using Android.Graphics;
 using Android.Runtime;
 
 [assembly: Dependency(typeof(SpecPlatform))]
@@ -23,9 +24,12 @@ namespace InvertoryHelper.Droid.Common
         public bool IsPortreitScreenOreientation()
         {
             IWindowManager windowManager = Android.App.Application.Context.GetSystemService(Context.WindowService).JavaCast<IWindowManager>();
-            var rotation = windowManager.DefaultDisplay.Rotation;
 
-            if (rotation == SurfaceOrientation.Rotation0 || rotation == SurfaceOrientation.Rotation180)
+            Android.Graphics.Point sizePoint = new Android.Graphics.Point();
+
+            windowManager.DefaultDisplay.GetSize(sizePoint);
+
+            if (sizePoint.Y > sizePoint.X)
                 return true;
             else
                 return false;

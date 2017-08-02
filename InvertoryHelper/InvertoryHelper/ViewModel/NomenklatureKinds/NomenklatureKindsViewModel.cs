@@ -4,6 +4,7 @@ using InvertoryHelper.Common;
 using InvertoryHelper.Model;
 using InvertoryHelper.View.NomenclatureKinds;
 using Xamarin.Forms;
+using InvertoryHelper.Resourses;
 
 namespace InvertoryHelper.ViewModel.NomenclatureKinds
 {
@@ -13,7 +14,7 @@ namespace InvertoryHelper.ViewModel.NomenclatureKinds
 
         public NomenclatureKindsViewModel()
         {
-            Title = "Loading";
+            Title = Resource.Loading;
 
             NomenclatureKindsList = new ObservableCollection<NomenclatureKindModel>();
 
@@ -49,7 +50,7 @@ namespace InvertoryHelper.ViewModel.NomenclatureKinds
                 foreach (var nomenclatureKind in nomenclatureKindsList)
                     NomenclatureKindsList.Add(new NomenclatureKindModel(nomenclatureKind));
 
-                Title = "NomenclatureKind";
+                Title = Resource.NomenclatureKinds;
 
                 IsBusy = false;
             }

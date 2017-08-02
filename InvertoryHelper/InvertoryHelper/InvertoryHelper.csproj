@@ -39,7 +39,14 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Common\BaseViewModel.cs" />
+    <Compile Include="Common\ILocalize.cs" />
     <Compile Include="Common\ObservableObject.cs" />
+    <Compile Include="Resourses\Resource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Common\TranslateExtension.cs" />
     <Compile Include="Model\Barcode.cs" />
     <Compile Include="Model\Characteristic.cs" />
     <Compile Include="Model\DataRepository.cs" />
@@ -88,6 +95,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Resourses\Resource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\MainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>

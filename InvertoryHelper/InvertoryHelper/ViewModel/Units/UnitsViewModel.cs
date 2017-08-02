@@ -4,6 +4,7 @@ using InvertoryHelper.Common;
 using InvertoryHelper.Model;
 using InvertoryHelper.View.Units;
 using Xamarin.Forms;
+using InvertoryHelper.Resourses;
 
 namespace InvertoryHelper.ViewModel.Units
 {
@@ -13,7 +14,7 @@ namespace InvertoryHelper.ViewModel.Units
 
         public UnitsViewModel()
         {
-            Title = "Loading";
+            Title = Resource.Loading;
 
             UnitsList = new ObservableCollection<UnitModel>();
 
@@ -49,7 +50,7 @@ namespace InvertoryHelper.ViewModel.Units
                 foreach (var unit in unitsList)
                     UnitsList.Add(new UnitModel(unit));
 
-                Title = "Units";
+                Title = Resource.Units;
 
                 IsBusy = false;
             }

@@ -4,9 +4,8 @@
     x:Class="InvertoryHelper.View.Nomenclatures.NomenclaturesPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:ac="clr-namespace:Xamarin;assembly=Xamarin.CustomControls.AccordionView"
+    xmlns:common="clr-namespace:InvertoryHelper.Common;assembly=InvertoryHelper"
     xmlns:dg="clr-namespace:Xamarin.Forms.DataGrid;assembly=Xamarin.Forms.DataGrid"
-    xmlns:el="clr-namespace:Android.Widget;assembly=Mono.Android"
     Title="{Binding Title}">
 
     <ContentPage.Content>
@@ -32,7 +31,7 @@
                         HorizontalOptions="FillAndExpand"
                         ItemsSource="{Binding NomenclatureKindsList}"
                         SelectedItem="{Binding SelectedNomenclstureKind, Mode=TwoWay}" />
-                    <Button Command="{Binding ClearNomenclatureKindCommand}" Text="Clear" />
+                    <Button Command="{Binding ClearNomenclatureKindCommand}" Text="{common:Translate Clear}" />
 
                 </StackLayout>
 
@@ -45,7 +44,7 @@
                         HorizontalOptions="FillAndExpand"
                         Keyboard="Text"
                         Text="{Binding SearchText}" />
-                    <Button Command="{Binding SearchCommand}" Text="Search" />
+                    <Button Command="{Binding SearchCommand}" Text="{common:Translate Search}" />
 
                 </StackLayout>
 
@@ -61,16 +60,16 @@
                 VerticalOptions="FillAndExpand">
                 <dg:DataGrid.Columns>
                     <dg:DataGridColumn
-                        Title="Artikul"
+                        Title="{common:Translate Artikul}"
                         Width="*"
                         HorizontalContentAlignment="Start"
                         PropertyName="Artikul" />
                     <dg:DataGridColumn
-                        Title="Name"
+                        Title="{common:Translate Name}"
                         Width="3*"
                         HorizontalContentAlignment="Start"
                         PropertyName="Name" />
-                    <dg:DataGridColumn Title="Unit" PropertyName="BaseUnit.Name" />
+                    <dg:DataGridColumn Title="{common:Translate Unit}" PropertyName="BaseUnit" />
 
                 </dg:DataGrid.Columns>
             </dg:DataGrid>
@@ -82,11 +81,11 @@
                 <Button
                     Command="{Binding AddCommand}"
                     HorizontalOptions="FillAndExpand"
-                    Text="Add" />
+                    Text="{common:Translate Add}" />
                 <Button
                     Command="{Binding EditCommand}"
                     HorizontalOptions="FillAndExpand"
-                    Text="Edit" />
+                    Text="{common:Translate Edit}" />
             </StackLayout>
 
         </StackLayout>
