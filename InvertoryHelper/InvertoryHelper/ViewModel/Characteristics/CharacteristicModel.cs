@@ -1,19 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using InvertoryHelper.Model;
 
 namespace InvertoryHelper.ViewModel.Characteristics
 {
     public class CharacteristicModel : INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler PropertyChanged;
+        private string _name;
 
         private NomenclaturesKind _nomenclaturesKind;
-        private string _name;
+
+        public CharacteristicModel(Characteristic characteristic)
+        {
+            Uid = characteristic.Uid;
+            Name = characteristic.Name;
+            NomenclaturesKind = characteristic.NomenclaturesKind;
+        }
 
         public Guid Uid { get; set; }
 
@@ -25,7 +27,6 @@ namespace InvertoryHelper.ViewModel.Characteristics
                 _nomenclaturesKind = value;
                 OnPropertyChanged("NomenclaturesKind");
             }
-
         }
 
         public string Name
@@ -38,17 +39,11 @@ namespace InvertoryHelper.ViewModel.Characteristics
             }
         }
 
-        public CharacteristicModel(Characteristic characteristic)
-        {
-            this.Uid = characteristic.Uid;
-            this.Name = characteristic.Name;
-            this.NomenclaturesKind = characteristic.NomenclaturesKind;
-
-        }
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public void OnPropertyChanged(string property)
         {
-            PropertyChanged?.Invoke(this,new PropertyChangedEventArgs(property));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
         }
     }
 }

@@ -74,10 +74,7 @@ namespace InvertoryHelper.ViewModel.Nomenclatures
 
         protected void OnPropertyChanged(string propertyName)
         {
-            if (PropertyChanged == null)
-                return;
-
-            PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

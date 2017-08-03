@@ -1,5 +1,4 @@
-﻿using Android.Content.PM;
-using Android.Views;
+﻿using System;
 using InvertoryHelper.Common;
 using InvertoryHelper.ViewModel.Nomenclatures;
 using Xamarin.Forms;
@@ -20,25 +19,15 @@ namespace InvertoryHelper.View.Nomenclatures
 
             BindingContext = vm;
 
-            MessagingCenter.Subscribe<string>(this, "DisplayAlert", DisplayMessage);
-
             SizeChanged += NomenclaturesPage_SizeChanged;
-
         }
 
-        private void NomenclaturesPage_SizeChanged(object sender, System.EventArgs e)
+        private void NomenclaturesPage_SizeChanged(object sender, EventArgs e)
         {
-
             if (DependencyService.Get<ISpecPlatform>().IsPortreitScreenOreientation())
                 FilterLayout.Orientation = StackOrientation.Vertical;
             else
                 FilterLayout.Orientation = StackOrientation.Horizontal;
-
-        }
-
-        private async void DisplayMessage(string message)
-        {
-            await DisplayAlert("Message", message, "Close");
         }
     }
 }

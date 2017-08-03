@@ -7,8 +7,8 @@ namespace InvertoryHelper.ViewModel.Units
 {
     public class UnitItemViewModel : BaseViewModel
     {
-        public INavigation Navigation;
         private readonly Unit unit;
+        public INavigation Navigation;
 
         public UnitItemViewModel(UnitModel Unit = null)
         {

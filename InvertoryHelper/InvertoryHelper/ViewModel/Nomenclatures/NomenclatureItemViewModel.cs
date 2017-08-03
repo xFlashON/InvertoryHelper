@@ -8,8 +8,8 @@ namespace InvertoryHelper.ViewModel.Nomenclatures
 {
     public class NomenclatureItemViewModel : BaseViewModel
     {
-        public INavigation Navigation;
         private readonly Nomenclature nomenclature;
+        public INavigation Navigation;
 
         public NomenclatureItemViewModel(NomenclatureModel Nomenclature = null)
         {

@@ -1,14 +1,12 @@
 ﻿using System;
-using Android.Content.PM;
-using Android.Content.Res;
-using Android.Util;
+using Android.Content;
+using Android.Runtime;
 using Android.Views;
 using InvertoryHelper.Common;
 using InvertoryHelper.Droid.Common;
 using Xamarin.Forms;
-using Android.Content;
-using Android.Graphics;
-using Android.Runtime;
+using Application = Android.App.Application;
+using Point = Android.Graphics.Point;
 
 [assembly: Dependency(typeof(SpecPlatform))]
 
@@ -23,18 +21,15 @@ namespace InvertoryHelper.Droid.Common
 
         public bool IsPortreitScreenOreientation()
         {
-            IWindowManager windowManager = Android.App.Application.Context.GetSystemService(Context.WindowService).JavaCast<IWindowManager>();
+            var windowManager = Application.Context.GetSystemService(Context.WindowService).JavaCast<IWindowManager>();
 
-            Android.Graphics.Point sizePoint = new Android.Graphics.Point();
+            var sizePoint = new Point();
 
             windowManager.DefaultDisplay.GetSize(sizePoint);
 
             if (sizePoint.Y > sizePoint.X)
                 return true;
-            else
-                return false;
-
-
+            return false;
         }
     }
 }

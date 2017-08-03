@@ -7,8 +7,8 @@ namespace InvertoryHelper.ViewModel.NomenclatureKinds
 {
     public class NomenclatureKindItemViewModel : BaseViewModel
     {
-        public INavigation Navigation;
         private readonly NomenclaturesKind nomenclatureKind;
+        public INavigation Navigation;
 
         public NomenclatureKindItemViewModel(NomenclatureKindModel NomenclaturesKind = null)
         {

@@ -2,9 +2,9 @@
 using System.Collections.ObjectModel;
 using InvertoryHelper.Common;
 using InvertoryHelper.Model;
+using InvertoryHelper.Resourses;
 using InvertoryHelper.View.Units;
 using Xamarin.Forms;
-using InvertoryHelper.Resourses;
 
 namespace InvertoryHelper.ViewModel.Units
 {

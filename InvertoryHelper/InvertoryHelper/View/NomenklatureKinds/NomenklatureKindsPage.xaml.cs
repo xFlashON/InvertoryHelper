@@ -16,8 +16,6 @@ namespace InvertoryHelper.View.NomenclatureKinds
             vm.Navigation = Navigation;
 
             BindingContext = vm;
-            
         }
-
     }
 }

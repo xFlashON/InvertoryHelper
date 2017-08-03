@@ -1,4 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
+
 <ContentPage
     x:Class="InvertoryHelper.View.Characteristics.CharacteristicItemPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
@@ -19,6 +20,17 @@
 
                         <TableSection Title="{common:Translate Name}">
                             <EntryCell Text="{Binding Name}" />
+                        </TableSection>
+
+                        <TableSection Title="{common:Translate NomenclatureKind}">
+                            <ViewCell>
+                                <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                                    <Picker
+                                        HorizontalOptions="FillAndExpand"
+                                        ItemsSource="{Binding NomenclatureKindsList}"
+                                        SelectedItem="{Binding NomenclaturesKind}" />
+                                </StackLayout>
+                            </ViewCell>
                         </TableSection>
 
                     </TableRoot>

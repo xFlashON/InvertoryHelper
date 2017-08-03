@@ -1,9 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
+
 <ContentPage
     x:Class="InvertoryHelper.View.Characteristics.CharacteristicsPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:common="clr-namespace:InvertoryHelper.Common;assembly=InvertoryHelper"
+    xmlns:dg="clr-namespace:Xamarin.Forms.DataGrid;assembly=Xamarin.Forms.DataGrid"
     Title="{Binding Title}">
     <ContentPage.Content>
         <StackLayout
@@ -11,22 +13,38 @@
             Orientation="Vertical"
             VerticalOptions="FillAndExpand">
 
-            <ListView
+            <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                <Picker
+                    HorizontalOptions="FillAndExpand"
+                    ItemsSource="{Binding NomenclatureKindsList}"
+                    SelectedItem="{Binding SelectedNomenclatureKind}" />
+                <Button Command="{Binding ClearCommand}" Text="{common:Translate Clear}" />
+            </StackLayout>
+
+
+            <dg:DataGrid
+                Padding="5"
                 HorizontalOptions="FillAndExpand"
                 ItemsSource="{Binding CharacteristicsList}"
                 SelectedItem="{Binding SelectedCharacteristic}"
+                SelectionEnabled="True"
                 VerticalOptions="FillAndExpand">
 
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <ViewCell.View>
-                                <Label FontSize="Medium" Text="{Binding Name}" />
-                            </ViewCell.View>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                <dg:DataGrid.Columns>
+                    <dg:DataGridColumn
+                        Title="{common:Translate NomenclatureKind}"
+                        Width="2*"
+                        HorizontalContentAlignment="Start"
+                        PropertyName="NomenclaturesKind.Name" />
+                    <dg:DataGridColumn
+                        Title="{common:Translate Characteristic}"
+                        Width="3*"
+                        HorizontalContentAlignment="Start"
+                        PropertyName="Name" />
+
+                </dg:DataGrid.Columns>
+
+            </dg:DataGrid>
 
 
             <StackLayout

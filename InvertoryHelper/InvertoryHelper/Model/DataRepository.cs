@@ -18,10 +18,9 @@ namespace InvertoryHelper.Model
 {
     public class DataRepository : IDataRepository
     {
+        private readonly SQLiteAsyncConnection db;
         private List<Barcode> barcodeslList;
         private List<Characteristic> characteristicsList;
-
-        private readonly SQLiteAsyncConnection db;
         private List<NomenclaturesKind> nomenclatureKindsList;
         private List<Nomenclature> nomenclaturesList;
         private List<Price> priceList;
@@ -97,13 +96,11 @@ namespace InvertoryHelper.Model
 
         public async Task<List<Characteristic>> GetCharacteristicsAsync(Func<Characteristic, bool> e = null)
         {
-
             await CheckLoad();
 
             if (e == null)
                 return characteristicsList;
             return characteristicsList.Where(e).ToList();
-
         }
 
         public async Task<Guid> SaveNomenclatureAsync(Nomenclature nomenclature)
@@ -166,12 +163,12 @@ namespace InvertoryHelper.Model
 
                 if (index != -1)
                 {
-                    await db.UpdateAsync(characteristic);
+                    await db.UpdateWithChildrenAsync(characteristic);
                     characteristicsList[index] = characteristic;
                 }
                 else
                 {
-                    await db.InsertAsync(characteristic);
+                    await db.InsertWithChildrenAsync(characteristic);
                     characteristicsList.Add(characteristic);
                 }
             }
@@ -267,6 +264,5 @@ namespace InvertoryHelper.Model
                 }
             }
         }
-
     }
 }

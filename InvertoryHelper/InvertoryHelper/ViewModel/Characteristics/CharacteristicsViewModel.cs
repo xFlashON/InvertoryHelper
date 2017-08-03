@@ -1,20 +1,15 @@
-﻿using InvertoryHelper.Common;
-using InvertoryHelper.Resourses;
-
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Android.Media;
+using InvertoryHelper.Common;
 using InvertoryHelper.Model;
+using InvertoryHelper.Resourses;
 using InvertoryHelper.View.Characteristics;
-
 using Xamarin.Forms;
 
 namespace InvertoryHelper.ViewModel.Characteristics
 {
-    public class CharacteristicsViewModel:BaseViewModel
+    public class CharacteristicsViewModel : BaseViewModel
     {
         public INavigation Navigation;
 
@@ -26,7 +21,24 @@ namespace InvertoryHelper.ViewModel.Characteristics
 
             LoadCharacteristicsList();
 
+            LoadNomenclatureKindsList();
+
             MessagingCenter.Subscribe<Characteristic>(this, "SaveCharacteristic", SaveCharacteristic);
+        }
+
+        public ObservableCollection<NomenclaturesKind> NomenclatureKindsList { get; set; }
+
+        private NomenclaturesKind _selectedNomenclatureKind;
+
+        public NomenclaturesKind SelectedNomenclatureKind
+        {
+            get => _selectedNomenclatureKind;
+            set
+            {
+                _selectedNomenclatureKind = value;
+                OnPropertyChanged("SelectedNomenclatureKind");
+                SearchCommand();
+            }
         }
 
         public CharacteristicModel SelectedCharacteristic { get; set; }
@@ -41,6 +53,14 @@ namespace InvertoryHelper.ViewModel.Characteristics
         public Command EditCommand
         {
             get { return new Command(() => EditCharacteristic()); }
+        }
+
+        public Command ClearCommand
+        {
+            get
+            {
+                return new Command(() => SelectedNomenclatureKind=null);
+            }
         }
 
         private async void LoadCharacteristicsList()
@@ -89,6 +109,41 @@ namespace InvertoryHelper.ViewModel.Characteristics
 
                 LoadCharacteristicsList();
             }
+        }
+
+        private async void SearchCommand()
+        {
+            if (SelectedNomenclatureKind == null)
+            {
+                LoadCharacteristicsList();
+                return;
+            }
+
+
+            IsBusy = true;
+
+            CharacteristicsList.Clear();
+
+            var characteristicsList = await DataRepository.Instance.GetCharacteristicsAsync(new Func<Characteristic, bool>((Ch)=>SelectedNomenclatureKind.Equals(Ch.NomenclaturesKind)));
+
+            foreach (var characteristic in characteristicsList)
+                CharacteristicsList.Add(new CharacteristicModel(characteristic));
+
+            OnPropertyChanged("CharacteristicsList");
+
+            Title = Resource.Characteristics;
+
+            IsBusy = false;
+
+
+        }
+
+        private async void LoadNomenclatureKindsList()
+        {
+            var nomenclatureKinds = await DataRepository.Instance.GetNomenclatureKindsAsync();
+            NomenclatureKindsList = new ObservableCollection<NomenclaturesKind>(nomenclatureKinds);
+
+            OnPropertyChanged("NomenclatureKindsList");
         }
     }
 }

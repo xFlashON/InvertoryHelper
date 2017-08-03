@@ -1,4 +1,5 @@
-﻿using InvertoryHelper.ViewModel;
+﻿using InvertoryHelper.Resourses;
+using InvertoryHelper.ViewModel;
 using Xamarin.Forms;
 
 namespace InvertoryHelper.View
@@ -12,6 +13,13 @@ namespace InvertoryHelper.View
             var vm = new MainViewModel();
             vm.navigation = Navigation;
             BindingContext = vm;
+
+            MessagingCenter.Subscribe<string>(this, "DisplayAlert", DisplayMessage);
+        }
+
+        private async void DisplayMessage(string message)
+        {
+            await DisplayAlert(Resource.Message, message, Resource.Close);
         }
     }
 }

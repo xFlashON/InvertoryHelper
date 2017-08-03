@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Linq;
 using InvertoryHelper.Common;
 using InvertoryHelper.Model;
+using InvertoryHelper.Resourses;
 using InvertoryHelper.View.Nomenclatures;
 using Xamarin.Forms;
-using InvertoryHelper.Resourses;
 
 namespace InvertoryHelper.ViewModel.Nomenclatures
 {
@@ -138,9 +137,7 @@ namespace InvertoryHelper.ViewModel.Nomenclatures
         private async void EditNomenclature()
         {
             if (SelectedNomenclature != null)
-            {
                 await Navigation?.PushAsync(new NomenclatureItemPage(Navigation, SelectedNomenclature));
-            }
         }
 
         private async void SaveNomenclature(Nomenclature nomenclature)

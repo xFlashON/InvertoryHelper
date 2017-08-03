@@ -1,19 +1,15 @@
-﻿using InvertoryHelper.Common;
+﻿using System.Collections.ObjectModel;
+using InvertoryHelper.Common;
 using InvertoryHelper.Model;
 using InvertoryHelper.Resourses;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace InvertoryHelper.ViewModel.Characteristics
 {
-    class CharacteristicItemViewModel : BaseViewModel
+    internal class CharacteristicItemViewModel : BaseViewModel
     {
-        public INavigation Navigation;
         private readonly Characteristic characteristic;
+        public INavigation Navigation;
 
         public CharacteristicItemViewModel(CharacteristicModel Characteristic = null)
         {
@@ -28,8 +24,13 @@ namespace InvertoryHelper.ViewModel.Characteristics
                 Title = Resource.EditCharacteristic;
                 characteristic.Uid = Characteristic.Uid;
                 Name = Characteristic.Name;
+                NomenclaturesKind = Characteristic.NomenclaturesKind;
             }
+
+            LoadNomenclatureKindsList();
         }
+
+        public ObservableCollection<NomenclaturesKind> NomenclatureKindsList { get; set; }
 
         public string Name
         {
@@ -41,12 +42,37 @@ namespace InvertoryHelper.ViewModel.Characteristics
             }
         }
 
+        public NomenclaturesKind NomenclaturesKind
+        {
+            get => characteristic.NomenclaturesKind;
+
+            set
+            {
+                characteristic.NomenclaturesKind = value;
+                OnPropertyChanged("NomenclaturesKind");
+            }
+        }
+
         public Command SaveButton => new Command(async () =>
         {
+            if (NomenclaturesKind == null)
+            {
+                MessagingCenter.Send(Resource.CheckNomenclatureKind, "DisplayAlert");
+                return;
+            }
+
             MessagingCenter.Send(characteristic, "SaveCharacteristic");
             await Navigation?.PopAsync();
         });
 
         public Command CancelButton => new Command(async () => { await Navigation?.PopAsync(); });
+
+        private async void LoadNomenclatureKindsList()
+        {
+            var NomenclatureKinds = await DataRepository.Instance.GetNomenclatureKindsAsync();
+            NomenclatureKindsList = new ObservableCollection<NomenclaturesKind>(NomenclatureKinds);
+
+            OnPropertyChanged("NomenclatureKindsList");
+        }
     }
 }
