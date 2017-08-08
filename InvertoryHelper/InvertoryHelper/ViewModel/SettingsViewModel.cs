@@ -1,5 +1,6 @@
 ﻿using System.Windows.Input;
 using InvertoryHelper.Common;
+using InvertoryHelper.View.Barcodes;
 using InvertoryHelper.View.Characteristics;
 using InvertoryHelper.View.NomenclatureKinds;
 using InvertoryHelper.View.Nomenclatures;
@@ -42,6 +43,14 @@ namespace InvertoryHelper.ViewModel
                 {
                     if (navigation != null)
                         await navigation?.PushAsync(new CharacteristicsPage());
+                }
+
+                    break;
+
+                case "Barcodes":
+                {
+                    if (navigation != null)
+                        await navigation?.PushAsync(new BarcodesPage());
                 }
 
                     break;

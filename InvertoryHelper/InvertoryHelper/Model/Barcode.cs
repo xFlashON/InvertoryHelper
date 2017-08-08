@@ -12,6 +12,7 @@ namespace InvertoryHelper.Model
         [AutoIncrement]
         public Guid Uid { get; set; }
 
+        [Indexed]
         [MaxLength(50)]
         public string Code { get; set; }
 
@@ -32,5 +33,13 @@ namespace InvertoryHelper.Model
 
         [OneToOne]
         public Characteristic Characteristic { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is Barcode)
+                return ((Barcode) obj).Uid == Uid && ((Barcode) obj).Code == Code;
+
+            return false;
+        }
     }
 }

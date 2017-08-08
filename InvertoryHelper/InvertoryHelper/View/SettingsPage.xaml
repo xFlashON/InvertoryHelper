@@ -34,6 +34,12 @@
                         CommandParameter="Characteristics"
                         Text="{common:Translate Characteristics}" />
                 </ViewCell>
+                <ViewCell>
+                    <Button
+                        Command="{Binding OpenReference}"
+                        CommandParameter="Barcodes"
+                        Text="{common:Translate Barcodes}" />
+                </ViewCell>
             </TableSection>
         </TableRoot>
     </TableView>

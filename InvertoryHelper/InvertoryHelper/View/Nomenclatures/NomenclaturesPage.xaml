@@ -8,6 +8,12 @@
     xmlns:dg="clr-namespace:Xamarin.Forms.DataGrid;assembly=Xamarin.Forms.DataGrid"
     Title="{Binding Title}">
 
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <common:BoolToVisibilityReverseConverter x:Key="ReverseConvertor" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
     <ContentPage.Content>
 
 
@@ -27,7 +33,7 @@
                     Orientation="Horizontal"
                     VerticalOptions="Start">
                     <Picker
-                        Title="Nomenclatue kind"
+                        Title="{common:Translate NomenclatureKind}"
                         HorizontalOptions="FillAndExpand"
                         ItemsSource="{Binding NomenclatureKindsList}"
                         SelectedItem="{Binding SelectedNomenclstureKind, Mode=TwoWay}" />
@@ -81,11 +87,20 @@
                 <Button
                     Command="{Binding AddCommand}"
                     HorizontalOptions="FillAndExpand"
+                    IsVisible="{Binding SelectionMode, Converter={StaticResource ReverseConvertor}}"
                     Text="{common:Translate Add}" />
                 <Button
                     Command="{Binding EditCommand}"
                     HorizontalOptions="FillAndExpand"
+                    IsVisible="{Binding SelectionMode, Converter={StaticResource ReverseConvertor}}"
                     Text="{common:Translate Edit}" />
+
+                <Button
+                    Command="{Binding SelectCommand}"
+                    HorizontalOptions="FillAndExpand"
+                    IsVisible="{Binding SelectionMode}"
+                    Text="{common:Translate Select}" />
+
             </StackLayout>
 
         </StackLayout>

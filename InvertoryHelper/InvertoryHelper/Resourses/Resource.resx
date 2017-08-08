@@ -120,6 +120,9 @@
   <data name="Add" xml:space="preserve">
     <value>Добавить</value>
   </data>
+  <data name="AddBarcode" xml:space="preserve">
+    <value>Добавить штрихкод</value>
+  </data>
   <data name="AddCharacteristic" xml:space="preserve">
     <value>Добавить характеристику</value>
   </data>
@@ -135,6 +138,12 @@
   <data name="Artikul" xml:space="preserve">
     <value>Артикул</value>
   </data>
+  <data name="Barcode" xml:space="preserve">
+    <value>Штрихкод</value>
+  </data>
+  <data name="Barcodes" xml:space="preserve">
+    <value>Штрихкоды</value>
+  </data>
   <data name="BaseUnit" xml:space="preserve">
     <value>Базовая единица измерения</value>
   </data>
@@ -146,6 +155,12 @@
   </data>
   <data name="Characteristics" xml:space="preserve">
     <value>Характеристики</value>
+  </data>
+  <data name="CheckBarcode" xml:space="preserve">
+    <value>Проверьте штрихкод</value>
+  </data>
+  <data name="CheckNomenclature" xml:space="preserve">
+    <value>Не заполнена номенклатура</value>
   </data>
   <data name="CheckNomenclatureKind" xml:space="preserve">
     <value>Заполните вид номенклатуры</value>
@@ -162,8 +177,14 @@
   <data name="Documents" xml:space="preserve">
     <value>Документы</value>
   </data>
+  <data name="DuplicateBarcode" xml:space="preserve">
+    <value>Уже есть такой штрихкод</value>
+  </data>
   <data name="Edit" xml:space="preserve">
     <value>Редактировать</value>
+  </data>
+  <data name="EditBarcode" xml:space="preserve">
+    <value>Изменить штрихкод</value>
   </data>
   <data name="EditCharacteristic" xml:space="preserve">
     <value>Изменить характеристику</value>
@@ -221,6 +242,9 @@
   </data>
   <data name="Searching" xml:space="preserve">
     <value>Поиск</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Выбрать</value>
   </data>
   <data name="Settings" xml:space="preserve">
     <value>Настройки</value>

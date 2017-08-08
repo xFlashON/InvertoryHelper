@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <ContentPage
-    x:Class="InvertoryHelper.View.Characteristics.CharacteristicsPage"
+    x:Class="InvertoryHelper.View.Barcodes.BarcodesPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:common="clr-namespace:InvertoryHelper.Common;assembly=InvertoryHelper"
-    xmlns:dg="clr-namespace:Xamarin.Forms.DataGrid;assembly=Xamarin.Forms.DataGrid"
+    xmlns:dataGrid="clr-namespace:Xamarin.Forms.DataGrid;assembly=Xamarin.Forms.DataGrid"
     Title="{Binding Title}">
     <ContentPage.Content>
         <StackLayout
@@ -14,37 +14,39 @@
             VerticalOptions="FillAndExpand">
 
             <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
-                <Picker
-                    HorizontalOptions="FillAndExpand"
-                    ItemsSource="{Binding NomenclatureKindsList}"
-                    SelectedItem="{Binding SelectedNomenclatureKind}" />
-                <Button Command="{Binding ClearCommand}" Text="{common:Translate Clear}" />
+                <Editor HorizontalOptions="FillAndExpand" Text="{Binding SearchText}" />
+                <Button Command="{Binding SearchCommand}" Text="{common:Translate Search}" />
             </StackLayout>
 
 
-            <dg:DataGrid
+            <dataGrid:DataGrid
                 Padding="5"
                 HorizontalOptions="FillAndExpand"
-                ItemsSource="{Binding CharacteristicsList}"
-                SelectedItem="{Binding SelectedCharacteristic}"
+                ItemsSource="{Binding BarcodesList}"
+                SelectedItem="{Binding SelectedBarcode}"
                 SelectionEnabled="True"
                 VerticalOptions="FillAndExpand">
 
-                <dg:DataGrid.Columns>
-                    <dg:DataGridColumn
-                        Title="{common:Translate NomenclatureKind}"
-                        Width="2*"
+                <dataGrid:DataGrid.Columns>
+
+                    <dataGrid:DataGridColumn
+                        Title="{common:Translate Barcode}"
                         HorizontalContentAlignment="Start"
-                        PropertyName="NomenclaturesKind.Name" />
-                    <dg:DataGridColumn
+                        PropertyName="Code" />
+
+                    <dataGrid:DataGridColumn
+                        Title="{common:Translate Nomenclature}"
+                        HorizontalContentAlignment="Start"
+                        PropertyName="Nomenclature.Name" />
+
+                    <dataGrid:DataGridColumn
                         Title="{common:Translate Characteristic}"
-                        Width="3*"
                         HorizontalContentAlignment="Start"
-                        PropertyName="Name" />
+                        PropertyName="Characteristic.Name" />
 
-                </dg:DataGrid.Columns>
+                </dataGrid:DataGrid.Columns>
 
-            </dg:DataGrid>
+            </dataGrid:DataGrid>
 
 
             <StackLayout

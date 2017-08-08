@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage
+    x:Class="InvertoryHelper.View.Barcodes.BarcodeItemPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:common="clr-namespace:InvertoryHelper.Common;assembly=InvertoryHelper"
+    xmlns:b="clr-namespace:Xamarin.Forms.BehaviorsPack;assembly=Xamarin.Forms.BehaviorsPack"
+    Title="{Binding Title}">
+
+    <ContentPage.Content>
+        <StackLayout
+            HorizontalOptions="FillAndExpand"
+            Orientation="Vertical"
+            VerticalOptions="Fill">
+
+            <TableView Intent="Data">
+
+                <TableView.Root>
+
+                    <TableRoot>
+
+                        <TableSection Title="{common:Translate Barcode}">
+                            <EntryCell Keyboard="Numeric" Text="{Binding Code}" />
+                        </TableSection>
+
+                        <TableSection Title="{common:Translate Nomenclature}">
+                            <ViewCell>
+                                <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                                    <Entry x:Name="NomenclatureEntry"
+
+                                           HorizontalOptions="FillAndExpand"
+                                           HorizontalTextAlignment="Start"
+                                           Text="{Binding Nomenclature.Name, Mode=OneWay}">
+                                        <Entry.Behaviors>
+                                            <b:EventToCommandBehavior EventName="Completed"
+                                                                      Command="{Binding ValidateNomenclature}"
+                                                                      CommandParameter="{x:Reference NomenclatureEntry}" />
+                                        </Entry.Behaviors>
+                                    </Entry>
+                                    <Button Command="{Binding SelectNomenclature}" Text="{common:Translate Select}" />
+                                </StackLayout>
+                            </ViewCell>
+                        </TableSection>
+
+                        <TableSection Title="{common:Translate Characteristic}">
+                            <ViewCell>
+                                <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                                    <Picker
+                                        HorizontalOptions="FillAndExpand"
+                                        ItemsSource="{Binding CharacteristicsList}"
+                                        SelectedItem="{Binding Characteristic}" />
+                                </StackLayout>
+                            </ViewCell>
+                        </TableSection>
+
+                    </TableRoot>
+                </TableView.Root>
+            </TableView>
+
+            <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+
+                <Button
+                    Command="{Binding CancelButton}"
+                    HorizontalOptions="FillAndExpand"
+                    Text="{common:Translate Cancel}" />
+
+                <Button
+                    Command="{Binding SaveButton}"
+                    HorizontalOptions="FillAndExpand"
+                    Text="{common:Translate Save}" />
+
+            </StackLayout>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

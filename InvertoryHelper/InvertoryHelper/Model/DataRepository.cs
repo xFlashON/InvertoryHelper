@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Android.Util;
 using InvertoryHelper.Common;
 using InvertoryHelper.Model;
 using SQLite.Net;
@@ -122,7 +123,7 @@ namespace InvertoryHelper.Model
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex.Message);
+                Log.Error("DatabaseError", ex.Message);
                 return Guid.Empty;
             }
 
@@ -148,7 +149,7 @@ namespace InvertoryHelper.Model
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex.Message);
+                Log.Error("DatabaseError", ex.Message);
                 return Guid.Empty;
             }
 
@@ -174,7 +175,7 @@ namespace InvertoryHelper.Model
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex.Message);
+                Log.Error("DatabaseError", ex.Message);
                 return Guid.Empty;
             }
 
@@ -200,11 +201,37 @@ namespace InvertoryHelper.Model
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex.Message);
+                Log.Error("DatabaseError", ex.Message);
                 return Guid.Empty;
             }
 
             return nomenclatureKind.Uid;
+        }
+
+        public async Task<Guid> SaveBarcodeAsync(Barcode barcode)
+        {
+            try
+            {
+                var index = barcodeslList.FindIndex(N => N.Uid == barcode.Uid);
+
+                if (index != -1)
+                {
+                    await db.UpdateWithChildrenAsync(barcode);
+                    barcodeslList[index] = barcode;
+                }
+                else
+                {
+                    await db.InsertWithChildrenAsync(barcode);
+                    barcodeslList.Add(barcode);
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error("DatabaseError", ex.Message);
+                return Guid.Empty;
+            }
+
+            return barcode.Uid;
         }
 
         private async Task CheckLoad()
@@ -229,23 +256,6 @@ namespace InvertoryHelper.Model
                     await db.CreateTableAsync<Price>();
                     await db.CreateTableAsync<Storage>();
 
-                    if (await db.Table<Nomenclature>().CountAsync() == 0)
-                        for (var i = 1; i <= 100; i++)
-                            await db.InsertAsync(new Nomenclature
-                            {
-                                Name = string.Format("Nomenclature {0}", i),
-                                Artikul = i.ToString(),
-                                Uid = new Guid()
-                            });
-
-                    if (await db.Table<Unit>().CountAsync() == 0)
-                        for (var i = 1; i <= 10; i++)
-                            await db.InsertAsync(new Unit
-                            {
-                                Name = string.Format("Unit {0}", i),
-                                Uid = new Guid()
-                            });
-
                     nomenclaturesList = await db.GetAllWithChildrenAsync<Nomenclature>();
                     characteristicsList = await db.GetAllWithChildrenAsync<Characteristic>();
                     unitList = await db.GetAllWithChildrenAsync<Unit>();
@@ -256,7 +266,7 @@ namespace InvertoryHelper.Model
                 }
                 catch (Exception ex)
                 {
-                    Debug.WriteLine(ex.Message);
+                    Log.Error("DatabaseError", ex.Message);
                 }
                 finally
                 {

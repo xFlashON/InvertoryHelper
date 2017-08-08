@@ -71,6 +71,15 @@ namespace InvertoryHelper.Resourses {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Добавить штрихкод.
+        /// </summary>
+        internal static string AddBarcode {
+            get {
+                return ResourceManager.GetString("AddBarcode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Добавить характеристику.
         /// </summary>
         internal static string AddCharacteristic {
@@ -116,6 +125,24 @@ namespace InvertoryHelper.Resourses {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Штрихкод.
+        /// </summary>
+        internal static string Barcode {
+            get {
+                return ResourceManager.GetString("Barcode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Штрихкоды.
+        /// </summary>
+        internal static string Barcodes {
+            get {
+                return ResourceManager.GetString("Barcodes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Базовая единица измерения.
         /// </summary>
         internal static string BaseUnit {
@@ -148,6 +175,24 @@ namespace InvertoryHelper.Resourses {
         internal static string Characteristics {
             get {
                 return ResourceManager.GetString("Characteristics", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Проверьте штрихкод.
+        /// </summary>
+        internal static string CheckBarcode {
+            get {
+                return ResourceManager.GetString("CheckBarcode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Не заполнена номенклатура.
+        /// </summary>
+        internal static string CheckNomenclature {
+            get {
+                return ResourceManager.GetString("CheckNomenclature", resourceCulture);
             }
         }
         
@@ -197,11 +242,29 @@ namespace InvertoryHelper.Resourses {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Уже есть такой штрихкод.
+        /// </summary>
+        internal static string DuplicateBarcode {
+            get {
+                return ResourceManager.GetString("DuplicateBarcode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Редактировать.
         /// </summary>
         internal static string Edit {
             get {
                 return ResourceManager.GetString("Edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Изменить штрихкод.
+        /// </summary>
+        internal static string EditBarcode {
+            get {
+                return ResourceManager.GetString("EditBarcode", resourceCulture);
             }
         }
         
@@ -373,6 +436,15 @@ namespace InvertoryHelper.Resourses {
         internal static string Searching {
             get {
                 return ResourceManager.GetString("Searching", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Выбрать.
+        /// </summary>
+        internal static string Select {
+            get {
+                return ResourceManager.GetString("Select", resourceCulture);
             }
         }
         

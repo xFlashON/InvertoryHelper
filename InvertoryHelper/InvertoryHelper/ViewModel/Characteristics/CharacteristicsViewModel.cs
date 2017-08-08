@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using Android.Media;
 using InvertoryHelper.Common;
 using InvertoryHelper.Model;
 using InvertoryHelper.Resourses;
@@ -11,6 +10,7 @@ namespace InvertoryHelper.ViewModel.Characteristics
 {
     public class CharacteristicsViewModel : BaseViewModel
     {
+        private NomenclaturesKind _selectedNomenclatureKind;
         public INavigation Navigation;
 
         public CharacteristicsViewModel()
@@ -27,8 +27,6 @@ namespace InvertoryHelper.ViewModel.Characteristics
         }
 
         public ObservableCollection<NomenclaturesKind> NomenclatureKindsList { get; set; }
-
-        private NomenclaturesKind _selectedNomenclatureKind;
 
         public NomenclaturesKind SelectedNomenclatureKind
         {
@@ -57,10 +55,7 @@ namespace InvertoryHelper.ViewModel.Characteristics
 
         public Command ClearCommand
         {
-            get
-            {
-                return new Command(() => SelectedNomenclatureKind=null);
-            }
+            get { return new Command(() => SelectedNomenclatureKind = null); }
         }
 
         private async void LoadCharacteristicsList()
@@ -124,7 +119,9 @@ namespace InvertoryHelper.ViewModel.Characteristics
 
             CharacteristicsList.Clear();
 
-            var characteristicsList = await DataRepository.Instance.GetCharacteristicsAsync(new Func<Characteristic, bool>((Ch)=>SelectedNomenclatureKind.Equals(Ch.NomenclaturesKind)));
+            var characteristicsList =
+                await DataRepository.Instance.GetCharacteristicsAsync(
+                    Ch => SelectedNomenclatureKind.Equals(Ch.NomenclaturesKind));
 
             foreach (var characteristic in characteristicsList)
                 CharacteristicsList.Add(new CharacteristicModel(characteristic));
@@ -134,8 +131,6 @@ namespace InvertoryHelper.ViewModel.Characteristics
             Title = Resource.Characteristics;
 
             IsBusy = false;
-
-
         }
 
         private async void LoadNomenclatureKindsList()

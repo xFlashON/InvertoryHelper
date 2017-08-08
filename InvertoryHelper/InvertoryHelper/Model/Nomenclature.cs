@@ -1,4 +1,5 @@
 ﻿using System;
+using InvertoryHelper.ViewModel.Nomenclatures;
 using SQLite.Net.Attributes;
 using SQLiteNetExtensions.Attributes;
 
@@ -13,6 +14,15 @@ namespace InvertoryHelper.Model
             Artikul = string.Empty;
         }
 
+        public Nomenclature(NomenclatureModel nomenclatureModel)
+        {
+            Uid = nomenclatureModel.Uid;
+            Name = nomenclatureModel.Name;
+            Artikul = nomenclatureModel.Artikul;
+            BaseUnit = nomenclatureModel.BaseUnit;
+            NomenclaturesKind = nomenclatureModel.NomenclaturesKind;
+        }
+
         [PrimaryKey]
         [Unique]
         [AutoIncrement]
@@ -21,6 +31,7 @@ namespace InvertoryHelper.Model
         [MaxLength(150)]
         public string Name { get; set; }
 
+        [Indexed]
         [MaxLength(40)]
         public string Artikul { get; set; }
 
@@ -35,5 +46,13 @@ namespace InvertoryHelper.Model
 
         [OneToOne]
         public NomenclaturesKind NomenclaturesKind { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is Nomenclature)
+                return ((Nomenclature) obj).Uid == Uid && ((Nomenclature) obj).Name == Name;
+
+            return false;
+        }
     }
 }

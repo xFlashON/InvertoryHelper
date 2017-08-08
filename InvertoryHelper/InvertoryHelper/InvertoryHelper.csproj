@@ -39,7 +39,9 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Common\BaseViewModel.cs" />
+    <Compile Include="Common\BoolToVisibilityReverseConverter.cs" />
     <Compile Include="Common\ILocalize.cs" />
+    <Compile Include="Common\NomenclatureEntryValidation.cs" />
     <Compile Include="Common\ObservableObject.cs" />
     <Compile Include="Resourses\Resource.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -52,6 +54,9 @@
     <Compile Include="Model\DataRepository.cs" />
     <Compile Include="Model\IDataRepository.cs" />
     <Compile Include="Common\ISpecPlatform.cs" />
+    <Compile Include="ViewModel\Barcodes\BarcodeItemViewModel.cs" />
+    <Compile Include="ViewModel\Barcodes\BarcodeModel.cs" />
+    <Compile Include="ViewModel\Barcodes\BarcodesViewModel.cs" />
     <Compile Include="ViewModel\Characteristics\CharacteristicItemViewModel.cs" />
     <Compile Include="ViewModel\Characteristics\CharacteristicModel.cs" />
     <Compile Include="ViewModel\Characteristics\CharacteristicsViewModel.cs" />
@@ -71,6 +76,12 @@
     <Compile Include="ViewModel\Units\UnitItemViewModel.cs" />
     <Compile Include="ViewModel\Units\UnitModel.cs" />
     <Compile Include="ViewModel\Units\UnitsViewModel.cs" />
+    <Compile Include="View\Barcodes\BarcodeItemPage.xaml.cs">
+      <DependentUpon>BarcodeItemPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Barcodes\BarcodesPage.xaml.cs">
+      <DependentUpon>BarcodesPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Characteristics\CharacteristicItemPage.xaml.cs">
       <DependentUpon>CharacteristicItemPage.xaml</DependentUpon>
     </Compile>
@@ -139,6 +150,9 @@
     <Reference Include="SQLiteNetExtensionsAsync, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\SQLiteNetExtensions.Async.1.3.0\lib\portable-net45+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1\SQLiteNetExtensionsAsync.dll</HintPath>
     </Reference>
+    <Reference Include="Xamarin.Forms.BehaviorsPack, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Xamarin.Forms.BehaviorsPack.1.2.0\lib\netstandard1.0\Xamarin.Forms.BehaviorsPack.dll</HintPath>
+    </Reference>
     <Reference Include="Xamarin.Forms.Core, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Xamarin.Forms.2.3.4.247\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.Core.dll</HintPath>
     </Reference>
@@ -159,7 +173,9 @@
   <ItemGroup>
     <Folder Include="Model\Documents\" />
     <Folder Include="ViewModel\Documents\" />
+    <Folder Include="ViewModel\Prices\" />
     <Folder Include="View\Documents\" />
+    <Folder Include="View\Prices\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="View\Nomenclatures\NomenclaturesPage.xaml">
@@ -211,6 +227,18 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="View\Characteristics\CharacteristicItemPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="View\Barcodes\BarcodesPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="View\Barcodes\BarcodeItemPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

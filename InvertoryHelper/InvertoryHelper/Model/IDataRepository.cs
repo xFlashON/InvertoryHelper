@@ -22,5 +22,7 @@ namespace InvertoryHelper.Model
         Task<Guid> SaveCharacteristicAsync(Characteristic characteristic);
 
         Task<Guid> SaveNomenclatureKindAsync(NomenclaturesKind nomenclatureKind);
+
+        Task<Guid> SaveBarcodeAsync(Barcode barcode);
     }
 }

@@ -12,6 +12,7 @@ namespace InvertoryHelper.ViewModel.Nomenclatures
 {
     public class NomenclaturesViewModel : BaseViewModel
     {
+        private bool _selectionMode;
         public INavigation Navigation;
 
         private NomenclaturesKind selectedNomenclstureKind;
@@ -30,6 +31,16 @@ namespace InvertoryHelper.ViewModel.Nomenclatures
             MessagingCenter.Subscribe<Nomenclature>(this, "SaveNomenclature", SaveNomenclature);
 
             LoadNomenclatureKindsList();
+        }
+
+        public bool SelectionMode
+        {
+            get => _selectionMode;
+            set
+            {
+                _selectionMode = value;
+                OnPropertyChanged("SelectionMode");
+            }
         }
 
         public NomenclatureModel SelectedNomenclature { get; set; }
@@ -64,6 +75,22 @@ namespace InvertoryHelper.ViewModel.Nomenclatures
         public Command EditCommand
         {
             get { return new Command(() => EditNomenclature()); }
+        }
+
+        public Command SelectCommand
+        {
+            get
+            {
+                return new Command(() =>
+                {
+                    if (SelectedNomenclature != null)
+                    {
+                        MessagingCenter.Send(new Nomenclature(SelectedNomenclature),
+                            "SelectedNomenclature");
+                        Navigation?.PopAsync();
+                    }
+                });
+            }
         }
 
         public Command ClearNomenclatureKindCommand => new Command(() => SelectedNomenclstureKind = null);
