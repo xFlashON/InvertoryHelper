@@ -72,6 +72,9 @@
     <Compile Include="ViewModel\NomenklatureKinds\NomenklatureKindModel.cs" />
     <Compile Include="ViewModel\NomenklatureKinds\NomenklatureKindsViewModel.cs" />
     <Compile Include="ViewModel\NomenklatureKinds\NomenklatureKindItemViewModel.cs" />
+    <Compile Include="ViewModel\Prices\PriceItemViewModel.cs" />
+    <Compile Include="ViewModel\Prices\PriceModel.cs" />
+    <Compile Include="ViewModel\Prices\PricesViewModel.cs" />
     <Compile Include="ViewModel\SettingsViewModel.cs" />
     <Compile Include="ViewModel\Units\UnitItemViewModel.cs" />
     <Compile Include="ViewModel\Units\UnitModel.cs" />
@@ -103,6 +106,12 @@
     </Compile>
     <Compile Include="View\NomenklatureKinds\NomenklatureKindsPage.xaml.cs">
       <DependentUpon>NomenklatureKindsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Prices\PriceItemPage.xaml.cs">
+      <DependentUpon>PriceItemPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Prices\PricesPage.xaml.cs">
+      <DependentUpon>PricesPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
@@ -150,8 +159,8 @@
     <Reference Include="SQLiteNetExtensionsAsync, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\SQLiteNetExtensions.Async.1.3.0\lib\portable-net45+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1\SQLiteNetExtensionsAsync.dll</HintPath>
     </Reference>
-    <Reference Include="Xamarin.Forms.BehaviorsPack, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Xamarin.Forms.BehaviorsPack.1.2.0\lib\netstandard1.0\Xamarin.Forms.BehaviorsPack.dll</HintPath>
+    <Reference Include="Xamarin.Forms.BehaviorsPack, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Xamarin.Forms.BehaviorsPack.1.3.0\lib\netstandard1.0\Xamarin.Forms.BehaviorsPack.dll</HintPath>
     </Reference>
     <Reference Include="Xamarin.Forms.Core, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Xamarin.Forms.2.3.4.247\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.Core.dll</HintPath>
@@ -173,9 +182,7 @@
   <ItemGroup>
     <Folder Include="Model\Documents\" />
     <Folder Include="ViewModel\Documents\" />
-    <Folder Include="ViewModel\Prices\" />
     <Folder Include="View\Documents\" />
-    <Folder Include="View\Prices\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="View\Nomenclatures\NomenclaturesPage.xaml">
@@ -243,6 +250,18 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="View\Prices\PricesPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="View\Prices\PriceItemPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\..\packages\Xamarin.Forms.2.3.4.247\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets" Condition="Exists('..\..\packages\Xamarin.Forms.2.3.4.247\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
@@ -250,5 +269,7 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\..\packages\Xamarin.Forms.2.3.4.247\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Xamarin.Forms.2.3.4.247\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets'))" />
+    <Error Condition="!Exists('..\..\packages\NETStandard.Library.2.0.0\build\NETStandard.Library.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\NETStandard.Library.2.0.0\build\NETStandard.Library.targets'))" />
   </Target>
+  <Import Project="..\..\packages\NETStandard.Library.2.0.0\build\NETStandard.Library.targets" Condition="Exists('..\..\packages\NETStandard.Library.2.0.0\build\NETStandard.Library.targets')" />
 </Project>

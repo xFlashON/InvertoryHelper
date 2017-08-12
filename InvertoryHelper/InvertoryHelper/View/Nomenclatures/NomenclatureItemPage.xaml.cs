@@ -1,11 +1,12 @@
 ﻿using InvertoryHelper.ViewModel.Nomenclatures;
+using InvertoryHelper.ViewModel.Prices;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace InvertoryHelper.View.Nomenclatures
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class NomenclatureItemPage : ContentPage
+    public partial class NomenclatureItemPage : TabbedPage
     {
         public NomenclatureItemPage(INavigation Navigation = null, NomenclatureModel nomenclature = null)
         {
@@ -16,6 +17,25 @@ namespace InvertoryHelper.View.Nomenclatures
             vm.Navigation = Navigation;
 
             BindingContext = vm;
+
+            CurrentPageChanged += CurrentPageChangedFoo;
+        }
+
+        private void CurrentPageChangedFoo(object sender, System.EventArgs e)
+        {
+
+            var currentPage = ((TabbedPage)sender).CurrentPage;
+
+            if (currentPage == PricesPage)
+            {
+                var vm = (PricesViewModel) currentPage.BindingContext;
+
+                vm.SearchText = ((NomenclatureItemViewModel) BindingContext).Name;
+
+                vm.SearchCommand.Execute(null);
+
+            }
+
         }
     }
 }

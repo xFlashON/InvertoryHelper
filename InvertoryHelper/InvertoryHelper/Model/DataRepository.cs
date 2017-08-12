@@ -20,7 +20,7 @@ namespace InvertoryHelper.Model
     public class DataRepository : IDataRepository
     {
         private readonly SQLiteAsyncConnection db;
-        private List<Barcode> barcodeslList;
+        private List<Barcode> barcodesList;
         private List<Characteristic> characteristicsList;
         private List<NomenclaturesKind> nomenclatureKindsList;
         private List<Nomenclature> nomenclaturesList;
@@ -91,8 +91,8 @@ namespace InvertoryHelper.Model
             await CheckLoad();
 
             if (e == null)
-                return barcodeslList;
-            return barcodeslList.Where(e).ToList();
+                return barcodesList;
+            return barcodesList.Where(e).ToList();
         }
 
         public async Task<List<Characteristic>> GetCharacteristicsAsync(Func<Characteristic, bool> e = null)
@@ -102,6 +102,15 @@ namespace InvertoryHelper.Model
             if (e == null)
                 return characteristicsList;
             return characteristicsList.Where(e).ToList();
+        }
+
+        public async Task<List<Price>> GetPricesAsync(Func<Price, bool> e = null)
+        {
+            await CheckLoad();
+
+            if (e == null)
+                return priceList;
+            return priceList.Where(e).ToList();
         }
 
         public async Task<Guid> SaveNomenclatureAsync(Nomenclature nomenclature)
@@ -212,17 +221,17 @@ namespace InvertoryHelper.Model
         {
             try
             {
-                var index = barcodeslList.FindIndex(N => N.Uid == barcode.Uid);
+                var index = barcodesList.FindIndex(N => N.Uid == barcode.Uid);
 
                 if (index != -1)
                 {
                     await db.UpdateWithChildrenAsync(barcode);
-                    barcodeslList[index] = barcode;
+                    barcodesList[index] = barcode;
                 }
                 else
                 {
                     await db.InsertWithChildrenAsync(barcode);
-                    barcodeslList.Add(barcode);
+                    barcodesList.Add(barcode);
                 }
             }
             catch (Exception ex)
@@ -232,6 +241,32 @@ namespace InvertoryHelper.Model
             }
 
             return barcode.Uid;
+        }
+
+        public async Task<Guid> SavePriceAsync(Price price)
+        {
+            try
+            {
+                var index = priceList.FindIndex(N => N.Uid == price.Uid);
+
+                if (index != -1)
+                {
+                    await db.UpdateWithChildrenAsync(price);
+                    priceList[index] = price;
+                }
+                else
+                {
+                    await db.InsertWithChildrenAsync(price);
+                    priceList.Add(price);
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error("DatabaseError", ex.Message);
+                return Guid.Empty;
+            }
+
+            return price.Uid;
         }
 
         private async Task CheckLoad()
@@ -261,7 +296,7 @@ namespace InvertoryHelper.Model
                     unitList = await db.GetAllWithChildrenAsync<Unit>();
                     nomenclatureKindsList = await db.GetAllWithChildrenAsync<NomenclaturesKind>();
                     priceList = await db.GetAllWithChildrenAsync<Price>();
-                    barcodeslList = await db.GetAllWithChildrenAsync<Barcode>();
+                    barcodesList = await db.GetAllWithChildrenAsync<Barcode>();
                     storagesList = await db.GetAllWithChildrenAsync<Storage>();
                 }
                 catch (Exception ex)
@@ -274,5 +309,6 @@ namespace InvertoryHelper.Model
                 }
             }
         }
+
     }
 }

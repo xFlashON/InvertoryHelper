@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-
 <ContentPage
-    x:Class="InvertoryHelper.View.Barcodes.BarcodesPage"
+    x:Class="InvertoryHelper.View.Prices.PricesPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:common="clr-namespace:InvertoryHelper.Common;assembly=InvertoryHelper"
@@ -22,17 +21,12 @@
             <dataGrid:DataGrid
                 Padding="5"
                 HorizontalOptions="FillAndExpand"
-                ItemsSource="{Binding BarcodesList}"
-                SelectedItem="{Binding SelectedBarcode}"
+                ItemsSource="{Binding PricesList}"
+                SelectedItem="{Binding SelectedPrice}"
                 SelectionEnabled="True"
                 VerticalOptions="FillAndExpand">
 
                 <dataGrid:DataGrid.Columns>
-
-                    <dataGrid:DataGridColumn
-                        Title="{common:Translate Barcode}"
-                        HorizontalContentAlignment="Start"
-                        PropertyName="Code" />
 
                     <dataGrid:DataGridColumn
                         Title="{common:Translate Nomenclature}"
@@ -43,6 +37,11 @@
                         Title="{common:Translate Characteristic}"
                         HorizontalContentAlignment="Start"
                         PropertyName="Characteristic.Name" />
+
+                    <dataGrid:DataGridColumn
+                        Title="{common:Translate Price}"
+                        HorizontalContentAlignment="Start"
+                        PropertyName="Price" />
 
                 </dataGrid:DataGrid.Columns>
 

@@ -132,6 +132,9 @@
   <data name="AddNomenclatureKind" xml:space="preserve">
     <value>Добавить вид номенклатуры</value>
   </data>
+  <data name="AddPrice" xml:space="preserve">
+    <value>Добавить цену</value>
+  </data>
   <data name="AddUnit" xml:space="preserve">
     <value>Добавить единицу измерения</value>
   </data>
@@ -165,6 +168,9 @@
   <data name="CheckNomenclatureKind" xml:space="preserve">
     <value>Заполните вид номенклатуры</value>
   </data>
+  <data name="CheckPrice" xml:space="preserve">
+    <value>Не указана цена</value>
+  </data>
   <data name="Clear" xml:space="preserve">
     <value>Очистить</value>
   </data>
@@ -180,6 +186,9 @@
   <data name="DuplicateBarcode" xml:space="preserve">
     <value>Уже есть такой штрихкод</value>
   </data>
+  <data name="DuplicatePrice" xml:space="preserve">
+    <value>Для номенклатуры цена уже задана</value>
+  </data>
   <data name="Edit" xml:space="preserve">
     <value>Редактировать</value>
   </data>
@@ -194,6 +203,9 @@
   </data>
   <data name="EditNomenclatureKind" xml:space="preserve">
     <value>Изменить вид номенклатуры</value>
+  </data>
+  <data name="EditPrice" xml:space="preserve">
+    <value>Изменить цену</value>
   </data>
   <data name="EditUnit" xml:space="preserve">
     <value>Изменить единицу измерения</value>
@@ -225,8 +237,14 @@
   <data name="Orders" xml:space="preserve">
     <value>Заказы</value>
   </data>
+  <data name="Price" xml:space="preserve">
+    <value>Цена</value>
+  </data>
   <data name="PriceChecking" xml:space="preserve">
     <value>Проверка цен</value>
+  </data>
+  <data name="Prices" xml:space="preserve">
+    <value>Цены</value>
   </data>
   <data name="Recounts" xml:space="preserve">
     <value>Пересчеты товаров</value>

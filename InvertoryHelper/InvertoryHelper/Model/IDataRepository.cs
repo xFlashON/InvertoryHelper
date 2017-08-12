@@ -15,6 +15,8 @@ namespace InvertoryHelper.Model
 
         Task<List<Barcode>> GetBarcodesAsync(Func<Barcode, bool> e = null);
 
+        Task<List<Price>> GetPricesAsync(Func<Price, bool> e = null);
+
         Task<Guid> SaveNomenclatureAsync(Nomenclature nomenclature);
 
         Task<Guid> SaveUnitAsync(Unit unit);
@@ -24,5 +26,7 @@ namespace InvertoryHelper.Model
         Task<Guid> SaveNomenclatureKindAsync(NomenclaturesKind nomenclatureKind);
 
         Task<Guid> SaveBarcodeAsync(Barcode barcode);
+
+        Task<Guid> SavePriceAsync(Price price);
     }
 }

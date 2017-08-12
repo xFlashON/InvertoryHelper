@@ -55,7 +55,10 @@ namespace InvertoryHelper.ViewModel.Barcodes
 
         private async void LoadBarcodesList()
         {
-            if (!IsBusy)
+            if (IsBusy)
+                return;
+
+            if (string.IsNullOrEmpty(SearchText))
             {
                 IsBusy = true;
 
@@ -69,7 +72,34 @@ namespace InvertoryHelper.ViewModel.Barcodes
                 Title = Resource.Barcodes;
 
                 IsBusy = false;
+
             }
+            else
+            {
+                IsBusy = true;
+
+                Title = Resource.Searching;
+
+                BarcodesList.Clear();
+
+                var pricesList = await DataRepository.Instance.GetBarcodesAsync(P =>
+                {
+                    if (P.Nomenclature.Name.ToUpper().Contains(SearchText.ToUpper()) || P.Nomenclature.Artikul != null &&
+                        P.Nomenclature.Artikul.ToUpper().Contains(SearchText.ToUpper()))
+                        return true;
+                    return false;
+                });
+
+                foreach (var price in pricesList)
+                    BarcodesList.Add(new BarcodeModel(price));
+
+                OnPropertyChanged("BarcodeList");
+
+                Title = Resource.Barcodes;
+
+                IsBusy = false;
+            }
+
         }
 
         private async void AddBarcode()

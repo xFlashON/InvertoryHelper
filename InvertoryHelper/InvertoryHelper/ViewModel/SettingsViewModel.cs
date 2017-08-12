@@ -4,6 +4,7 @@ using InvertoryHelper.View.Barcodes;
 using InvertoryHelper.View.Characteristics;
 using InvertoryHelper.View.NomenclatureKinds;
 using InvertoryHelper.View.Nomenclatures;
+using InvertoryHelper.View.Prices;
 using InvertoryHelper.View.Units;
 using Xamarin.Forms;
 
@@ -51,6 +52,14 @@ namespace InvertoryHelper.ViewModel
                 {
                     if (navigation != null)
                         await navigation?.PushAsync(new BarcodesPage());
+                }
+
+                    break;
+
+                case "Prices":
+                {
+                    if (navigation != null)
+                        await navigation?.PushAsync(new PricesPage());
                 }
 
                     break;

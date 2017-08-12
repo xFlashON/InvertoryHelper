@@ -25,5 +25,13 @@ namespace InvertoryHelper.Model
 
         [OneToOne]
         public Characteristic Characteristic { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is Price)
+                return ((Price)obj).Uid == Uid;
+
+            return false;
+        }
     }
 }

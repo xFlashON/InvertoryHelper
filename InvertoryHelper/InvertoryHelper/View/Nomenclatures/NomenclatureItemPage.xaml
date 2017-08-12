@@ -1,76 +1,88 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 
-<ContentPage
+<TabbedPage
     x:Class="InvertoryHelper.View.Nomenclatures.NomenclatureItemPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:barcodes="clr-namespace:InvertoryHelper.View.Barcodes;assembly=InvertoryHelper"
     xmlns:common="clr-namespace:InvertoryHelper.Common;assembly=InvertoryHelper"
+    xmlns:prices="clr-namespace:InvertoryHelper.View.Prices;assembly=InvertoryHelper"
     Title="{Binding Title}">
 
-    <ContentPage.Content>
+    <TabbedPage.Children>
 
-        <StackLayout
-            HorizontalOptions="FillAndExpand"
-            Orientation="Vertical"
-            VerticalOptions="Fill">
+        <ContentPage Title="{common:Translate Nomenclature}">
 
-            <TableView Intent="Data">
+            <StackLayout
+                HorizontalOptions="FillAndExpand"
+                Orientation="Vertical"
+                VerticalOptions="Fill">
 
-                <TableView.Root>
+                <TableView Intent="Data">
 
-                    <TableRoot>
+                    <TableView.Root>
 
-                        <TableSection Title="{common:Translate Name}">
-                            <EntryCell Text="{Binding Name}" />
-                        </TableSection>
+                        <TableRoot>
 
-                        <TableSection Title="{common:Translate Artikul}">
-                            <EntryCell Keyboard="Numeric" Text="{Binding Artikul}" />
-                        </TableSection>
+                            <TableSection Title="{common:Translate Name}">
+                                <EntryCell x:Name="NomenclaturesName" Text="{Binding Name}" />
+                            </TableSection>
 
-                        <TableSection Title="{common:Translate BaseUnit}">
-                            <ViewCell>
-                                <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
-                                    <Picker
-                                        HorizontalOptions="FillAndExpand"
-                                        ItemsSource="{Binding BaseUnitsList}"
-                                        SelectedItem="{Binding BaseUnit}" />
-                                </StackLayout>
-                            </ViewCell>
-                        </TableSection>
+                            <TableSection Title="{common:Translate Artikul}">
+                                <EntryCell Keyboard="Numeric" Text="{Binding Artikul}" />
+                            </TableSection>
 
-                        <TableSection Title="{common:Translate NomenclatureKind}">
-                            <ViewCell>
-                                <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
-                                    <Picker
-                                        HorizontalOptions="FillAndExpand"
-                                        ItemsSource="{Binding NomenclatureKindsList}"
-                                        SelectedItem="{Binding BaseNomenclatureKind}" />
-                                </StackLayout>
-                            </ViewCell>
-                        </TableSection>
+                            <TableSection Title="{common:Translate BaseUnit}">
+                                <ViewCell>
+                                    <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                                        <Picker
+                                            HorizontalOptions="FillAndExpand"
+                                            ItemsSource="{Binding BaseUnitsList}"
+                                            SelectedItem="{Binding BaseUnit}" />
+                                    </StackLayout>
+                                </ViewCell>
+                            </TableSection>
 
-                    </TableRoot>
-                </TableView.Root>
-            </TableView>
+                            <TableSection Title="{common:Translate NomenclatureKind}">
+                                <ViewCell>
+                                    <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                                        <Picker
+                                            HorizontalOptions="FillAndExpand"
+                                            ItemsSource="{Binding NomenclatureKindsList}"
+                                            SelectedItem="{Binding BaseNomenclatureKind}" />
+                                    </StackLayout>
+                                </ViewCell>
+                            </TableSection>
 
-            <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                        </TableRoot>
+                    </TableView.Root>
+                </TableView>
 
-                <Button
-                    Command="{Binding CancelButton}"
-                    HorizontalOptions="FillAndExpand"
-                    Text="{common:Translate Cancel}" />
+                <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
 
-                <Button
-                    Command="{Binding SaveButton}"
-                    HorizontalOptions="FillAndExpand"
-                    Text="{common:Translate Save}" />
+                    <Button
+                        Command="{Binding CancelButton}"
+                        HorizontalOptions="FillAndExpand"
+                        Text="{common:Translate Cancel}" />
+
+                    <Button
+                        Command="{Binding SaveButton}"
+                        HorizontalOptions="FillAndExpand"
+                        Text="{common:Translate Save}" />
+
+                </StackLayout>
 
             </StackLayout>
 
-        </StackLayout>
+        </ContentPage>
+
+        <prices:PricesPage x:Name="PricesPage" />
+
+        <barcodes:BarcodesPage x:Name="BarcodesPage" />
+
+    </TabbedPage.Children>
 
 
-    </ContentPage.Content>
 
-</ContentPage>
+
+</TabbedPage>

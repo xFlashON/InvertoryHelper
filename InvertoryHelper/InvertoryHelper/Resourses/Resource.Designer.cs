@@ -107,6 +107,15 @@ namespace InvertoryHelper.Resourses {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Добавить цену.
+        /// </summary>
+        internal static string AddPrice {
+            get {
+                return ResourceManager.GetString("AddPrice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Добавить единицу измерения.
         /// </summary>
         internal static string AddUnit {
@@ -206,6 +215,15 @@ namespace InvertoryHelper.Resourses {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Не указана цена.
+        /// </summary>
+        internal static string CheckPrice {
+            get {
+                return ResourceManager.GetString("CheckPrice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Очистить.
         /// </summary>
         internal static string Clear {
@@ -251,6 +269,15 @@ namespace InvertoryHelper.Resourses {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Для номенклатуры цена уже задана.
+        /// </summary>
+        internal static string DuplicatePrice {
+            get {
+                return ResourceManager.GetString("DuplicatePrice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Редактировать.
         /// </summary>
         internal static string Edit {
@@ -292,6 +319,15 @@ namespace InvertoryHelper.Resourses {
         internal static string EditNomenclatureKind {
             get {
                 return ResourceManager.GetString("EditNomenclatureKind", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Изменить цену.
+        /// </summary>
+        internal static string EditPrice {
+            get {
+                return ResourceManager.GetString("EditPrice", resourceCulture);
             }
         }
         
@@ -386,11 +422,29 @@ namespace InvertoryHelper.Resourses {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Цена.
+        /// </summary>
+        internal static string Price {
+            get {
+                return ResourceManager.GetString("Price", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Проверка цен.
         /// </summary>
         internal static string PriceChecking {
             get {
                 return ResourceManager.GetString("PriceChecking", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Цены.
+        /// </summary>
+        internal static string Prices {
+            get {
+                return ResourceManager.GetString("Prices", resourceCulture);
             }
         }
         

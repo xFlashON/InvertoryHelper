@@ -1,10 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-
 <ContentPage
-    x:Class="InvertoryHelper.View.Barcodes.BarcodeItemPage"
+    x:Class="InvertoryHelper.View.Prices.PriceItemPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:b="clr-namespace:Xamarin.Forms.BehaviorsPack;assembly=Xamarin.Forms.BehaviorsPack"
+    xmlns:behaviorsPack="clr-namespace:Xamarin.Forms.BehaviorsPack;assembly=Xamarin.Forms.BehaviorsPack"
     xmlns:common="clr-namespace:InvertoryHelper.Common;assembly=InvertoryHelper"
     Title="{Binding Title}">
 
@@ -20,9 +19,7 @@
 
                     <TableRoot>
 
-                        <TableSection Title="{common:Translate Barcode}">
-                            <EntryCell Keyboard="Numeric" Text="{Binding Code}" />
-                        </TableSection>
+                        
 
                         <TableSection Title="{common:Translate Nomenclature}">
                             <ViewCell>
@@ -33,7 +30,7 @@
                                         HorizontalTextAlignment="Start"
                                         Text="{Binding Nomenclature.Name, Mode=OneWay}">
                                         <Entry.Behaviors>
-                                            <b:EventToCommandBehavior
+                                            <behaviorsPack:EventToCommandBehavior
                                                 Command="{Binding ValidateNomenclature}"
                                                 CommandParameter="{x:Reference NomenclatureEntry}"
                                                 EventName="Completed" />
@@ -53,6 +50,10 @@
                                         SelectedItem="{Binding Characteristic}" />
                                 </StackLayout>
                             </ViewCell>
+                        </TableSection>
+
+                        <TableSection Title="{common:Translate Price}">
+                            <EntryCell Keyboard="Numeric" Text="{Binding Price}" />
                         </TableSection>
 
                     </TableRoot>
