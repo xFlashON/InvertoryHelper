@@ -100,6 +100,18 @@ namespace InvertoryHelper.ViewModel.Prices
                 return;
             }
 
+            if (_price != null)
+            {
+                var uid = await DataRepository.Instance.SavePriceAsync(_price);
+
+                if (uid == Guid.Empty)
+                {
+                    MessagingCenter.Send("Error! Price is not saved!", "DisplayAlert");
+                    return;
+                }
+
+            }
+
             MessagingCenter.Send(_price,"SavePrice");
             await Navigation?.PopAsync();
         });

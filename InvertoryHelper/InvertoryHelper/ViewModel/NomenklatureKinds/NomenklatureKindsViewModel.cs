@@ -69,18 +69,11 @@ namespace InvertoryHelper.ViewModel.NomenclatureKinds
                     await Navigation.PushAsync(new NomenclatureKindItemPage(Navigation, SelectedNomenclatureKind));
         }
 
-        private async void SaveNomenclatureKind(NomenclaturesKind nomenclaturesKind)
+        private void SaveNomenclatureKind(NomenclaturesKind nomenclaturesKind)
         {
-            if (nomenclaturesKind != null)
+            if (!IsBusy)
             {
-                var uid = await DataRepository.Instance.SaveNomenclatureKindAsync(nomenclaturesKind);
-
-                if (uid == Guid.Empty)
-                {
-                    MessagingCenter.Send("Error! Nomenclature kind is not saved!", "DisplayAlert");
-                    return;
-                }
-
+                
                 LoadNomenclatureKindsList();
             }
         }

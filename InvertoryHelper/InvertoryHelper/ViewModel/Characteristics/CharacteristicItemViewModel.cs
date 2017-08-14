@@ -3,6 +3,7 @@ using InvertoryHelper.Common;
 using InvertoryHelper.Model;
 using InvertoryHelper.Resourses;
 using Xamarin.Forms;
+using System;
 
 namespace InvertoryHelper.ViewModel.Characteristics
 {
@@ -59,6 +60,17 @@ namespace InvertoryHelper.ViewModel.Characteristics
             {
                 MessagingCenter.Send(Resource.CheckNomenclatureKind, "DisplayAlert");
                 return;
+            }
+
+            if (characteristic != null)
+            {
+                var uid = await DataRepository.Instance.SaveCharacteristicAsync(characteristic);
+
+                if (uid == Guid.Empty)
+                {
+                    MessagingCenter.Send("Error! Characteristic is not saved!", "DisplayAlert");
+                    return;
+                }
             }
 
             MessagingCenter.Send(characteristic, "SaveCharacteristic");

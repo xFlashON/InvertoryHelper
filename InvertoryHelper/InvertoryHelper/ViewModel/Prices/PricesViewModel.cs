@@ -124,17 +124,9 @@ namespace InvertoryHelper.ViewModel.Prices
 
         private async void SavePrice(Price price)
         {
-            if (price != null)
+            if (!IsBusy)
             {
-                var uid = await DataRepository.Instance.SavePriceAsync(price);
-
-                if (uid == Guid.Empty)
-                {
-                    MessagingCenter.Send("Error! Price is not saved!", "DisplayAlert");
-                    return;
-                }
-
-                LoadPricesList();
+               LoadPricesList();
             }
 
         }

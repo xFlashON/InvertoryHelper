@@ -3,6 +3,7 @@ using InvertoryHelper.Common;
 using InvertoryHelper.Model;
 using InvertoryHelper.Resourses;
 using Xamarin.Forms;
+using System;
 
 namespace InvertoryHelper.ViewModel.Nomenclatures
 {
@@ -80,8 +81,21 @@ namespace InvertoryHelper.ViewModel.Nomenclatures
 
         public Command SaveButton => new Command(async () =>
         {
+            if (nomenclature != null)
+            {
+                var uid = await DataRepository.Instance.SaveNomenclatureAsync(nomenclature);
+
+                if (uid == Guid.Empty)
+                {
+                    MessagingCenter.Send("Error! Nomenclature is not saved!", "DisplayAlert");
+                    return;
+                }
+
+            }
+
             MessagingCenter.Send(nomenclature, "SaveNomenclature");
             await Navigation.PopAsync();
+
         });
 
         public Command CancelButton => new Command(async () => { await Navigation.PopAsync(); });

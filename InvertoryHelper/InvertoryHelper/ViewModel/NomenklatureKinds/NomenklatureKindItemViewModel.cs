@@ -1,6 +1,7 @@
 ﻿using InvertoryHelper.Common;
 using InvertoryHelper.Model;
 using InvertoryHelper.Resourses;
+using System;
 using Xamarin.Forms;
 
 namespace InvertoryHelper.ViewModel.NomenclatureKinds
@@ -38,6 +39,18 @@ namespace InvertoryHelper.ViewModel.NomenclatureKinds
 
         public Command SaveButton => new Command(async () =>
         {
+            if (nomenclatureKind != null)
+            {
+                var uid = await DataRepository.Instance.SaveNomenclatureKindAsync(nomenclatureKind);
+
+                if (uid == Guid.Empty)
+                {
+                    MessagingCenter.Send("Error! Nomenclature kind is not saved!", "DisplayAlert");
+                    return;
+                }
+
+            }
+
             MessagingCenter.Send(nomenclatureKind, "SaveNomenclaturesKind");
             await Navigation?.PopAsync();
         });

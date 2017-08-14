@@ -71,16 +71,8 @@ namespace InvertoryHelper.ViewModel.Units
 
         private async void SaveUnit(Unit unit)
         {
-            if (unit != null)
+            if (!IsBusy)
             {
-                var uid = await DataRepository.Instance.SaveUnitAsync(unit);
-
-                if (uid == Guid.Empty)
-                {
-                    MessagingCenter.Send("Error! Unit is not saved!", "DisplayAlert");
-                    return;
-                }
-
                 LoadUnitsList();
             }
         }

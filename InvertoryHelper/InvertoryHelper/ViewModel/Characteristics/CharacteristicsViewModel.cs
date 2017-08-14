@@ -90,18 +90,10 @@ namespace InvertoryHelper.ViewModel.Characteristics
                     await Navigation.PushAsync(new CharacteristicItemPage(Navigation, SelectedCharacteristic));
         }
 
-        private async void SaveCharacteristic(Characteristic characteristic)
+        private void SaveCharacteristic(Characteristic characteristic)
         {
-            if (characteristic != null)
+            if (!IsBusy)
             {
-                var uid = await DataRepository.Instance.SaveCharacteristicAsync(characteristic);
-
-                if (uid == Guid.Empty)
-                {
-                    MessagingCenter.Send("Error! Characteristic is not saved!", "DisplayAlert");
-                    return;
-                }
-
                 LoadCharacteristicsList();
             }
         }

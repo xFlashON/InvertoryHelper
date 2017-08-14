@@ -167,18 +167,10 @@ namespace InvertoryHelper.ViewModel.Nomenclatures
                 await Navigation?.PushAsync(new NomenclatureItemPage(Navigation, SelectedNomenclature));
         }
 
-        private async void SaveNomenclature(Nomenclature nomenclature)
+        private void SaveNomenclature(Nomenclature nomenclature)
         {
-            if (nomenclature != null)
+            if (!IsBusy)
             {
-                var uid = await DataRepository.Instance.SaveNomenclatureAsync(nomenclature);
-
-                if (uid == Guid.Empty)
-                {
-                    MessagingCenter.Send("Error! Nomenclature is not saved!", "DisplayAlert");
-                    return;
-                }
-
                 SearchNomenclatures();
             }
         }

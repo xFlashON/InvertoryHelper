@@ -115,18 +115,10 @@ namespace InvertoryHelper.ViewModel.Barcodes
                     await Navigation.PushAsync(new BarcodeItemPage(Navigation, SelectedBarcode));
         }
 
-        private async void SaveBarcode(Barcode barcode)
+        private void SaveBarcode(Barcode barcode)
         {
-            if (barcode != null)
+            if (!IsBusy)
             {
-                var uid = await DataRepository.Instance.SaveBarcodeAsync(barcode);
-
-                if (uid == Guid.Empty)
-                {
-                    MessagingCenter.Send("Error! Barcode is not saved!", "DisplayAlert");
-                    return;
-                }
-
                 LoadBarcodesList();
             }
         }

@@ -97,6 +97,18 @@ namespace InvertoryHelper.ViewModel.Barcodes
                 return;
             }
 
+            if (barcode != null)
+            {
+                var uid = await DataRepository.Instance.SaveBarcodeAsync(barcode);
+
+                if (uid == Guid.Empty)
+                {
+                    MessagingCenter.Send("Error! Barcode is not saved!", "DisplayAlert");
+                    return;
+                }
+
+            }
+
             MessagingCenter.Send(barcode, "SaveBarcode");
             await Navigation?.PopAsync();
         });
