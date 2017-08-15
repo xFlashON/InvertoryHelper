@@ -3,6 +3,7 @@ using Android.Content.PM;
 using Android.OS;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
+using ZXing.Mobile;
 
 namespace InvertoryHelper.Droid
 {
@@ -19,6 +20,8 @@ namespace InvertoryHelper.Droid
 
             Forms.Init(this, bundle);
             LoadApplication(new App());
+
+            MobileBarcodeScanner.Initialize(Application);
         }
     }
 }

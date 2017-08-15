@@ -476,6 +476,15 @@ namespace InvertoryHelper.Resourses {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ошибка сканирования.
+        /// </summary>
+        internal static string ScanningError {
+            get {
+                return ResourceManager.GetString("ScanningError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Поиск.
         /// </summary>
         internal static string Search {

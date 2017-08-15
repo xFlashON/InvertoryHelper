@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="InvertoryHelper.View.PriceCheckingPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:common="clr-namespace:InvertoryHelper.Common"
+    Title="{common:Translate PriceChecking}">
+
+    <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <StackLayout
+            Grid.Row="0"
+            HorizontalOptions="FillAndExpand"
+            Orientation="Horizontal">
+            <Editor
+                FontSize="Large"
+                HorizontalOptions="FillAndExpand"
+                Text="{Binding Barcode}"
+                VerticalOptions="Center" />
+            <Button
+                Command="{Binding ScanCmd}"
+                Text="{common:Translate Scan}"
+                VerticalOptions="Center" />
+        </StackLayout>
+
+        <StackLayout Grid.Row="1" Orientation="Vertical">
+            <Label FontSize="Medium" Text="{common:Translate Nomenclature}" />
+            <Label
+                FontSize="Large"
+                HorizontalOptions="FillAndExpand"
+                Text="{Binding Nomenclature.Name}" />
+            <Label
+                FontSize="Large"
+                HorizontalOptions="FillAndExpand"
+                Text="{Binding Characteristic.Name}" />
+        </StackLayout>
+
+        <StackLayout Grid.Row="2" Orientation="Horizontal">
+            <Label
+                FontSize="Large"
+                HorizontalOptions="FillAndExpand"
+                Text="{common:Translate Price}" />
+            <Label
+                FontSize="Large"
+                HorizontalOptions="FillAndExpand"
+                Text="{Binding Price}" />
+        </StackLayout>
+
+    </Grid>
+
+</ContentPage>
