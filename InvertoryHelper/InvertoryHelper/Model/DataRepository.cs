@@ -30,7 +30,7 @@ namespace InvertoryHelper.Model
 
         private DataRepository()
         {
-            var path = Path.Combine(DependencyService.Get<ISpecPlatform>().GetDatabasePath(), "InvertoryHelperDB");
+            var path = Path.Combine(DependencyService.Get<IOnPlatform>().GetDatabasePath(), "InvertoryHelperDB");
 
             switch (Device.RuntimePlatform)
             {

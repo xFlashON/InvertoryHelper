@@ -255,6 +255,9 @@
   <data name="Save" xml:space="preserve">
     <value>Сохранить</value>
   </data>
+  <data name="ScaningBarcode" xml:space="preserve">
+    <value>Сканирование штрихкода</value>
+  </data>
   <data name="ScanningError" xml:space="preserve">
     <value>Ошибка сканирования</value>
   </data>

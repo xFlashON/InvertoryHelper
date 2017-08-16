@@ -22,7 +22,7 @@
             <Editor
                 FontSize="Large"
                 HorizontalOptions="FillAndExpand"
-                Text="{Binding Barcode}"
+                Text="{Binding Code}"
                 VerticalOptions="Center" />
             <Button
                 Command="{Binding ScanCmd}"

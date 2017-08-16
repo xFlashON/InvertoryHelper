@@ -476,6 +476,15 @@ namespace InvertoryHelper.Resourses {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Сканирование штрихкода.
+        /// </summary>
+        internal static string ScaningBarcode {
+            get {
+                return ResourceManager.GetString("ScaningBarcode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ошибка сканирования.
         /// </summary>
         internal static string ScanningError {

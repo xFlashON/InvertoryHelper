@@ -53,7 +53,7 @@
     <Compile Include="Model\Characteristic.cs" />
     <Compile Include="Model\DataRepository.cs" />
     <Compile Include="Model\IDataRepository.cs" />
-    <Compile Include="Common\ISpecPlatform.cs" />
+    <Compile Include="Common\IOnPlatform.cs" />
     <Compile Include="ViewModel\Barcodes\BarcodeItemViewModel.cs" />
     <Compile Include="ViewModel\Barcodes\BarcodeModel.cs" />
     <Compile Include="ViewModel\Barcodes\BarcodesViewModel.cs" />

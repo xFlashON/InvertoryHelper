@@ -26,7 +26,7 @@ namespace InvertoryHelper.View.Nomenclatures
 
         private void NomenclaturesPage_SizeChanged(object sender, EventArgs e)
         {
-            if (DependencyService.Get<ISpecPlatform>().IsPortreitScreenOreientation())
+            if (DependencyService.Get<IOnPlatform>().IsPortreitScreenOreientation())
                 FilterLayout.Orientation = StackOrientation.Vertical;
             else
                 FilterLayout.Orientation = StackOrientation.Horizontal;

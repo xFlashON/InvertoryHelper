@@ -17,6 +17,7 @@ namespace InvertoryHelper.ViewModel
     {
         private Nomenclature _nomenclature;
         private Characteristic _characteristic;
+        private string _code;
         private decimal _price;
         private Command _scanCommand;
 
@@ -42,6 +43,16 @@ namespace InvertoryHelper.ViewModel
             }
         }
 
+        public string Code
+        {
+            get => _code;
+            set
+            {
+                _code = value;
+                OnPropertyChanged("Code");
+            }
+        }
+
         public decimal Price
         {
             get => _price;
@@ -56,28 +67,59 @@ namespace InvertoryHelper.ViewModel
 
         private async void Scan()
         {
-
             try
             {
-                var scanner = new ZXing.Mobile.MobileBarcodeScanner();
-
-                var result = await scanner.Scan();
+                string result = await DependencyService.Get<IOnPlatform>()
+                    .ScanBarcode(Resourses.Resource.ScaningBarcode);
 
                 if (result != null)
-                    BarcodeHandling(result.Text);
+                    BarcodeHandling(result);
             }
             catch (Exception ex)
             {
-                Log.Error("CameraError",ex.Message);
+                Log.Error("Error", ex.Message);
                 MessagingCenter.Send(Resourses.Resource.ScanningError, "DisplayAlert");
             }
 
         }
 
-        private void BarcodeHandling(string barcode)
+        private async void BarcodeHandling(string barcode)
         {
-            MessagingCenter.Send(barcode, "DisplayAlert");
-        }
+            if (barcode == string.Empty)
+                return;
 
+            Code = barcode;
+
+
+            
+            var barcodesList = await DataRepository.Instance.GetBarcodesAsync(new Func<Barcode, bool>((b) => b.Code == barcode));
+
+            var resultBarcode = barcodesList.FirstOrDefault();
+
+            if (resultBarcode == null)
+            {
+                Nomenclature = null;
+                Characteristic = null;
+                Price = 0;
+                return;
+            }
+
+            DependencyService.Get<IOnPlatform>().PlaySound("sucsess.wav");
+
+                Nomenclature = resultBarcode.Nomenclature;
+                Characteristic = resultBarcode.Characteristic;
+
+            var priceList =
+                await DataRepository.Instance.GetPricesAsync(
+                    new Func<Price, bool>((f) => !f.Nomenclature.Equals(Nomenclature) || (Characteristic == null || f.Characteristic == null) || f.Characteristic.Equals(Characteristic)));
+
+            var resultPrice = priceList.FirstOrDefault();
+
+            Price = resultPrice?.price ?? 0;
+
+
+
+        }
+        
     }
 }
