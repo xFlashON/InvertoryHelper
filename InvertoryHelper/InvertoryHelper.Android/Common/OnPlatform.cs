@@ -67,9 +67,16 @@ namespace InvertoryHelper.Droid.Common
 
                 var player = new Android.Media.MediaPlayer();
 
-                player.SetDataSource(Android.App.Application.Context.Assets.OpenFd("sucsess.wav"));
+                var fd = Android.App.Application.Context.Assets.OpenFd("sucsess.wav");
 
-                player.Start();
+                player.SetDataSource(fd.FileDescriptor, fd.StartOffset, fd.Length);
+
+                player.Prepare();
+
+                player.Prepared += (s, e) =>
+                {
+                    player.Start();
+                };
 
             }
             catch (Exception ex)
