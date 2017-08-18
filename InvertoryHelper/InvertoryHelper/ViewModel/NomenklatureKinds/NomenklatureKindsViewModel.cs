@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using InvertoryHelper.Common;
 using InvertoryHelper.Model;
 using InvertoryHelper.Resourses;
@@ -72,10 +71,7 @@ namespace InvertoryHelper.ViewModel.NomenclatureKinds
         private void SaveNomenclatureKind(NomenclaturesKind nomenclaturesKind)
         {
             if (!IsBusy)
-            {
-                
                 LoadNomenclatureKindsList();
-            }
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using InvertoryHelper.Common;
 using InvertoryHelper.Model;
 using InvertoryHelper.Resourses;
@@ -93,9 +92,7 @@ namespace InvertoryHelper.ViewModel.Characteristics
         private void SaveCharacteristic(Characteristic characteristic)
         {
             if (!IsBusy)
-            {
                 LoadCharacteristicsList();
-            }
         }
 
         private async void SearchCommand()

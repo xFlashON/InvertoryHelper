@@ -21,7 +21,8 @@ namespace InvertoryHelper.Common
 
             var nomenclature = DataRepository.Instance
                 .GetNomenclaturesAsync(n => n.Name.StartsWith(entry.Text, StringComparison.CurrentCultureIgnoreCase) ||
-                                            n.Artikul != null && n.Artikul.Contains(entry.Text)).Result
+                                            n.Artikul != null && n.Artikul.Contains(entry.Text))
+                .Result
                 .FirstOrDefault();
 
             if (nomenclature != null)

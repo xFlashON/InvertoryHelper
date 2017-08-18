@@ -1,4 +1,5 @@
-﻿using InvertoryHelper.ViewModel.Nomenclatures;
+﻿using System;
+using InvertoryHelper.ViewModel.Nomenclatures;
 using InvertoryHelper.ViewModel.Prices;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -21,10 +22,9 @@ namespace InvertoryHelper.View.Nomenclatures
             CurrentPageChanged += CurrentPageChangedFoo;
         }
 
-        private void CurrentPageChangedFoo(object sender, System.EventArgs e)
+        private void CurrentPageChangedFoo(object sender, EventArgs e)
         {
-
-            var currentPage = ((TabbedPage)sender).CurrentPage;
+            var currentPage = ((TabbedPage) sender).CurrentPage;
 
             if (currentPage == PricesPage)
             {
@@ -33,9 +33,7 @@ namespace InvertoryHelper.View.Nomenclatures
                 vm.SearchText = ((NomenclatureItemViewModel) BindingContext).Name;
 
                 vm.SearchCommand.Execute(null);
-
             }
-
         }
     }
 }

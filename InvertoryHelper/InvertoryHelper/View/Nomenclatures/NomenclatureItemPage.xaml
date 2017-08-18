@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 
 <TabbedPage
     x:Class="InvertoryHelper.View.Nomenclatures.NomenclatureItemPage"
@@ -81,8 +81,6 @@
         <barcodes:BarcodesPage x:Name="BarcodesPage" />
 
     </TabbedPage.Children>
-
-
 
 
 </TabbedPage>

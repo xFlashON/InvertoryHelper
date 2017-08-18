@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using InvertoryHelper.Common;
 using InvertoryHelper.Model;
 using InvertoryHelper.Resourses;
@@ -72,7 +71,6 @@ namespace InvertoryHelper.ViewModel.Barcodes
                 Title = Resource.Barcodes;
 
                 IsBusy = false;
-
             }
             else
             {
@@ -84,7 +82,8 @@ namespace InvertoryHelper.ViewModel.Barcodes
 
                 var pricesList = await DataRepository.Instance.GetBarcodesAsync(P =>
                 {
-                    if (P.Nomenclature.Name.ToUpper().Contains(SearchText.ToUpper()) || P.Nomenclature.Artikul != null &&
+                    if (P.Nomenclature.Name.ToUpper().Contains(SearchText.ToUpper()) ||
+                        P.Nomenclature.Artikul != null &&
                         P.Nomenclature.Artikul.ToUpper().Contains(SearchText.ToUpper()))
                         return true;
                     return false;
@@ -99,7 +98,6 @@ namespace InvertoryHelper.ViewModel.Barcodes
 
                 IsBusy = false;
             }
-
         }
 
         private async void AddBarcode()
@@ -118,9 +116,7 @@ namespace InvertoryHelper.ViewModel.Barcodes
         private void SaveBarcode(Barcode barcode)
         {
             if (!IsBusy)
-            {
                 LoadBarcodesList();
-            }
         }
     }
 }

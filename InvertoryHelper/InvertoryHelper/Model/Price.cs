@@ -29,7 +29,7 @@ namespace InvertoryHelper.Model
         public override bool Equals(object obj)
         {
             if (obj is Price)
-                return ((Price)obj).Uid == Uid;
+                return ((Price) obj).Uid == Uid;
 
             return false;
         }

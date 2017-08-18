@@ -6,15 +6,11 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:common="clr-namespace:InvertoryHelper.Common;assembly=InvertoryHelper"
     xmlns:local="clr-namespace:InvertoryHelper.View"
-    Title="{common:Translate MainTitle}">
+    Title="{common:Translate MainTitle}"
+    BackgroundColor="{StaticResource FormBackground}">
 
     <ContentPage.Resources>
-        <ResourceDictionary>
-            <Style TargetType="Button">
-                <Setter Property="BorderRadius" Value="10" />
-                <Setter Property="BackgroundColor" Value="DarkTurquoise" />
-            </Style>
-        </ResourceDictionary>
+        <ResourceDictionary />
 
     </ContentPage.Resources>
 

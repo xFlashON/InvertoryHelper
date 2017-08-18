@@ -1,9 +1,9 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using InvertoryHelper.Common;
 using InvertoryHelper.Model;
 using InvertoryHelper.Resourses;
 using Xamarin.Forms;
-using System;
 
 namespace InvertoryHelper.ViewModel.Characteristics
 {

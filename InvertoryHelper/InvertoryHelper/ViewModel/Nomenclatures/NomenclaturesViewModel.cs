@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using InvertoryHelper.Common;
@@ -105,7 +104,8 @@ namespace InvertoryHelper.ViewModel.Nomenclatures
 
                 if (SelectedNomenclstureKind != null)
                     nomenclaturesList = nomenclaturesList
-                        .Where(N => SelectedNomenclstureKind.Equals(N.NomenclaturesKind)).ToList();
+                        .Where(N => SelectedNomenclstureKind.Equals(N.NomenclaturesKind))
+                        .ToList();
 
                 NomenclaturesList =
                     new ObservableCollection<NomenclatureModel>(nomenclaturesList.Select(N => new NomenclatureModel(N))
@@ -142,11 +142,13 @@ namespace InvertoryHelper.ViewModel.Nomenclatures
 
                     if (SelectedNomenclstureKind != null)
                         nomenclaturesList = nomenclaturesList
-                            .Where(N => SelectedNomenclstureKind.Equals(N.NomenclaturesKind)).ToList();
+                            .Where(N => SelectedNomenclstureKind.Equals(N.NomenclaturesKind))
+                            .ToList();
 
                     NomenclaturesList =
                         new ObservableCollection<NomenclatureModel>(nomenclaturesList
-                            .Select(N => new NomenclatureModel(N)).ToList());
+                            .Select(N => new NomenclatureModel(N))
+                            .ToList());
 
                     OnPropertyChanged("NomenclaturesList");
 
@@ -170,9 +172,7 @@ namespace InvertoryHelper.ViewModel.Nomenclatures
         private void SaveNomenclature(Nomenclature nomenclature)
         {
             if (!IsBusy)
-            {
                 SearchNomenclatures();
-            }
         }
 
         private async void LoadNomenclatureKindsList()

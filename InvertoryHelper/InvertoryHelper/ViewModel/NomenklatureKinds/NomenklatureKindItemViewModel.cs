@@ -1,7 +1,7 @@
-﻿using InvertoryHelper.Common;
+﻿using System;
+using InvertoryHelper.Common;
 using InvertoryHelper.Model;
 using InvertoryHelper.Resourses;
-using System;
 using Xamarin.Forms;
 
 namespace InvertoryHelper.ViewModel.NomenclatureKinds
@@ -48,7 +48,6 @@ namespace InvertoryHelper.ViewModel.NomenclatureKinds
                     MessagingCenter.Send("Error! Nomenclature kind is not saved!", "DisplayAlert");
                     return;
                 }
-
             }
 
             MessagingCenter.Send(nomenclatureKind, "SaveNomenclaturesKind");

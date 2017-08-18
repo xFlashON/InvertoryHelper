@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Android.Content;
+using Android.Media;
 using Android.Runtime;
 using Android.Util;
 using Android.Views;
 using InvertoryHelper.Common;
 using InvertoryHelper.Droid.Common;
-
-using ZXing.Mobile;
-using Point = Android.Graphics.Point;
-using Android.App;
 using Xamarin.Forms;
-using Android.Content;
+using ZXing.Mobile;
+using Application = Android.App.Application;
+using Point = Android.Graphics.Point;
 
 [assembly: Dependency(typeof(OnPlatform))]
 
@@ -25,7 +25,7 @@ namespace InvertoryHelper.Droid.Common
 
         public bool IsPortreitScreenOreientation()
         {
-            var windowManager = Android.App.Application.Context.GetSystemService(Context.WindowService).JavaCast<IWindowManager>();
+            var windowManager = Application.Context.GetSystemService(Context.WindowService).JavaCast<IWindowManager>();
 
             var sizePoint = new Point();
 
@@ -38,7 +38,6 @@ namespace InvertoryHelper.Droid.Common
 
         public async Task<string> ScanBarcode(string title)
         {
-
             try
             {
                 var scanner = new MobileBarcodeScanner();
@@ -49,7 +48,6 @@ namespace InvertoryHelper.Droid.Common
 
                 if (result != null)
                     return result.Text;
-
             }
             catch (Exception ex)
             {
@@ -61,29 +59,22 @@ namespace InvertoryHelper.Droid.Common
 
         public void PlaySound(string fileName)
         {
-
             try
             {
+                var player = new MediaPlayer();
 
-                var player = new Android.Media.MediaPlayer();
-
-                var fd = Android.App.Application.Context.Assets.OpenFd("sucsess.wav");
+                var fd = Application.Context.Assets.OpenFd(fileName);
 
                 player.SetDataSource(fd.FileDescriptor, fd.StartOffset, fd.Length);
 
                 player.Prepare();
 
-                player.Prepared += (s, e) =>
-                {
-                    player.Start();
-                };
-
+                player.Prepared += (s, e) => { player.Start(); };
             }
             catch (Exception ex)
             {
                 Log.Error("Audio", ex.Message);
             }
-
         }
     }
 }

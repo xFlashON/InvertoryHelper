@@ -89,7 +89,8 @@ namespace InvertoryHelper.ViewModel.Barcodes
             }
 
             var dublicates = DataRepository.Instance
-                .GetBarcodesAsync(b => b.Code == Code && !b.Equals(barcode)).Result.Count;
+                .GetBarcodesAsync(b => b.Code == Code && !b.Equals(barcode))
+                .Result.Count;
 
             if (dublicates > 0)
             {
@@ -106,7 +107,6 @@ namespace InvertoryHelper.ViewModel.Barcodes
                     MessagingCenter.Send("Error! Barcode is not saved!", "DisplayAlert");
                     return;
                 }
-
             }
 
             MessagingCenter.Send(barcode, "SaveBarcode");
@@ -131,7 +131,8 @@ namespace InvertoryHelper.ViewModel.Barcodes
                 DataRepository.Instance
                     .GetNomenclaturesAsync(
                         n => n.Name.StartsWith(entry.Text, StringComparison.CurrentCultureIgnoreCase) ||
-                             n.Artikul != null && n.Artikul.Contains(entry.Text)).Result.FirstOrDefault();
+                             n.Artikul != null && n.Artikul.Contains(entry.Text))
+                    .Result.FirstOrDefault();
         });
 
         private async void LoadCharacteristicsList()

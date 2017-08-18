@@ -1,18 +1,15 @@
-﻿using InvertoryHelper.Common;
-using InvertoryHelper.Model;
-using InvertoryHelper.Resourses;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using InvertoryHelper.Common;
+using InvertoryHelper.Model;
+using InvertoryHelper.Resourses;
 using InvertoryHelper.View.Nomenclatures;
 using Xamarin.Forms;
 
 namespace InvertoryHelper.ViewModel.Prices
 {
-    class PriceItemViewModel : BaseViewModel
+    internal class PriceItemViewModel : BaseViewModel
     {
         private readonly Price _price;
         public INavigation Navigation;
@@ -92,7 +89,9 @@ namespace InvertoryHelper.ViewModel.Prices
             //}
 
             var dublicates = DataRepository.Instance
-                .GetPricesAsync(p => p.Nomenclature.Equals(Nomenclature) && (p.Characteristic!=null &&  p.Characteristic.Equals(Characteristic)) && !p.Equals(_price)).Result.Count;
+                .GetPricesAsync(p => p.Nomenclature.Equals(Nomenclature) && p.Characteristic != null &&
+                                     p.Characteristic.Equals(Characteristic) && !p.Equals(_price))
+                .Result.Count;
 
             if (dublicates > 0)
             {
@@ -109,10 +108,9 @@ namespace InvertoryHelper.ViewModel.Prices
                     MessagingCenter.Send("Error! Price is not saved!", "DisplayAlert");
                     return;
                 }
-
             }
 
-            MessagingCenter.Send(_price,"SavePrice");
+            MessagingCenter.Send(_price, "SavePrice");
             await Navigation?.PopAsync();
         });
 
@@ -134,7 +132,8 @@ namespace InvertoryHelper.ViewModel.Prices
                 DataRepository.Instance
                     .GetNomenclaturesAsync(
                         n => n.Name.StartsWith(entry.Text, StringComparison.CurrentCultureIgnoreCase) ||
-                             n.Artikul != null && n.Artikul.Contains(entry.Text)).Result.FirstOrDefault();
+                             n.Artikul != null && n.Artikul.Contains(entry.Text))
+                    .Result.FirstOrDefault();
         });
 
         private async void LoadCharacteristicsList()

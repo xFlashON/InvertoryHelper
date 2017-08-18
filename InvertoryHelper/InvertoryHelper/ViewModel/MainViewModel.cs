@@ -21,6 +21,7 @@ namespace InvertoryHelper.ViewModel
                 navigation.PushAsync(new SettingsPage());
         });
 
-        public ICommand PriceCheckingCmd { get => new Command(async () => await navigation.PushAsync(new PriceCheckingPage())); }
+        public ICommand PriceCheckingCmd => new Command(
+            async () => await navigation.PushAsync(new PriceCheckingPage()));
     }
 }

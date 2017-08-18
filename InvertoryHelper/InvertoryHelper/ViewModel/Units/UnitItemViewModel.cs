@@ -1,7 +1,7 @@
-﻿using InvertoryHelper.Common;
+﻿using System;
+using InvertoryHelper.Common;
 using InvertoryHelper.Model;
 using InvertoryHelper.Resourses;
-using System;
 using Xamarin.Forms;
 
 namespace InvertoryHelper.ViewModel.Units
@@ -39,7 +39,6 @@ namespace InvertoryHelper.ViewModel.Units
 
         public Command SaveButton => new Command(async () =>
         {
-
             if (unit != null)
             {
                 var uid = await DataRepository.Instance.SaveUnitAsync(unit);

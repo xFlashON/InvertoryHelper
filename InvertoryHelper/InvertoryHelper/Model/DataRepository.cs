@@ -309,6 +309,5 @@ namespace InvertoryHelper.Model
                 }
             }
         }
-
     }
 }

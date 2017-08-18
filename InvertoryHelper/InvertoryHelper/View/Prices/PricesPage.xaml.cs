@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using InvertoryHelper.Model;
-using InvertoryHelper.ViewModel.Prices;
+﻿using InvertoryHelper.ViewModel.Prices;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -22,8 +16,6 @@ namespace InvertoryHelper.View.Prices
             vm.Navigation = Navigation;
 
             BindingContext = vm;
-
         }
-
     }
 }

@@ -1,23 +1,18 @@
-﻿using InvertoryHelper.Common;
-using InvertoryHelper.Model;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Android.Util;
-using Java.IO;
+using InvertoryHelper.Common;
+using InvertoryHelper.Model;
+using InvertoryHelper.Resourses;
 using Xamarin.Forms;
-using ZXing;
-using ZXing.Mobile;
 
 namespace InvertoryHelper.ViewModel
 {
-    public class PriceCheckingViewModel: BaseViewModel
+    public class PriceCheckingViewModel : BaseViewModel
     {
-        private Nomenclature _nomenclature;
         private Characteristic _characteristic;
         private string _code;
+        private Nomenclature _nomenclature;
         private decimal _price;
         private Command _scanCommand;
 
@@ -69,8 +64,8 @@ namespace InvertoryHelper.ViewModel
         {
             try
             {
-                string result = await DependencyService.Get<IOnPlatform>()
-                    .ScanBarcode(Resourses.Resource.ScaningBarcode);
+                var result = await DependencyService.Get<IOnPlatform>()
+                    .ScanBarcode(Resource.ScaningBarcode);
 
                 if (result != null)
                     BarcodeHandling(result);
@@ -78,9 +73,8 @@ namespace InvertoryHelper.ViewModel
             catch (Exception ex)
             {
                 Log.Error("Error", ex.Message);
-                MessagingCenter.Send(Resourses.Resource.ScanningError, "DisplayAlert");
+                MessagingCenter.Send(Resource.ScanningError, "DisplayAlert");
             }
-
         }
 
         private async void BarcodeHandling(string barcode)
@@ -90,9 +84,7 @@ namespace InvertoryHelper.ViewModel
 
             Code = barcode;
 
-
-            
-            var barcodesList = await DataRepository.Instance.GetBarcodesAsync(new Func<Barcode, bool>((b) => b.Code == barcode));
+            var barcodesList = await DataRepository.Instance.GetBarcodesAsync(b => b.Code == barcode);
 
             var resultBarcode = barcodesList.FirstOrDefault();
 
@@ -101,25 +93,25 @@ namespace InvertoryHelper.ViewModel
                 Nomenclature = null;
                 Characteristic = null;
                 Price = 0;
+
+                DependencyService.Get<IOnPlatform>().PlaySound("err.wav");
+
                 return;
             }
 
             DependencyService.Get<IOnPlatform>().PlaySound("sucsess.wav");
 
-                Nomenclature = resultBarcode.Nomenclature;
-                Characteristic = resultBarcode.Characteristic;
+            Nomenclature = resultBarcode.Nomenclature;
+            Characteristic = resultBarcode.Characteristic;
 
             var priceList =
                 await DataRepository.Instance.GetPricesAsync(
-                    new Func<Price, bool>((f) => !f.Nomenclature.Equals(Nomenclature) || (Characteristic == null || f.Characteristic == null) || f.Characteristic.Equals(Characteristic)));
+                    f => !f.Nomenclature.Equals(Nomenclature) || Characteristic == null || f.Characteristic == null ||
+                         f.Characteristic.Equals(Characteristic));
 
             var resultPrice = priceList.FirstOrDefault();
 
             Price = resultPrice?.price ?? 0;
-
-
-
         }
-        
     }
 }

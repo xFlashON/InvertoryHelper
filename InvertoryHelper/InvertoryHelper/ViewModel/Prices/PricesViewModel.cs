@@ -1,10 +1,5 @@
-﻿using InvertoryHelper.Common;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
+using InvertoryHelper.Common;
 using InvertoryHelper.Model;
 using InvertoryHelper.Resourses;
 using InvertoryHelper.View.Prices;
@@ -26,7 +21,6 @@ namespace InvertoryHelper.ViewModel.Prices
             LoadPricesList();
 
             MessagingCenter.Subscribe<Price>(this, "SavePrice", SavePrice);
-
         }
 
         public ObservableCollection<PriceModel> PricesList { get; set; }
@@ -77,7 +71,6 @@ namespace InvertoryHelper.ViewModel.Prices
                 Title = Resource.Prices;
 
                 IsBusy = false;
-
             }
             else
             {
@@ -89,7 +82,8 @@ namespace InvertoryHelper.ViewModel.Prices
 
                 var pricesList = await DataRepository.Instance.GetPricesAsync(P =>
                 {
-                    if (P.Nomenclature.Name.ToUpper().Contains(SearchText.ToUpper()) || P.Nomenclature.Artikul != null &&
+                    if (P.Nomenclature.Name.ToUpper().Contains(SearchText.ToUpper()) ||
+                        P.Nomenclature.Artikul != null &&
                         P.Nomenclature.Artikul.ToUpper().Contains(SearchText.ToUpper()))
                         return true;
                     return false;
@@ -104,32 +98,24 @@ namespace InvertoryHelper.ViewModel.Prices
 
                 IsBusy = false;
             }
-
-
         }
 
         private async void AddPrice()
         {
-
             if (Navigation != null)
                 await Navigation.PushAsync(new PriceItemPage(Navigation));
         }
 
         private async void EditPrice()
         {
-
             if (SelectedPrice != null && Navigation != null)
-                    await Navigation.PushAsync(new PriceItemPage(Navigation, SelectedPrice));
+                await Navigation.PushAsync(new PriceItemPage(Navigation, SelectedPrice));
         }
 
         private async void SavePrice(Price price)
         {
             if (!IsBusy)
-            {
-               LoadPricesList();
-            }
-
+                LoadPricesList();
         }
-
     }
 }
