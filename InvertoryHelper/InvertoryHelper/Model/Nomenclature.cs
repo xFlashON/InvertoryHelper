@@ -38,13 +38,13 @@ namespace InvertoryHelper.Model
         [ForeignKey(typeof(Unit))]
         public Guid BaseUnitUid { get; set; }
 
-        [OneToOne]
+        [ManyToOne]
         public Unit BaseUnit { get; set; }
 
         [ForeignKey(typeof(NomenclaturesKind))]
         public Guid NomenclaturesKindUid { get; set; }
 
-        [OneToOne]
+        [ManyToOne]
         public NomenclaturesKind NomenclaturesKind { get; set; }
 
         public override bool Equals(object obj)

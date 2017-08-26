@@ -1,10 +1,11 @@
 ﻿using System;
 using System.ComponentModel;
+using InvertoryHelper.Common;
 using InvertoryHelper.Model;
 
 namespace InvertoryHelper.ViewModel.Characteristics
 {
-    public class CharacteristicModel : INotifyPropertyChanged
+    public class CharacteristicModel :ObservableObject
     {
         private string _name;
 
@@ -37,13 +38,6 @@ namespace InvertoryHelper.ViewModel.Characteristics
                 _name = value;
                 OnPropertyChanged("Name");
             }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public void OnPropertyChanged(string property)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
         }
     }
 }

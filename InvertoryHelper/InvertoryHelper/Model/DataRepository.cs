@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Android.Util;
 using InvertoryHelper.Common;
 using InvertoryHelper.Model;
+using InvertoryHelper.Model.Documents.Order;
 using SQLite.Net;
 using SQLite.Net.Async;
 using SQLite.Net.Platform.XamarinAndroid;
@@ -27,6 +28,7 @@ namespace InvertoryHelper.Model
         private List<Price> priceList;
         private List<Storage> storagesList;
         private List<Unit> unitList;
+        private List<Order> ordersList;
 
         private DataRepository()
         {
@@ -290,6 +292,8 @@ namespace InvertoryHelper.Model
                     await db.CreateTableAsync<Barcode>();
                     await db.CreateTableAsync<Price>();
                     await db.CreateTableAsync<Storage>();
+                    await db.CreateTableAsync<Order>();
+                    await db.CreateTableAsync<OrderRow>();
 
                     nomenclaturesList = await db.GetAllWithChildrenAsync<Nomenclature>();
                     characteristicsList = await db.GetAllWithChildrenAsync<Characteristic>();
@@ -298,6 +302,7 @@ namespace InvertoryHelper.Model
                     priceList = await db.GetAllWithChildrenAsync<Price>();
                     barcodesList = await db.GetAllWithChildrenAsync<Barcode>();
                     storagesList = await db.GetAllWithChildrenAsync<Storage>();
+                    ordersList = await db.GetAllWithChildrenAsync<Order>();
                 }
                 catch (Exception ex)
                 {

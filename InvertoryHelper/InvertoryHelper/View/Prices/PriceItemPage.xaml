@@ -20,7 +20,6 @@
 
                     <TableRoot>
 
-
                         <TableSection Title="{common:Translate Nomenclature}">
                             <ViewCell>
                                 <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">

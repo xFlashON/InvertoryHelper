@@ -112,7 +112,7 @@ namespace InvertoryHelper.ViewModel.Prices
                 await Navigation.PushAsync(new PriceItemPage(Navigation, SelectedPrice));
         }
 
-        private async void SavePrice(Price price)
+        private void SavePrice(Price price)
         {
             if (!IsBusy)
                 LoadPricesList();

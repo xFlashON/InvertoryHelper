@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage
+    x:Class="InvertoryHelper.View.Documents.Orders.OrderPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:common="clr-namespace:InvertoryHelper.Common;assembly=InvertoryHelper"
+    xmlns:dg="clr-namespace:Xamarin.Forms.DataGrid;assembly=Xamarin.Forms.DataGrid"
+    Title="{common:Translate Order}"
+    BackgroundColor="{StaticResource FormBackground}">
+    <TabbedPage.Children>
+        <ContentPage Title="{common:Translate Data}">
+
+            <TableView HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+
+                <TableSection Title="{common:Translate Date}">
+                    <ViewCell>
+                        <DatePicker Date="{Binding Order.Date}" />
+                    </ViewCell>
+                </TableSection>
+                <TableSection Title="{common:Translate Order.Number}">
+                    <EntryCell Text="{Binding Numder}" />
+                </TableSection>
+                <TableSection Title="{common:Translate Order.Storage}">
+                    <ViewCell>
+                        <Picker ItemsSource="{Binding StoragesList}" SelectedItem="Storage" />
+                    </ViewCell>
+                </TableSection>
+                <TableSection Title="{common:Translate Comment}">
+                    <EntryCell Text="{Binding Order.Comment}" />
+                </TableSection>
+
+            </TableView>
+        </ContentPage>
+        <ContentPage Title="{common:Translate Goods}">
+            <StackLayout>
+                <dg:DataGrid
+                    HorizontalOptions="FillAndExpand"
+                    ItemsSource="{Binding Order.OrderRows}"
+                    SelectedItem="{Binding SelectedRow}"
+                    SelectionEnabled="True"
+                    VerticalOptions="FillAndExpand">
+                    <dg:DataGrid.Columns>
+
+                        <dg:DataGridColumn
+                            Title="{common:Translate Nomenclature}"
+                            Width="2*"
+                            SortingEnabled="False">
+                            <dg:DataGridColumn.CellTemplate>
+                                <DataTemplate>
+                                    <ContentView>
+                                        <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                                            <Label Text="{Binding Nomenclature.Name}"  HorizontalOptions="FillAndExpand"/>
+                                            <Button
+                                                BackgroundColor="Default"
+                                                Command="{Binding SelectNomenclatureCommand}"
+                                                FontSize="10"
+                                                Text="..."
+                                                WidthRequest="35" />
+                                        </StackLayout>
+
+                                    </ContentView>
+                                </DataTemplate>
+                            </dg:DataGridColumn.CellTemplate>
+                        </dg:DataGridColumn>
+
+                        <dg:DataGridColumn Title="{common:Translate Characteristic}" Width="2*">
+                            <dg:DataGridColumn.CellTemplate>
+                                <DataTemplate>
+                                    <ContentView>
+                                        <Picker SelectedItem="{Binding Characteristic}" />
+                                    </ContentView>
+                                </DataTemplate>
+                            </dg:DataGridColumn.CellTemplate>
+                        </dg:DataGridColumn>
+
+                        <dg:DataGridColumn Title="{common:Translate Price}">
+                            <dg:DataGridColumn.CellTemplate>
+                                <DataTemplate>
+                                    <ContentView>
+                                        <Entry Keyboard="Numeric" Text="{Binding Price}" />
+                                    </ContentView>
+                                </DataTemplate>
+                            </dg:DataGridColumn.CellTemplate>
+                        </dg:DataGridColumn>
+
+                        <dg:DataGridColumn Title="{common:Translate Amount}">
+                            <dg:DataGridColumn.CellTemplate>
+                                <DataTemplate>
+                                    <ContentView>
+                                        <Entry Keyboard="Numeric" Text="{Binding Amount}" />
+                                    </ContentView>
+                                </DataTemplate>
+                            </dg:DataGridColumn.CellTemplate>
+                        </dg:DataGridColumn>
+
+                        <dg:DataGridColumn Title="{common:Translate Total}">
+                            <dg:DataGridColumn.CellTemplate>
+                                <DataTemplate>
+                                    <ContentView>
+                                        <Entry  Text="{Binding Total}" />
+                                    </ContentView>
+                                </DataTemplate>
+                            </dg:DataGridColumn.CellTemplate>
+                        </dg:DataGridColumn>
+
+                    </dg:DataGrid.Columns>
+                </dg:DataGrid>
+                <Button Command="{Binding AddRowCommand}" Text="{common:Translate Add}" />
+            </StackLayout>
+        </ContentPage>
+    </TabbedPage.Children>
+</TabbedPage>

@@ -1,20 +1,26 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using SQLite.Net.Attributes;
 using SQLiteNetExtensions.Attributes;
 
-namespace InvertoryHelper.Model
+namespace InvertoryHelper.Model.Documents.Order
 {
-    [Table("Barcodes")]
-    public class Barcode
+    [Table("OrderRows")]
+    public class OrderRow
     {
         [PrimaryKey]
         [Unique]
         [AutoIncrement]
         public Guid Uid { get; set; }
 
-        [Indexed]
-        [MaxLength(50)]
-        public string Code { get; set; }
+        [ForeignKey(typeof(Order))]
+        public Guid OrderGuid { get; set; }
+
+        [ManyToOne]
+        public Order Order { get; set; }
 
         [ForeignKey(typeof(Nomenclature))]
         public Guid NomenclatureUid { get; set; }
@@ -34,12 +40,9 @@ namespace InvertoryHelper.Model
         [ManyToOne]
         public Characteristic Characteristic { get; set; }
 
-        public override bool Equals(object obj)
-        {
-            if (obj is Barcode)
-                return ((Barcode) obj).Uid == Uid && ((Barcode) obj).Code == Code;
+        public Decimal Amount;
+        public Decimal Price;
+        public Decimal Total;
 
-            return false;
-        }
     }
 }

@@ -1,10 +1,11 @@
 ﻿using System;
 using System.ComponentModel;
+using InvertoryHelper.Common;
 using InvertoryHelper.Model;
 
 namespace InvertoryHelper.ViewModel.Units
 {
-    public class UnitModel : INotifyPropertyChanged
+    public class UnitModel : ObservableObject
     {
         private string name;
 
@@ -27,17 +28,11 @@ namespace InvertoryHelper.ViewModel.Units
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
         public override string ToString()
         {
             return Name;
         }
 
-        public void OnPropertyChanged(string property)
-        {
-            if (PropertyChanged != null)
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
-        }
+
     }
 }

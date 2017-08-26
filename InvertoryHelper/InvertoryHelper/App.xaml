@@ -8,7 +8,7 @@
 
         <ResourceDictionary>
             <Color x:Key="FormBackground">WhiteSmoke</Color>
-            <Color x:Key="MainButtonColour">DodgerBlue</Color>
+            <Color x:Key="MainButtonColour">#3399FF</Color>
 
             <Style TargetType="Button">
                 <Setter Property="BackgroundColor" Value="{StaticResource MainButtonColour}" />

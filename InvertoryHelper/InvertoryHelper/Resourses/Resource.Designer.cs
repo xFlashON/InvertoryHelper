@@ -125,6 +125,15 @@ namespace InvertoryHelper.Resourses {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Количество.
+        /// </summary>
+        internal static string Amount {
+            get {
+                return ResourceManager.GetString("Amount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Артикул.
         /// </summary>
         internal static string Artikul {
@@ -242,6 +251,42 @@ namespace InvertoryHelper.Resourses {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Комментарий.
+        /// </summary>
+        internal static string Comment {
+            get {
+                return ResourceManager.GetString("Comment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Данные.
+        /// </summary>
+        internal static string Data {
+            get {
+                return ResourceManager.GetString("Data", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Дата.
+        /// </summary>
+        internal static string Date {
+            get {
+                return ResourceManager.GetString("Date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Подробно.
+        /// </summary>
+        internal static string Details {
+            get {
+                return ResourceManager.GetString("Details", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Справочники.
         /// </summary>
         internal static string Directories {
@@ -341,6 +386,15 @@ namespace InvertoryHelper.Resourses {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Товары.
+        /// </summary>
+        internal static string Goods {
+            get {
+                return ResourceManager.GetString("Goods", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Загрузка.
         /// </summary>
         internal static string Loading {
@@ -409,6 +463,24 @@ namespace InvertoryHelper.Resourses {
         internal static string Nomenclatures {
             get {
                 return ResourceManager.GetString("Nomenclatures", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Номер.
+        /// </summary>
+        internal static string Number {
+            get {
+                return ResourceManager.GetString("Number", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Заказ.
+        /// </summary>
+        internal static string Order {
+            get {
+                return ResourceManager.GetString("Order", resourceCulture);
             }
         }
         
@@ -526,6 +598,24 @@ namespace InvertoryHelper.Resourses {
         internal static string Settings {
             get {
                 return ResourceManager.GetString("Settings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Склад.
+        /// </summary>
+        internal static string Storage {
+            get {
+                return ResourceManager.GetString("Storage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Сумма.
+        /// </summary>
+        internal static string Total {
+            get {
+                return ResourceManager.GetString("Total", resourceCulture);
             }
         }
         

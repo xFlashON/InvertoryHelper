@@ -138,6 +138,9 @@
   <data name="AddUnit" xml:space="preserve">
     <value>Добавить единицу измерения</value>
   </data>
+  <data name="Amount" xml:space="preserve">
+    <value>Количество</value>
+  </data>
   <data name="Artikul" xml:space="preserve">
     <value>Артикул</value>
   </data>
@@ -177,6 +180,18 @@
   <data name="Close" xml:space="preserve">
     <value>Закрыть</value>
   </data>
+  <data name="Comment" xml:space="preserve">
+    <value>Комментарий</value>
+  </data>
+  <data name="Data" xml:space="preserve">
+    <value>Данные</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Дата</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Подробно</value>
+  </data>
   <data name="Directories" xml:space="preserve">
     <value>Справочники</value>
   </data>
@@ -210,6 +225,9 @@
   <data name="EditUnit" xml:space="preserve">
     <value>Изменить единицу измерения</value>
   </data>
+  <data name="Goods" xml:space="preserve">
+    <value>Товары</value>
+  </data>
   <data name="Loading" xml:space="preserve">
     <value>Загрузка</value>
   </data>
@@ -233,6 +251,12 @@
   </data>
   <data name="Nomenclatures" xml:space="preserve">
     <value>Список номенклатуры</value>
+  </data>
+  <data name="Number" xml:space="preserve">
+    <value>Номер</value>
+  </data>
+  <data name="Order" xml:space="preserve">
+    <value>Заказ</value>
   </data>
   <data name="Orders" xml:space="preserve">
     <value>Заказы</value>
@@ -272,6 +296,12 @@
   </data>
   <data name="Settings" xml:space="preserve">
     <value>Настройки</value>
+  </data>
+  <data name="Storage" xml:space="preserve">
+    <value>Склад</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Сумма</value>
   </data>
   <data name="Unit" xml:space="preserve">
     <value>Единица</value>

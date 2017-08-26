@@ -2,6 +2,8 @@
 using InvertoryHelper.Common;
 using InvertoryHelper.Model;
 using InvertoryHelper.View;
+using InvertoryHelper.View.Documents;
+using InvertoryHelper.View.Documents.Orders;
 using Xamarin.Forms;
 
 namespace InvertoryHelper.ViewModel
@@ -23,5 +25,10 @@ namespace InvertoryHelper.ViewModel
 
         public ICommand PriceCheckingCmd => new Command(
             async () => await navigation.PushAsync(new PriceCheckingPage()));
+
+        public ICommand OpenOrdersCmd
+        {
+            get =>  new Command(async () => { await navigation?.PushAsync(new OrdersPage()); });
+        }
     }
 }

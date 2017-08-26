@@ -1,10 +1,11 @@
 ﻿using System;
 using System.ComponentModel;
+using InvertoryHelper.Common;
 using InvertoryHelper.Model;
 
 namespace InvertoryHelper.ViewModel.NomenclatureKinds
 {
-    public class NomenclatureKindModel : INotifyPropertyChanged
+    public class NomenclatureKindModel : ObservableObject
     {
         private string name;
 
@@ -26,17 +27,9 @@ namespace InvertoryHelper.ViewModel.NomenclatureKinds
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
         public override string ToString()
         {
             return Name;
-        }
-
-        public void OnPropertyChanged(string property)
-        {
-            if (PropertyChanged != null)
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
         }
     }
 }

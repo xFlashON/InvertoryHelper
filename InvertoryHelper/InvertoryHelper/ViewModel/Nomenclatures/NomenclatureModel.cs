@@ -1,10 +1,11 @@
 ﻿using System;
 using System.ComponentModel;
+using InvertoryHelper.Common;
 using InvertoryHelper.Model;
 
 namespace InvertoryHelper.ViewModel.Nomenclatures
 {
-    public class NomenclatureModel : INotifyPropertyChanged
+    public class NomenclatureModel : ObservableObject
     {
         private string artikul;
         private Unit baseUnit;
@@ -69,12 +70,5 @@ namespace InvertoryHelper.ViewModel.Nomenclatures
             }
         }
 
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
     }
 }

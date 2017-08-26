@@ -1,10 +1,11 @@
 ﻿using System;
 using System.ComponentModel;
+using InvertoryHelper.Common;
 using InvertoryHelper.Model;
 
 namespace InvertoryHelper.ViewModel.Barcodes
 {
-    public class BarcodeModel : INotifyPropertyChanged
+    public class BarcodeModel :ObservableObject
     {
         private Characteristic _characteristic;
 
@@ -50,13 +51,6 @@ namespace InvertoryHelper.ViewModel.Barcodes
                 _code = value;
                 OnPropertyChanged("Code");
             }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public void OnPropertyChanged(string property)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
         }
     }
 }

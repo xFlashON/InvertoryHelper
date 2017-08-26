@@ -1,10 +1,11 @@
 ﻿using System;
 using System.ComponentModel;
+using InvertoryHelper.Common;
 using InvertoryHelper.Model;
 
 namespace InvertoryHelper.ViewModel.Prices
 {
-    public class PriceModel : INotifyPropertyChanged
+    public class PriceModel : ObservableObject
     {
         private Characteristic _characteristic;
 
@@ -52,11 +53,5 @@ namespace InvertoryHelper.ViewModel.Prices
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public void OnPropertyChanged(string property)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
-        }
     }
 }
