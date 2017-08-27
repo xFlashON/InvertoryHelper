@@ -21,5 +21,6 @@ namespace InvertoryHelper.View.Documents.Orders
             vm.Navigation = Navigation;
             BindingContext = vm;
         }
+
     }
 }

@@ -3,6 +3,7 @@
     x:Class="InvertoryHelper.View.Documents.Orders.OrderPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:behaviorsPack="clr-namespace:Xamarin.Forms.BehaviorsPack;assembly=Xamarin.Forms.BehaviorsPack"
     xmlns:common="clr-namespace:InvertoryHelper.Common;assembly=InvertoryHelper"
     xmlns:dg="clr-namespace:Xamarin.Forms.DataGrid;assembly=Xamarin.Forms.DataGrid"
     x:Name="CurrentOrderPage"
@@ -38,8 +39,10 @@
                 <dg:DataGrid
                     HorizontalOptions="FillAndExpand"
                     ItemsSource="{Binding Order.OrderRows}"
-                    SelectionEnabled="False"
+                    SelectedItem="{Binding SelectedRow}"
+                    SelectionEnabled="True"
                     VerticalOptions="FillAndExpand">
+
                     <dg:DataGrid.Columns>
 
                         <dg:DataGridColumn
@@ -69,7 +72,10 @@
                             <dg:DataGridColumn.CellTemplate>
                                 <DataTemplate>
                                     <ContentView>
-                                        <Picker SelectedItem="{Binding Characteristic}" />
+                                        <Picker
+                                            ItemsSource="{Binding CharacteristicsList}"
+                                            Scale="0.8"
+                                            SelectedItem="{Binding Characteristic}" />
                                     </ContentView>
                                 </DataTemplate>
                             </dg:DataGridColumn.CellTemplate>
@@ -79,7 +85,10 @@
                             <dg:DataGridColumn.CellTemplate>
                                 <DataTemplate>
                                     <ContentView>
-                                        <Entry Keyboard="Numeric" Text="{Binding Price}" />
+                                        <Entry
+                                            FontSize="Small"
+                                            Keyboard="Numeric"
+                                            Text="{Binding Price}" />
                                     </ContentView>
                                 </DataTemplate>
                             </dg:DataGridColumn.CellTemplate>
@@ -89,7 +98,10 @@
                             <dg:DataGridColumn.CellTemplate>
                                 <DataTemplate>
                                     <ContentView>
-                                        <Entry Keyboard="Numeric" Text="{Binding Amount}" />
+                                        <Entry
+                                            FontSize="Small"
+                                            Keyboard="Numeric"
+                                            Text="{Binding Amount}" />
                                     </ContentView>
                                 </DataTemplate>
                             </dg:DataGridColumn.CellTemplate>
@@ -99,7 +111,7 @@
                             <dg:DataGridColumn.CellTemplate>
                                 <DataTemplate>
                                     <ContentView>
-                                        <Entry Text="{Binding Total}" />
+                                        <Entry FontSize="Small" Text="{Binding Total}" />
                                     </ContentView>
                                 </DataTemplate>
                             </dg:DataGridColumn.CellTemplate>

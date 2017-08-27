@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -41,6 +42,7 @@ namespace InvertoryHelper.Model.Documents.Order
             {
                 _orderRow.Nomenclature = value; 
                 OnPropertyChanged("Nomenclature");
+                OnPropertyChanged("CharacteristicsList");
             }
         }
 
@@ -64,6 +66,33 @@ namespace InvertoryHelper.Model.Documents.Order
             }
         }
 
+        public ObservableCollection<Characteristic> CharacteristicsList
+        {
+             get 
+            {
+
+                if (Nomenclature == null)
+                {
+                    return new ObservableCollection<Characteristic>();
+                }
+
+                var _nomenclature =  DataRepository.Instance.GetNomenclaturesAsync(n => Nomenclature.Equals(n)).Result.FirstOrDefault();
+
+                if (_nomenclature?.NomenclaturesKind == null)
+                {
+                    
+                    return new ObservableCollection<Characteristic>(); ;
+                }
+
+                var characteristics =
+                     DataRepository.Instance.GetCharacteristicsAsync(
+                        n => _nomenclature.NomenclaturesKind.Equals(n.NomenclaturesKind)).Result;
+
+                return new ObservableCollection<Characteristic>(characteristics);
+
+            }
+        }
+
         public Decimal Amount
         {
             get => _orderRow.Amount;
@@ -71,6 +100,7 @@ namespace InvertoryHelper.Model.Documents.Order
             {
                 _orderRow.Amount = value;
                 OnPropertyChanged("Amount");
+                RecalculateCurrentRow();
             }
         }
 
@@ -81,6 +111,7 @@ namespace InvertoryHelper.Model.Documents.Order
             {
                 _orderRow.Price = value;
                 OnPropertyChanged("Price");
+                RecalculateCurrentRow();
             }
         }
 
@@ -102,6 +133,11 @@ namespace InvertoryHelper.Model.Documents.Order
         public OrderRowModel(OrderRow orderRow)
         {
             _orderRow = orderRow;
+        }
+
+        private void RecalculateCurrentRow()
+        {
+            Total = Price * Amount;
         }
     }
 }
