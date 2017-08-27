@@ -1,4 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
+
 <TabbedPage
     x:Class="InvertoryHelper.View.Documents.Orders.OrderPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
@@ -12,27 +13,38 @@
 
     <TabbedPage.Children>
         <ContentPage Title="{common:Translate Data}">
+            <StackLayout>
+                <TableView HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
 
-            <TableView HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                    <TableSection Title="{common:Translate Date}">
+                        <ViewCell>
+                            <DatePicker Date="{Binding Order.Date}" />
+                        </ViewCell>
+                    </TableSection>
+                    <TableSection Title="{common:Translate Number}">
+                        <EntryCell Text="{Binding Number}" />
+                    </TableSection>
+                    <TableSection Title="{common:Translate Storage}">
+                        <ViewCell>
+                            <Picker ItemsSource="{Binding StoragesList}" SelectedItem="Storage" />
+                        </ViewCell>
+                    </TableSection>
+                    <TableSection Title="{common:Translate Comment}">
+                        <EntryCell Text="{Binding Order.Comment}" />
+                    </TableSection>
 
-                <TableSection Title="{common:Translate Date}">
-                    <ViewCell>
-                        <DatePicker Date="{Binding Order.Date}" />
-                    </ViewCell>
-                </TableSection>
-                <TableSection Title="{common:Translate Order.Number}">
-                    <EntryCell Text="{Binding Numder}" />
-                </TableSection>
-                <TableSection Title="{common:Translate Order.Storage}">
-                    <ViewCell>
-                        <Picker ItemsSource="{Binding StoragesList}" SelectedItem="Storage" />
-                    </ViewCell>
-                </TableSection>
-                <TableSection Title="{common:Translate Comment}">
-                    <EntryCell Text="{Binding Order.Comment}" />
-                </TableSection>
-
-            </TableView>
+                </TableView>
+                <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                    <Button
+                        Command="{Binding CloseCommand}"
+                        HorizontalOptions="FillAndExpand"
+                        Text="{common:Translate Close}" />
+                    <Button
+                        Command="{Binding SaveCommand}"
+                        HorizontalOptions="FillAndExpand"
+                        Text="{common:Translate Save}" />
+                </StackLayout>
+            </StackLayout>
         </ContentPage>
         <ContentPage Title="{common:Translate Goods}">
             <StackLayout>
@@ -42,6 +54,7 @@
                     SelectedItem="{Binding SelectedRow}"
                     SelectionEnabled="True"
                     VerticalOptions="FillAndExpand">
+
 
                     <dg:DataGrid.Columns>
 
@@ -75,7 +88,14 @@
                                         <Picker
                                             ItemsSource="{Binding CharacteristicsList}"
                                             Scale="0.8"
-                                            SelectedItem="{Binding Characteristic}" />
+                                            SelectedItem="{Binding Characteristic}">
+                                            <Picker.Behaviors>
+                                                <behaviorsPack:EventToCommandBehavior
+                                                    Command="{Binding Source={x:Reference CurrentOrderPage}, Path=BindingContext.CurrentRowChanged}"
+                                                    CommandParameter="{Binding .}"
+                                                    EventName="Focused" />
+                                            </Picker.Behaviors>
+                                        </Picker>
                                     </ContentView>
                                 </DataTemplate>
                             </dg:DataGridColumn.CellTemplate>
@@ -88,7 +108,15 @@
                                         <Entry
                                             FontSize="Small"
                                             Keyboard="Numeric"
-                                            Text="{Binding Price}" />
+                                            Text="{Binding Price}">
+                                            <Entry.Behaviors>
+                                                <behaviorsPack:EventToCommandBehavior
+                                                    Command="{Binding Source={x:Reference CurrentOrderPage}, Path=BindingContext.CurrentRowChanged}"
+                                                    CommandParameter="{Binding .}"
+                                                    EventName="Focused" />
+                                            </Entry.Behaviors>
+                                        </Entry>
+
                                     </ContentView>
                                 </DataTemplate>
                             </dg:DataGridColumn.CellTemplate>
@@ -101,7 +129,14 @@
                                         <Entry
                                             FontSize="Small"
                                             Keyboard="Numeric"
-                                            Text="{Binding Amount}" />
+                                            Text="{Binding Amount}">
+                                            <Entry.Behaviors>
+                                                <behaviorsPack:EventToCommandBehavior
+                                                    Command="{Binding Source={x:Reference CurrentOrderPage}, Path=BindingContext.CurrentRowChanged}"
+                                                    CommandParameter="{Binding .}"
+                                                    EventName="Focused" />
+                                            </Entry.Behaviors>
+                                        </Entry>
                                     </ContentView>
                                 </DataTemplate>
                             </dg:DataGridColumn.CellTemplate>
@@ -111,7 +146,14 @@
                             <dg:DataGridColumn.CellTemplate>
                                 <DataTemplate>
                                     <ContentView>
-                                        <Entry FontSize="Small" Text="{Binding Total}" />
+                                        <Entry FontSize="Small" Text="{Binding Total}">
+                                            <Entry.Behaviors>
+                                                <behaviorsPack:EventToCommandBehavior
+                                                    Command="{Binding Source={x:Reference CurrentOrderPage}, Path=BindingContext.CurrentRowChanged}"
+                                                    CommandParameter="{Binding .}"
+                                                    EventName="Focused" />
+                                            </Entry.Behaviors>
+                                        </Entry>
                                     </ContentView>
                                 </DataTemplate>
                             </dg:DataGridColumn.CellTemplate>
@@ -119,7 +161,22 @@
 
                     </dg:DataGrid.Columns>
                 </dg:DataGrid>
-                <Button Command="{Binding AddRowCommand}" Text="{common:Translate Add}" />
+
+                <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                    <Button
+                        Command="{Binding ScanCommand}"
+                        HorizontalOptions="FillAndExpand"
+                        Text="{common:Translate Scan}" />
+                    <Button
+                        Command="{Binding AddRowCommand}"
+                        HorizontalOptions="FillAndExpand"
+                        Text="{common:Translate Add}" />
+                    <Button
+                        Command="{Binding DeleteRowCommand}"
+                        HorizontalOptions="FillAndExpand"
+                        Text="{common:Translate Delete}" />
+                </StackLayout>
+
             </StackLayout>
         </ContentPage>
     </TabbedPage.Children>

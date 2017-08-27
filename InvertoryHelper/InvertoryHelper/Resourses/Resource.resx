@@ -189,6 +189,9 @@
   <data name="Date" xml:space="preserve">
     <value>Дата</value>
   </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
   <data name="Details" xml:space="preserve">
     <value>Подробно</value>
   </data>
@@ -278,6 +281,9 @@
   </data>
   <data name="Save" xml:space="preserve">
     <value>Сохранить</value>
+  </data>
+  <data name="Scan" xml:space="preserve">
+    <value>Сканировать</value>
   </data>
   <data name="ScaningBarcode" xml:space="preserve">
     <value>Сканирование штрихкода</value>

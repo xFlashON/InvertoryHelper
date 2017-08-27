@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using InvertoryHelper.Model.Documents.Order;
+﻿using InvertoryHelper.Model.Documents.Order;
 using InvertoryHelper.ViewModel.Documents.Orders;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -21,6 +16,5 @@ namespace InvertoryHelper.View.Documents.Orders
             vm.Navigation = Navigation;
             BindingContext = vm;
         }
-
     }
 }

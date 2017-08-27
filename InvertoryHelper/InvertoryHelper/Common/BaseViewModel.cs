@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-
-namespace InvertoryHelper.Common
+﻿namespace InvertoryHelper.Common
 {
     public class BaseViewModel : ObservableObject
     {
@@ -19,6 +17,5 @@ namespace InvertoryHelper.Common
         }
 
         public bool IsInitialized { get; set; }
-
     }
 }

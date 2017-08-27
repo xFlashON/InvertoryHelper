@@ -1,19 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Text;
-using System.Threading.Tasks;
 using InvertoryHelper.Common;
-using Org.Apache.Http.Impl.IO;
 
 namespace InvertoryHelper.Model.Documents.Order
 {
     public class OrderRowModel : ObservableObject
     {
         private readonly OrderRow _orderRow;
+
+        public OrderRowModel()
+        {
+            _orderRow = new OrderRow();
+        }
+
+        public OrderRowModel(OrderRow orderRow)
+        {
+            _orderRow = orderRow;
+        }
 
         public Guid Uid
         {
@@ -40,7 +44,7 @@ namespace InvertoryHelper.Model.Documents.Order
             get => _orderRow.Nomenclature;
             set
             {
-                _orderRow.Nomenclature = value; 
+                _orderRow.Nomenclature = value;
                 OnPropertyChanged("Nomenclature");
                 OnPropertyChanged("CharacteristicsList");
             }
@@ -68,32 +72,30 @@ namespace InvertoryHelper.Model.Documents.Order
 
         public ObservableCollection<Characteristic> CharacteristicsList
         {
-             get 
+            get
             {
-
                 if (Nomenclature == null)
-                {
                     return new ObservableCollection<Characteristic>();
-                }
 
-                var _nomenclature =  DataRepository.Instance.GetNomenclaturesAsync(n => Nomenclature.Equals(n)).Result.FirstOrDefault();
+                var _nomenclature = DataRepository.Instance.GetNomenclaturesAsync(n => Nomenclature.Equals(n))
+                    .Result.FirstOrDefault();
 
                 if (_nomenclature?.NomenclaturesKind == null)
                 {
-                    
-                    return new ObservableCollection<Characteristic>(); ;
+                    return new ObservableCollection<Characteristic>();
+                    ;
                 }
 
                 var characteristics =
-                     DataRepository.Instance.GetCharacteristicsAsync(
-                        n => _nomenclature.NomenclaturesKind.Equals(n.NomenclaturesKind)).Result;
+                    DataRepository.Instance.GetCharacteristicsAsync(
+                            n => _nomenclature.NomenclaturesKind.Equals(n.NomenclaturesKind))
+                        .Result;
 
                 return new ObservableCollection<Characteristic>(characteristics);
-
             }
         }
 
-        public Decimal Amount
+        public decimal Amount
         {
             get => _orderRow.Amount;
             set
@@ -104,7 +106,7 @@ namespace InvertoryHelper.Model.Documents.Order
             }
         }
 
-        public Decimal Price
+        public decimal Price
         {
             get => _orderRow.Price;
             set
@@ -115,7 +117,7 @@ namespace InvertoryHelper.Model.Documents.Order
             }
         }
 
-        public Decimal Total
+        public decimal Total
         {
             get => _orderRow.Total;
             set
@@ -123,16 +125,6 @@ namespace InvertoryHelper.Model.Documents.Order
                 _orderRow.Total = value;
                 OnPropertyChanged("Total");
             }
-        }
-
-        public OrderRowModel()
-        {
-            _orderRow = new OrderRow();
-        }
-
-        public OrderRowModel(OrderRow orderRow)
-        {
-            _orderRow = orderRow;
         }
 
         private void RecalculateCurrentRow()

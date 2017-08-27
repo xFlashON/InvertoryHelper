@@ -25,10 +25,10 @@ namespace InvertoryHelper.Model
         private List<Characteristic> characteristicsList;
         private List<NomenclaturesKind> nomenclatureKindsList;
         private List<Nomenclature> nomenclaturesList;
+        private List<Order> ordersList;
         private List<Price> priceList;
         private List<Storage> storagesList;
         private List<Unit> unitList;
-        private List<Order> ordersList;
 
         private DataRepository()
         {

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
 using InvertoryHelper.Common;
 using InvertoryHelper.Model;
 
@@ -69,6 +68,5 @@ namespace InvertoryHelper.ViewModel.Nomenclatures
                 OnPropertyChanged("NomenclaturesKind");
             }
         }
-
     }
 }

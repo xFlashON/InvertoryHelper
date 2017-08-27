@@ -1,11 +1,10 @@
 ﻿using System;
-using System.ComponentModel;
 using InvertoryHelper.Common;
 using InvertoryHelper.Model;
 
 namespace InvertoryHelper.ViewModel.Barcodes
 {
-    public class BarcodeModel :ObservableObject
+    public class BarcodeModel : ObservableObject
     {
         private Characteristic _characteristic;
 

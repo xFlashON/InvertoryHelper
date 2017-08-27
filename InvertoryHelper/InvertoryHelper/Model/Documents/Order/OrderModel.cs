@@ -1,18 +1,28 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using InvertoryHelper.Common;
-using Xamarin.Forms;
 
 namespace InvertoryHelper.Model.Documents.Order
 {
     public class OrderModel : ObservableObject
     {
         private readonly Order _order;
+
+        public OrderModel(Order order = null)
+        {
+            if (order == null)
+            {
+                _order = new Order();
+                OrderRows = new ObservableCollection<OrderRowModel>();
+                Date = DateTime.Now;
+            }
+            else
+            {
+                _order = order;
+                OrderRows = new ObservableCollection<OrderRowModel>(_order.OrderRows.Select(r => new OrderRowModel(r)));
+            }
+        }
 
         public Guid Uid
         {
@@ -34,7 +44,7 @@ namespace InvertoryHelper.Model.Documents.Order
             }
         }
 
-        public Decimal Number
+        public decimal Number
         {
             get => _order.Number;
             set
@@ -44,7 +54,7 @@ namespace InvertoryHelper.Model.Documents.Order
             }
         }
 
-        public Decimal Total
+        public decimal Total
         {
             get => _order.Total;
             set
@@ -54,19 +64,35 @@ namespace InvertoryHelper.Model.Documents.Order
             }
         }
 
+        public string Comment
+        {
+            get => _order.Comment;
+            set
+            {
+                _order.Comment = value;
+                OnPropertyChanged("Comment");
+            }
+        }
+
         public ObservableCollection<OrderRowModel> OrderRows { get; set; }
 
-        public OrderModel()
+        public Order GetOrder()
         {
-            _order = new Order();
-            OrderRows = new ObservableCollection<OrderRowModel>();
-        }
+            _order.OrderRows = OrderRows.Select(r => new OrderRow
+                {
+                    Nomenclature = r.Nomenclature,
+                    Characteristic = r.Characteristic,
+                    Price = r.Price,
+                    Amount = r.Amount,
+                    Total = r.Total,
+                    Uid = r.Uid,
+                    Order = _order
+                })
+                .ToList();
 
-        public OrderModel(Order order)
-        {
-            _order = order;
-            OrderRows = new ObservableCollection<OrderRowModel>(_order.OrderRows.Select((r)=>new OrderRowModel(r)));
-        }
+            _order.Total = _order.OrderRows.Sum(r => r.Total);
 
+            return _order;
+        }
     }
 }

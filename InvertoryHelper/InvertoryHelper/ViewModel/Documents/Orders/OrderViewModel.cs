@@ -1,16 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using Android.OS;
 using Android.Util;
 using InvertoryHelper.Common;
 using InvertoryHelper.Model;
 using InvertoryHelper.Model.Documents.Order;
+using InvertoryHelper.Resourses;
 using InvertoryHelper.View.Nomenclatures;
 using Xamarin.Forms;
 
@@ -18,8 +12,16 @@ namespace InvertoryHelper.ViewModel.Documents.Orders
 {
     public class OrderViewModel : ObservableObject
     {
-        private Command _selectNomenclatureCommand;
         private OrderRowModel _selectedRow;
+        private Command _selectNomenclatureCommand;
+
+        public INavigation Navigation;
+
+        public OrderViewModel(OrderModel order = null)
+        {
+            Order = order ?? new OrderModel();
+            MessagingCenter.Subscribe<Nomenclature>(this, "SelectedNomenclature", SelectedNomenclature);
+        }
 
         public OrderRowModel SelectedRow
         {
@@ -31,35 +33,109 @@ namespace InvertoryHelper.ViewModel.Documents.Orders
             }
         }
 
-        public INavigation Navigation;
+        public OrderModel Order { get; }
 
-        public OrderModel Order { get; private set; }
+        public Command AddRowCommand => new Command(() => { Order.OrderRows?.Add(new OrderRowModel()); });
 
-        public OrderViewModel(OrderModel order = null)
+        public Command DeleteRowCommand => new Command(() =>
         {
-            Order = order ?? new OrderModel();
-            MessagingCenter.Subscribe<Nomenclature>(this, "SelectedNomenclature", SelectedNomenclature);
-        }
-
-        public Command AddRowCommand => new Command(() =>
-        {
-
-            Order.OrderRows?.Add(new OrderRowModel());
-
+            if (SelectedRow != null)
+                Order.OrderRows?.Remove(SelectedRow);
         });
 
-        public  Command SelectNomenclatureCommand => _selectNomenclatureCommand ?? (_selectNomenclatureCommand = new Command(
-                                                         async (p) =>
-                                                         {
-                                                             SelectedRow = p as OrderRowModel;
-                                                            await Navigation.PushAsync(new NomenclaturesPage(true));
+        public Command SelectNomenclatureCommand => _selectNomenclatureCommand ?? (_selectNomenclatureCommand =
+                                                        new Command(
+                                                            async p =>
+                                                            {
+                                                                SelectedRow = p as OrderRowModel;
+                                                                await Navigation.PushAsync(new NomenclaturesPage(true));
+                                                            }));
 
-                                                        }));
+        public Command CurrentRowChanged => new Command(p =>
+        {
+            var param = p as OrderRowModel;
+            if (SelectedRow != param)
+                SelectedRow = param;
+        });
+
+        public Command ScanCommand => new Command(ScanBarcode);
 
         private void SelectedNomenclature(Nomenclature nomenclature)
         {
             if (SelectedRow != null)
                 SelectedRow.Nomenclature = nomenclature;
+        }
+
+        private async void ScanBarcode()
+        {
+            try
+            {
+                var result = await DependencyService.Get<IOnPlatform>()
+                    .ScanBarcode(Resource.ScaningBarcode);
+
+                if (result != null)
+                    BarcodeHandling(result);
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Error", ex.Message);
+                MessagingCenter.Send(Resource.ScanningError, "DisplayAlert");
+            }
+        }
+
+        private async void BarcodeHandling(string barcode)
+        {
+            if (barcode == string.Empty)
+                return;
+
+            var Code = barcode;
+
+            var barcodesList = await DataRepository.Instance.GetBarcodesAsync(b => b.Code == barcode);
+
+            var resultBarcode = barcodesList.FirstOrDefault();
+
+            if (resultBarcode == null)
+            {
+                DependencyService.Get<IOnPlatform>().PlaySound("err.wav");
+
+                return;
+            }
+
+            DependencyService.Get<IOnPlatform>().PlaySound("sucsess.wav");
+
+            var nomenclature = resultBarcode.Nomenclature;
+            var characteristic = resultBarcode.Characteristic;
+
+            var priceList =
+                await DataRepository.Instance.GetPricesAsync(
+                    f => !f.Nomenclature.Equals(nomenclature) || characteristic == null || f.Characteristic == null ||
+                         f.Characteristic.Equals(characteristic));
+
+            var resultPrice = priceList.FirstOrDefault();
+
+            var price = resultPrice?.price ?? 0;
+
+            var exRow = Order.OrderRows
+                .FirstOrDefault(r => r.Nomenclature != null && r.Nomenclature.Equals(nomenclature) &&
+                                     (characteristic == null ||
+                                      r.Characteristic != null && r.Characteristic.Equals(characteristic)));
+
+            if (exRow != null)
+            {
+                exRow.Amount += 1;
+            }
+            else
+            {
+                var newRow = new OrderRowModel();
+                newRow.Nomenclature = nomenclature;
+                newRow.Characteristic = characteristic;
+                newRow.Price = price;
+                newRow.Amount = 1;
+
+                Order.OrderRows.Add(newRow);
+
+                SelectedRow = newRow;
+            }
         }
     }
 }

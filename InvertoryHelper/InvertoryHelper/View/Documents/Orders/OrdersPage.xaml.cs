@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using InvertoryHelper.ViewModel.Documents.Orders;
+﻿using InvertoryHelper.ViewModel.Documents.Orders;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 

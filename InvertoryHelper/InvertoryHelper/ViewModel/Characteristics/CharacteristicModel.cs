@@ -1,11 +1,10 @@
 ﻿using System;
-using System.ComponentModel;
 using InvertoryHelper.Common;
 using InvertoryHelper.Model;
 
 namespace InvertoryHelper.ViewModel.Characteristics
 {
-    public class CharacteristicModel :ObservableObject
+    public class CharacteristicModel : ObservableObject
     {
         private string _name;
 

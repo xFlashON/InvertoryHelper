@@ -278,6 +278,15 @@ namespace InvertoryHelper.Resourses {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Удалить.
+        /// </summary>
+        internal static string Delete {
+            get {
+                return ResourceManager.GetString("Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Подробно.
         /// </summary>
         internal static string Details {
@@ -544,6 +553,15 @@ namespace InvertoryHelper.Resourses {
         internal static string Save {
             get {
                 return ResourceManager.GetString("Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Сканировать.
+        /// </summary>
+        internal static string Scan {
+            get {
+                return ResourceManager.GetString("Scan", resourceCulture);
             }
         }
         
