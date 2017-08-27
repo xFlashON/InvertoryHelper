@@ -67,5 +67,6 @@ namespace InvertoryHelper.Model.Documents.Order
             _order = order;
             OrderRows = new ObservableCollection<OrderRowModel>(_order.OrderRows.Select((r)=>new OrderRowModel(r)));
         }
+
     }
 }

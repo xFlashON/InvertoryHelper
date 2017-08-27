@@ -5,8 +5,10 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:common="clr-namespace:InvertoryHelper.Common;assembly=InvertoryHelper"
     xmlns:dg="clr-namespace:Xamarin.Forms.DataGrid;assembly=Xamarin.Forms.DataGrid"
+    x:Name="CurrentOrderPage"
     Title="{common:Translate Order}"
     BackgroundColor="{StaticResource FormBackground}">
+
     <TabbedPage.Children>
         <ContentPage Title="{common:Translate Data}">
 
@@ -36,8 +38,7 @@
                 <dg:DataGrid
                     HorizontalOptions="FillAndExpand"
                     ItemsSource="{Binding Order.OrderRows}"
-                    SelectedItem="{Binding SelectedRow}"
-                    SelectionEnabled="True"
+                    SelectionEnabled="False"
                     VerticalOptions="FillAndExpand">
                     <dg:DataGrid.Columns>
 
@@ -49,10 +50,11 @@
                                 <DataTemplate>
                                     <ContentView>
                                         <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
-                                            <Label Text="{Binding Nomenclature.Name}"  HorizontalOptions="FillAndExpand"/>
+                                            <Label HorizontalOptions="FillAndExpand" Text="{Binding Nomenclature.Name}" />
                                             <Button
                                                 BackgroundColor="Default"
-                                                Command="{Binding SelectNomenclatureCommand}"
+                                                Command="{Binding Source={x:Reference CurrentOrderPage}, Path=BindingContext.SelectNomenclatureCommand}"
+                                                CommandParameter="{Binding .}"
                                                 FontSize="10"
                                                 Text="..."
                                                 WidthRequest="35" />
@@ -97,7 +99,7 @@
                             <dg:DataGridColumn.CellTemplate>
                                 <DataTemplate>
                                     <ContentView>
-                                        <Entry  Text="{Binding Total}" />
+                                        <Entry Text="{Binding Total}" />
                                     </ContentView>
                                 </DataTemplate>
                             </dg:DataGridColumn.CellTemplate>
