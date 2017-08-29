@@ -60,6 +60,29 @@ namespace InvertoryHelper.ViewModel.Documents.Orders
 
         public Command ScanCommand => new Command(ScanBarcode);
 
+        public Command CloseCommand => new Command(async () => await Navigation?.PopAsync());
+
+        public Command SaveCommand => new Command(async () =>
+        {
+            var order = Order.GetOrder();
+
+            if(order==null)
+                return;
+
+            var uid = await DataRepository.Instance.SaveOrderAsync(order);
+
+            if (uid == Guid.Empty)
+            {
+                MessagingCenter.Send("Error! Order is not saved!", "DisplayAlert");
+                return;
+            }
+
+            await Navigation?.PopAsync();
+
+            MessagingCenter.Send(order, "SaveOrder");
+
+        });
+
         private void SelectedNomenclature(Nomenclature nomenclature)
         {
             if (SelectedRow != null)

@@ -1,4 +1,6 @@
-﻿using InvertoryHelper.ViewModel.Documents.Orders;
+﻿using System;
+using InvertoryHelper.Model.Documents.Order;
+using InvertoryHelper.ViewModel.Documents.Orders;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -15,5 +17,29 @@ namespace InvertoryHelper.View.Documents.Orders
             vm.Navigation = Navigation;
             BindingContext = vm;
         }
+
+        private void OrdersPage_OnAppearing(object sender, EventArgs e)
+        {
+            OrdersViewModel vm = BindingContext as OrdersViewModel;
+
+            if (vm != null)
+            {
+                MessagingCenter.Subscribe<Order>(vm, "SaveOrder", (o)=> { vm.LoadOrders(); });
+            }
+
+            
+        }
+
+        private void OrdersPage_OnDisappearing(object sender, EventArgs e)
+        {
+            OrdersViewModel vm = BindingContext as OrdersViewModel;
+
+            if (vm != null)
+            {
+                MessagingCenter.Unsubscribe<Order>(vm, "SaveOrder");
+            }
+        }
+
     }
+
 }

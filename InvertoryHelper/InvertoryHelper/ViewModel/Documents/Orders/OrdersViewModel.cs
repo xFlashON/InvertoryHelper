@@ -1,5 +1,8 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using InvertoryHelper.Common;
+using InvertoryHelper.Model;
 using InvertoryHelper.Model.Documents.Order;
 using InvertoryHelper.View.Documents.Orders;
 using Xamarin.Forms;
@@ -24,6 +27,27 @@ namespace InvertoryHelper.ViewModel.Documents.Orders
         public Command AddCommand
         {
             get { return new Command(() => { Navigation?.PushAsync(new OrderPage()); }); }
+        }
+
+        public OrdersViewModel()
+        {
+            LoadOrders();
+        }
+
+        public async void LoadOrders()
+        {
+            if(IsBusy)
+                return;
+
+            IsBusy = true;
+
+            var ordersList = await DataRepository.Instance.GetOrdersAsync();
+
+            OrdersList = new ObservableCollection<OrderModel>(ordersList.Select((o)=>new OrderModel(o)));
+
+            OnPropertyChanged("OrdersList");
+
+            IsBusy = false;
         }
     }
 }

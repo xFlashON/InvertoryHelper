@@ -115,6 +115,15 @@ namespace InvertoryHelper.Model
             return priceList.Where(e).ToList();
         }
 
+        public async Task<List<Order>> GetOrdersAsync(Func<Order, bool> e = null)
+        {
+            await CheckLoad();
+
+            if (e == null)
+                return ordersList;
+            return ordersList.Where(e).ToList();
+        }
+
         public async Task<Guid> SaveNomenclatureAsync(Nomenclature nomenclature)
         {
             try
@@ -271,6 +280,32 @@ namespace InvertoryHelper.Model
             return price.Uid;
         }
 
+        public async Task<Guid> SaveOrderAsync(Order order)
+        {
+            try
+            {
+                var index = ordersList.FindIndex(N => N.Uid == order.Uid);
+
+                if (index != -1)
+                {
+                    await db.UpdateWithChildrenAsync(order);
+                    ordersList[index] = order;
+                }
+                else
+                {
+                    await db.InsertWithChildrenAsync(order);
+                    ordersList.Add(order);
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error("DatabaseError", ex.Message);
+                return Guid.Empty;
+            }
+
+            return order.Uid;
+        }
+
         private async Task CheckLoad()
         {
             while (IsLoading)
@@ -314,5 +349,6 @@ namespace InvertoryHelper.Model
                 }
             }
         }
+
     }
 }

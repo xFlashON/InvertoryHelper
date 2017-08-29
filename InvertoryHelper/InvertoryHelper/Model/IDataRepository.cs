@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using InvertoryHelper.Model.Documents.Order;
 
 namespace InvertoryHelper.Model
 {
@@ -17,6 +18,8 @@ namespace InvertoryHelper.Model
 
         Task<List<Price>> GetPricesAsync(Func<Price, bool> e = null);
 
+        Task<List<Order>> GetOrdersAsync(Func<Order, bool> e = null);
+
         Task<Guid> SaveNomenclatureAsync(Nomenclature nomenclature);
 
         Task<Guid> SaveUnitAsync(Unit unit);
@@ -28,5 +31,7 @@ namespace InvertoryHelper.Model
         Task<Guid> SaveBarcodeAsync(Barcode barcode);
 
         Task<Guid> SavePriceAsync(Price price);
+
+        Task<Guid> SaveOrderAsync(Order order);
     }
 }

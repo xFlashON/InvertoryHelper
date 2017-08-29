@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 
 <ContentPage
     x:Class="InvertoryHelper.View.Documents.Orders.OrdersPage"
@@ -7,7 +7,9 @@
     xmlns:common="clr-namespace:InvertoryHelper.Common;assembly=InvertoryHelper"
     xmlns:dg="clr-namespace:Xamarin.Forms.DataGrid;assembly=Xamarin.Forms.DataGrid"
     Title="{common:Translate Orders}"
-    BackgroundColor="{StaticResource FormBackground}">
+    Appearing="OrdersPage_OnAppearing"
+    BackgroundColor="{StaticResource FormBackground}"
+    Disappearing="OrdersPage_OnDisappearing">
     <ContentPage.Content>
         <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
             <dg:DataGrid
@@ -18,10 +20,10 @@
                 VerticalOptions="FillAndExpand">
                 <dg:DataGrid.Columns>
                     <dg:ColumnCollection>
-                        <dg:DataGridColumn Title="{common:Translate Date}" PropertyName="{Binding Order.Date}" />
-                        <dg:DataGridColumn Title="{common:Translate Number}" PropertyName="{Binding Order.Number}" />
-                        <dg:DataGridColumn Title="{common:Translate Storage}" PropertyName="{Binding Order.Storage}" />
-                        <dg:DataGridColumn Title="{common:Translate Total}" PropertyName="{Binding Order.Total}" />
+                        <dg:DataGridColumn Title="{common:Translate Date}" PropertyName="Date}" />
+                        <dg:DataGridColumn Title="{common:Translate Number}" PropertyName="Number}" />
+                        <dg:DataGridColumn Title="{common:Translate Storage}" PropertyName="Storage}" />
+                        <dg:DataGridColumn Title="{common:Translate Total}" PropertyName="Total}" />
                     </dg:ColumnCollection>
                 </dg:DataGrid.Columns>
             </dg:DataGrid>
