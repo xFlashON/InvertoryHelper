@@ -7,17 +7,15 @@ namespace InvertoryHelper.Model.Documents.Order
     [Table("OrderRows")]
     public class OrderRow
     {
-        public decimal Amount;
-        public decimal Price;
-        public decimal Total;
 
         [PrimaryKey]
         [Unique]
         [AutoIncrement]
         public Guid Uid { get; set; }
 
+        [NotNull]
         [ForeignKey(typeof(Order))]
-        public Guid OrderGuid { get; set; }
+        public Guid OrderUid { get; set; }
 
         [ManyToOne]
         public Order Order { get; set; }
@@ -39,5 +37,9 @@ namespace InvertoryHelper.Model.Documents.Order
 
         [ManyToOne]
         public Characteristic Characteristic { get; set; }
+
+        public decimal Amount { get; set; }
+        public decimal Price { get; set; }
+        public decimal Total { get; set; }
     }
 }

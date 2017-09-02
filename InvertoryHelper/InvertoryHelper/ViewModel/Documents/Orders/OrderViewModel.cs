@@ -17,9 +17,12 @@ namespace InvertoryHelper.ViewModel.Documents.Orders
 
         public INavigation Navigation;
 
+        public OrderModel Order { get; set; }
+
         public OrderViewModel(OrderModel order = null)
         {
             Order = order ?? new OrderModel();
+
             MessagingCenter.Subscribe<Nomenclature>(this, "SelectedNomenclature", SelectedNomenclature);
         }
 
@@ -33,7 +36,7 @@ namespace InvertoryHelper.ViewModel.Documents.Orders
             }
         }
 
-        public OrderModel Order { get; }
+  
 
         public Command AddRowCommand => new Command(() => { Order.OrderRows?.Add(new OrderRowModel()); });
 

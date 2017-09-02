@@ -1,8 +1,8 @@
 ﻿using System;
-using InvertoryHelper.Model.Documents.Order;
 using InvertoryHelper.ViewModel.Documents.Orders;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using InvertoryHelper.Model.Documents.Order;
 
 namespace InvertoryHelper.View.Documents.Orders
 {

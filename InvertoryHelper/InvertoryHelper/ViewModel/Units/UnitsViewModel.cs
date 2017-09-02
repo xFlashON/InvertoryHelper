@@ -68,7 +68,7 @@ namespace InvertoryHelper.ViewModel.Units
                     await Navigation.PushAsync(new UnitItemPage(Navigation, SelectedUnit));
         }
 
-        private async void SaveUnit(Unit unit)
+        private void SaveUnit(Unit unit)
         {
             if (!IsBusy)
                 LoadUnitsList();

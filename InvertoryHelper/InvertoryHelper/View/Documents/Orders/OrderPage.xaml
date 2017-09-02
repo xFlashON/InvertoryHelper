@@ -22,11 +22,11 @@
                         </ViewCell>
                     </TableSection>
                     <TableSection Title="{common:Translate Number}">
-                        <EntryCell Text="{Binding Number}" />
+                        <EntryCell Text="{Binding Order.Number}" />
                     </TableSection>
                     <TableSection Title="{common:Translate Storage}">
                         <ViewCell>
-                            <Picker ItemsSource="{Binding StoragesList}" SelectedItem="Storage" />
+                            <Picker ItemsSource="{Binding StoragesList}" SelectedItem="{Binding Order.Storage}" />
                         </ViewCell>
                     </TableSection>
                     <TableSection Title="{common:Translate Comment}">

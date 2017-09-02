@@ -17,13 +17,13 @@ namespace InvertoryHelper.Model
         [ForeignKey(typeof(Nomenclature))]
         public Guid NomenclatureUid { get; set; }
 
-        [OneToOne]
+        [ManyToOne]
         public Nomenclature Nomenclature { get; set; }
 
         [ForeignKey(typeof(Characteristic))]
         public Guid CharacteristicUid { get; set; }
 
-        [OneToOne]
+        [ManyToOne]
         public Characteristic Characteristic { get; set; }
 
         public override bool Equals(object obj)

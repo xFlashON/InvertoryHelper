@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Android.Util;
 using InvertoryHelper.Common;
@@ -20,15 +21,14 @@ namespace InvertoryHelper.Model
 {
     public class DataRepository : IDataRepository
     {
-        private readonly SQLiteAsyncConnection db;
-        private List<Barcode> barcodesList;
-        private List<Characteristic> characteristicsList;
-        private List<NomenclaturesKind> nomenclatureKindsList;
-        private List<Nomenclature> nomenclaturesList;
-        private List<Order> ordersList;
-        private List<Price> priceList;
-        private List<Storage> storagesList;
-        private List<Unit> unitList;
+        private readonly SQLiteAsyncConnection _db;
+        private List<Barcode> _barcodesList;
+        private List<Characteristic> _characteristicsList;
+        private List<NomenclaturesKind> _nomenclatureKindsList;
+        private List<Nomenclature> _nomenclaturesList;
+        private List<Price> _priceList;
+        private List<Storage> _storagesList;
+        private List<Unit> _unitList;
 
         private DataRepository()
         {
@@ -37,7 +37,7 @@ namespace InvertoryHelper.Model
             switch (Device.RuntimePlatform)
             {
                 case Device.Android:
-                    db = new SQLiteAsyncConnection(() => new SQLiteConnectionWithLock(new SQLitePlatformAndroidN(),
+                    _db = new SQLiteAsyncConnection(() => new SQLiteConnectionWithLock(new SQLitePlatformAndroidN(),
                         new SQLiteConnectionString(path, true)));
 
                     break;
@@ -60,8 +60,8 @@ namespace InvertoryHelper.Model
             try
             {
                 if (e == null)
-                    return nomenclaturesList;
-                return nomenclaturesList.Where(e).ToList();
+                    return _nomenclaturesList;
+                return _nomenclaturesList.Where(e).ToList();
             }
             catch (Exception ex)
             {
@@ -75,8 +75,8 @@ namespace InvertoryHelper.Model
             await CheckLoad();
 
             if (e == null)
-                return unitList;
-            return unitList.Where(e).ToList();
+                return _unitList;
+            return _unitList.Where(e).ToList();
         }
 
         public async Task<List<NomenclaturesKind>> GetNomenclatureKindsAsync(Func<NomenclaturesKind, bool> e = null)
@@ -84,8 +84,8 @@ namespace InvertoryHelper.Model
             await CheckLoad();
 
             if (e == null)
-                return nomenclatureKindsList;
-            return nomenclatureKindsList.Where(e).ToList();
+                return _nomenclatureKindsList;
+            return _nomenclatureKindsList.Where(e).ToList();
         }
 
         public async Task<List<Barcode>> GetBarcodesAsync(Func<Barcode, bool> e = null)
@@ -93,8 +93,8 @@ namespace InvertoryHelper.Model
             await CheckLoad();
 
             if (e == null)
-                return barcodesList;
-            return barcodesList.Where(e).ToList();
+                return _barcodesList;
+            return _barcodesList.Where(e).ToList();
         }
 
         public async Task<List<Characteristic>> GetCharacteristicsAsync(Func<Characteristic, bool> e = null)
@@ -102,8 +102,8 @@ namespace InvertoryHelper.Model
             await CheckLoad();
 
             if (e == null)
-                return characteristicsList;
-            return characteristicsList.Where(e).ToList();
+                return _characteristicsList;
+            return _characteristicsList.Where(e).ToList();
         }
 
         public async Task<List<Price>> GetPricesAsync(Func<Price, bool> e = null)
@@ -111,34 +111,63 @@ namespace InvertoryHelper.Model
             await CheckLoad();
 
             if (e == null)
-                return priceList;
-            return priceList.Where(e).ToList();
+                return _priceList;
+            return _priceList.Where(e).ToList();
         }
 
         public async Task<List<Order>> GetOrdersAsync(Func<Order, bool> e = null)
         {
             await CheckLoad();
 
-            if (e == null)
-                return ordersList;
-            return ordersList.Where(e).ToList();
+            return await _db.GetAllWithChildrenAsync<Order>();
+
+        }
+
+
+        public async Task<Order> GetOrderAsync(Guid orderUid)
+        {
+
+            try
+            {
+
+                Order order = await _db.GetWithChildrenAsync<Order>(orderUid);
+
+                if (order == null)
+                    return new Order();
+
+                foreach (var orderRow in order.OrderRows)
+                {
+                    await _db.GetChildrenAsync(orderRow);
+                }
+
+                return order;
+
+            }
+            catch (Exception ex)
+            {
+                Log.Error("DatabaseError", ex.Message);
+                return new Order();
+
+            }
+
+
         }
 
         public async Task<Guid> SaveNomenclatureAsync(Nomenclature nomenclature)
         {
             try
             {
-                var index = nomenclaturesList.FindIndex(N => N.Uid == nomenclature.Uid);
+                var index = _nomenclaturesList.FindIndex(N => N.Uid == nomenclature.Uid);
 
                 if (index != -1)
                 {
-                    await db.UpdateWithChildrenAsync(nomenclature);
-                    nomenclaturesList[index] = nomenclature;
+                    await _db.UpdateWithChildrenAsync(nomenclature);
+                    _nomenclaturesList[index] = nomenclature;
                 }
                 else
                 {
-                    await db.InsertAsync(nomenclature);
-                    nomenclaturesList.Add(nomenclature);
+                    await _db.InsertWithChildrenAsync(nomenclature);
+                    _nomenclaturesList.Add(nomenclature);
                 }
             }
             catch (Exception ex)
@@ -154,17 +183,17 @@ namespace InvertoryHelper.Model
         {
             try
             {
-                var index = unitList.FindIndex(N => N.Uid == unit.Uid);
+                var index = _unitList.FindIndex(N => N.Uid == unit.Uid);
 
                 if (index != -1)
                 {
-                    await db.UpdateAsync(unit);
-                    unitList[index] = unit;
+                    await _db.UpdateAsync(unit);
+                    _unitList[index] = unit;
                 }
                 else
                 {
-                    await db.InsertAsync(unit);
-                    unitList.Add(unit);
+                    await _db.InsertWithChildrenAsync(unit);
+                    _unitList.Add(unit);
                 }
             }
             catch (Exception ex)
@@ -180,17 +209,17 @@ namespace InvertoryHelper.Model
         {
             try
             {
-                var index = characteristicsList.FindIndex(N => N.Uid == characteristic.Uid);
+                var index = _characteristicsList.FindIndex(N => N.Uid == characteristic.Uid);
 
                 if (index != -1)
                 {
-                    await db.UpdateWithChildrenAsync(characteristic);
-                    characteristicsList[index] = characteristic;
+                    await _db.UpdateWithChildrenAsync(characteristic);
+                    _characteristicsList[index] = characteristic;
                 }
                 else
                 {
-                    await db.InsertWithChildrenAsync(characteristic);
-                    characteristicsList.Add(characteristic);
+                    await _db.InsertWithChildrenAsync(characteristic);
+                    _characteristicsList.Add(characteristic);
                 }
             }
             catch (Exception ex)
@@ -206,17 +235,17 @@ namespace InvertoryHelper.Model
         {
             try
             {
-                var index = nomenclatureKindsList.FindIndex(N => N.Uid == nomenclatureKind.Uid);
+                var index = _nomenclatureKindsList.FindIndex(N => N.Uid == nomenclatureKind.Uid);
 
                 if (index != -1)
                 {
-                    await db.UpdateAsync(nomenclatureKind);
-                    nomenclatureKindsList[index] = nomenclatureKind;
+                    await _db.UpdateAsync(nomenclatureKind);
+                    _nomenclatureKindsList[index] = nomenclatureKind;
                 }
                 else
                 {
-                    await db.InsertAsync(nomenclatureKind);
-                    nomenclatureKindsList.Add(nomenclatureKind);
+                    await _db.InsertWithChildrenAsync(nomenclatureKind);
+                    _nomenclatureKindsList.Add(nomenclatureKind);
                 }
             }
             catch (Exception ex)
@@ -232,17 +261,17 @@ namespace InvertoryHelper.Model
         {
             try
             {
-                var index = barcodesList.FindIndex(N => N.Uid == barcode.Uid);
+                var index = _barcodesList.FindIndex(N => N.Uid == barcode.Uid);
 
                 if (index != -1)
                 {
-                    await db.UpdateWithChildrenAsync(barcode);
-                    barcodesList[index] = barcode;
+                    await _db.UpdateWithChildrenAsync(barcode);
+                    _barcodesList[index] = barcode;
                 }
                 else
                 {
-                    await db.InsertWithChildrenAsync(barcode);
-                    barcodesList.Add(barcode);
+                    await _db.InsertWithChildrenAsync(barcode);
+                    _barcodesList.Add(barcode);
                 }
             }
             catch (Exception ex)
@@ -258,17 +287,17 @@ namespace InvertoryHelper.Model
         {
             try
             {
-                var index = priceList.FindIndex(N => N.Uid == price.Uid);
+                var index = _priceList.FindIndex(N => N.Uid == price.Uid);
 
                 if (index != -1)
                 {
-                    await db.UpdateWithChildrenAsync(price);
-                    priceList[index] = price;
+                    await _db.UpdateWithChildrenAsync(price);
+                    _priceList[index] = price;
                 }
                 else
                 {
-                    await db.InsertWithChildrenAsync(price);
-                    priceList.Add(price);
+                    await _db.InsertWithChildrenAsync(price);
+                    _priceList.Add(price);
                 }
             }
             catch (Exception ex)
@@ -284,18 +313,20 @@ namespace InvertoryHelper.Model
         {
             try
             {
-                var index = ordersList.FindIndex(N => N.Uid == order.Uid);
 
-                if (index != -1)
+                if (order.Uid != Guid.Empty)
                 {
-                    await db.UpdateWithChildrenAsync(order);
-                    ordersList[index] = order;
+                    var rowsToDelete = _db.GetWithChildrenAsync<Order>(order.Uid).Result.OrderRows;
+
+                    foreach (var orderRow in rowsToDelete)
+                    {
+                        await _db.DeleteAsync<OrderRow>(orderRow.Uid);
+                    }
                 }
-                else
-                {
-                    await db.InsertWithChildrenAsync(order);
-                    ordersList.Add(order);
-                }
+
+                await _db.InsertOrReplaceWithChildrenAsync(order);
+                await _db.InsertAllWithChildrenAsync(order.OrderRows);
+
             }
             catch (Exception ex)
             {
@@ -314,30 +345,30 @@ namespace InvertoryHelper.Model
 
         private async Task CreateDbAsync()
         {
-            if (db != null)
+            if (_db != null)
             {
                 IsLoading = true;
 
                 try
                 {
-                    await db.CreateTableAsync<Unit>();
-                    await db.CreateTableAsync<NomenclaturesKind>();
-                    await db.CreateTableAsync<Nomenclature>();
-                    await db.CreateTableAsync<Characteristic>();
-                    await db.CreateTableAsync<Barcode>();
-                    await db.CreateTableAsync<Price>();
-                    await db.CreateTableAsync<Storage>();
-                    await db.CreateTableAsync<Order>();
-                    await db.CreateTableAsync<OrderRow>();
 
-                    nomenclaturesList = await db.GetAllWithChildrenAsync<Nomenclature>();
-                    characteristicsList = await db.GetAllWithChildrenAsync<Characteristic>();
-                    unitList = await db.GetAllWithChildrenAsync<Unit>();
-                    nomenclatureKindsList = await db.GetAllWithChildrenAsync<NomenclaturesKind>();
-                    priceList = await db.GetAllWithChildrenAsync<Price>();
-                    barcodesList = await db.GetAllWithChildrenAsync<Barcode>();
-                    storagesList = await db.GetAllWithChildrenAsync<Storage>();
-                    ordersList = await db.GetAllWithChildrenAsync<Order>();
+                    await _db.CreateTableAsync<Unit>();
+                    await _db.CreateTableAsync<NomenclaturesKind>();
+                    await _db.CreateTableAsync<Nomenclature>();
+                    await _db.CreateTableAsync<Characteristic>();
+                    await _db.CreateTableAsync<Barcode>();
+                    await _db.CreateTableAsync<Price>();
+                    await _db.CreateTableAsync<Storage>();
+                    await _db.CreateTableAsync<Order>();
+                    await _db.CreateTableAsync<OrderRow>();
+
+                    _nomenclaturesList = await _db.GetAllWithChildrenAsync<Nomenclature>();
+                    _characteristicsList = await _db.GetAllWithChildrenAsync<Characteristic>();
+                    _unitList = await _db.GetAllWithChildrenAsync<Unit>();
+                    _nomenclatureKindsList = await _db.GetAllWithChildrenAsync<NomenclaturesKind>();
+                    _priceList = await _db.GetAllWithChildrenAsync<Price>();
+                    _barcodesList = await _db.GetAllWithChildrenAsync<Barcode>();
+                    _storagesList = await _db.GetAllWithChildrenAsync<Storage>();
                 }
                 catch (Exception ex)
                 {

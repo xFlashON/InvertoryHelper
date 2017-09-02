@@ -8,11 +8,6 @@ namespace InvertoryHelper.Model.Documents.Order
     [Table("Orders")]
     public class Order
     {
-        public string Comment;
-
-        public decimal Number;
-
-        public decimal Total;
 
         [PrimaryKey]
         [Unique]
@@ -29,5 +24,11 @@ namespace InvertoryHelper.Model.Documents.Order
 
         [OneToMany]
         public List<OrderRow> OrderRows { get; set; }
+
+        public string Comment { get; set; }
+
+        public decimal Number { get; set; }
+
+        public decimal Total { get; set; }
     }
 }

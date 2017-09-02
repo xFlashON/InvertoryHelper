@@ -17,10 +17,10 @@ namespace InvertoryHelper.ViewModel.Documents.Orders
 
         public OrderModel CurrentOrder { get; set; }
 
-        public Command EditCommand => new Command(() =>
+        public Command EditCommand => new Command( async () =>
             {
                 if (CurrentOrder != null)
-                    Navigation?.PushAsync(new OrderPage(CurrentOrder));
+                    Navigation?.PushAsync(new OrderPage(new OrderModel(await DataRepository.Instance.GetOrderAsync(CurrentOrder.Uid))));
             }
         );
 
@@ -31,15 +31,14 @@ namespace InvertoryHelper.ViewModel.Documents.Orders
 
         public OrdersViewModel()
         {
+            OrdersList = new ObservableCollection<OrderModel>();
+
             LoadOrders();
         }
 
         public async void LoadOrders()
         {
-            if(IsBusy)
-                return;
 
-            IsBusy = true;
 
             var ordersList = await DataRepository.Instance.GetOrdersAsync();
 
@@ -47,7 +46,6 @@ namespace InvertoryHelper.ViewModel.Documents.Orders
 
             OnPropertyChanged("OrdersList");
 
-            IsBusy = false;
         }
     }
 }

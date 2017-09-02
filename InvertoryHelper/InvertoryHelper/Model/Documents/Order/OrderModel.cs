@@ -7,7 +7,7 @@ namespace InvertoryHelper.Model.Documents.Order
 {
     public class OrderModel : ObservableObject
     {
-        private readonly Order _order;
+        private Order _order;
 
         public OrderModel(Order order = null)
         {
@@ -36,7 +36,7 @@ namespace InvertoryHelper.Model.Documents.Order
 
         public DateTime Date
         {
-            get => _order.Date;
+            get { return _order.Date; }
             set
             {
                 _order.Date = value;
