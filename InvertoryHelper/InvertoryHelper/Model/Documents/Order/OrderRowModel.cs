@@ -47,6 +47,8 @@ namespace InvertoryHelper.Model.Documents.Order
                 _orderRow.Nomenclature = value;
                 OnPropertyChanged("Nomenclature");
                 OnPropertyChanged("CharacteristicsList");
+
+                FillPrice();
             }
         }
 
@@ -67,6 +69,8 @@ namespace InvertoryHelper.Model.Documents.Order
             {
                 _orderRow.Characteristic = value;
                 OnPropertyChanged("Characteristic");
+
+                FillPrice();
             }
         }
 
@@ -130,6 +134,26 @@ namespace InvertoryHelper.Model.Documents.Order
         private void RecalculateCurrentRow()
         {
             Total = Price * Amount;
+        }
+
+        private async void FillPrice()
+        {
+            if (Nomenclature == null)
+            {
+                Price = 0;
+                return;
+            }
+
+            var prices = await DataRepository.Instance.GetPricesAsync(new Func<Price, bool>((p)=>
+                {
+                    return Nomenclature.Equals(p.Nomenclature) && (Characteristic == null? p.Characteristic == null: Characteristic?.Equals(p.Characteristic) == true);
+                }));
+
+            var priceItem = prices.FirstOrDefault();
+
+            if (priceItem != null)
+                Price = priceItem.price;
+
         }
     }
 }

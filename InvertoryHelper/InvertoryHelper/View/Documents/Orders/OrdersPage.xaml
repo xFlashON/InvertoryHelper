@@ -21,10 +21,16 @@
                 VerticalOptions="FillAndExpand">
                 <dg:DataGrid.Columns>
 
-                    <dg:DataGridColumn Title="{common:Translate Date}" PropertyName="Date" StringFormat="{}{0:d}" />
+                    <dg:DataGridColumn
+                        Title="{common:Translate Date}"
+                        PropertyName="Date"
+                        StringFormat="{}{0:d}" />
                     <dg:DataGridColumn Title="{common:Translate Number}" PropertyName="Number" />
-                    <dg:DataGridColumn Title="{common:Translate Storage}" Width="2*" PropertyName="Storage" />
-                    <dg:DataGridColumn Title="{common:Translate Total}" PropertyName="Total" StringFormat="{}{0:C}" />
+                    <!--<dg:DataGridColumn Title="{common:Translate Storage}" Width="2*" PropertyName="Storage" />-->
+                    <dg:DataGridColumn
+                        Title="{common:Translate Total}"
+                        PropertyName="Total"
+                        StringFormat="{}{0:C}" />
 
                 </dg:DataGrid.Columns>
             </dg:DataGrid>

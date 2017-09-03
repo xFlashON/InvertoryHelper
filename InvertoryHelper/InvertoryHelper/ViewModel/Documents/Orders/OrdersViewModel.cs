@@ -26,7 +26,10 @@ namespace InvertoryHelper.ViewModel.Documents.Orders
 
         public Command AddCommand
         {
-            get { return new Command(() => { Navigation?.PushAsync(new OrderPage()); }); }
+            get { return new Command(() => { Navigation?.PushAsync(new OrderPage(new OrderModel()
+            {
+                Number = OrdersList.Max(o=>o.Number)+1
+            })); }); }
         }
 
         public OrdersViewModel()
@@ -42,7 +45,7 @@ namespace InvertoryHelper.ViewModel.Documents.Orders
 
             var ordersList = await DataRepository.Instance.GetOrdersAsync();
 
-            OrdersList = new ObservableCollection<OrderModel>(ordersList.Select((o)=>new OrderModel(o)));
+            OrdersList = new ObservableCollection<OrderModel>(ordersList.Select((o)=>new OrderModel(o)).OrderBy((o=>o.Number)));
 
             OnPropertyChanged("OrdersList");
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Android.OS;
 using Android.Util;
 using InvertoryHelper.Common;
 using InvertoryHelper.Model;
@@ -38,7 +39,15 @@ namespace InvertoryHelper.ViewModel.Documents.Orders
 
   
 
-        public Command AddRowCommand => new Command(() => { Order.OrderRows?.Add(new OrderRowModel()); });
+        public Command AddRowCommand => new Command(() =>
+        {
+            var newRow = new OrderRowModel();
+
+            Order.OrderRows?.Add(newRow);
+
+            SelectedRow = newRow;
+
+        });
 
         public Command DeleteRowCommand => new Command(() =>
         {
@@ -134,17 +143,19 @@ namespace InvertoryHelper.ViewModel.Documents.Orders
 
             var priceList =
                 await DataRepository.Instance.GetPricesAsync(
-                    f => !f.Nomenclature.Equals(nomenclature) || characteristic == null || f.Characteristic == null ||
-                         f.Characteristic.Equals(characteristic));
+                    p => nomenclature.Equals(p.Nomenclature) && (characteristic == null ? p.Characteristic == null : characteristic?.Equals(p.Characteristic) == true));
 
             var resultPrice = priceList.FirstOrDefault();
 
             var price = resultPrice?.price ?? 0;
 
-            var exRow = Order.OrderRows
-                .FirstOrDefault(r => r.Nomenclature != null && r.Nomenclature.Equals(nomenclature) &&
-                                     (characteristic == null ||
-                                      r.Characteristic != null && r.Characteristic.Equals(characteristic)));
+            OrderRowModel exRow = null;
+
+            exRow = Order.OrderRows
+                .FirstOrDefault(r => nomenclature.Equals(r.Nomenclature) && characteristic == null
+                    ? r.Characteristic == null
+                    : characteristic?.Equals(r.Characteristic) == true);
+
 
             if (exRow != null)
             {
@@ -161,6 +172,7 @@ namespace InvertoryHelper.ViewModel.Documents.Orders
                 Order.OrderRows.Add(newRow);
 
                 SelectedRow = newRow;
+
             }
         }
     }

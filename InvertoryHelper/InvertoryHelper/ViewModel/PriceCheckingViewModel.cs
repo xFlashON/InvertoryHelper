@@ -106,8 +106,7 @@ namespace InvertoryHelper.ViewModel
 
             var priceList =
                 await DataRepository.Instance.GetPricesAsync(
-                    f => !f.Nomenclature.Equals(Nomenclature) || Characteristic == null || f.Characteristic == null ||
-                         f.Characteristic.Equals(Characteristic));
+                    p => Nomenclature.Equals(p.Nomenclature) && (Characteristic == null ? p.Characteristic == null : Characteristic?.Equals(p.Characteristic)==true));
 
             var resultPrice = priceList.FirstOrDefault();
 
