@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 
 <ContentPage
     x:Class="InvertoryHelper.View.MainPage"
@@ -33,11 +33,17 @@
         <Button
             Grid.Row="0"
             Command="{Binding OpenOrdersCmd}"
+            Image="OrderIco"
             Text="{common:Translate Orders}" />
-        <Button Grid.Row="1" Text="{common:Translate Recounts}" />
+        <Button
+            Grid.Row="1"
+            Command="{Binding OpenRecountsCmd}"
+            Image="RecountIco"
+            Text="{common:Translate Recounts}" />
         <Button
             Grid.Row="2"
             Command="{Binding PriceCheckingCmd}"
+            Image="SearchIco"
             Text="{common:Translate PriceChecking}" />
 
     </Grid>

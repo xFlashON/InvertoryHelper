@@ -3,6 +3,7 @@ using InvertoryHelper.Common;
 using InvertoryHelper.Model;
 using InvertoryHelper.View;
 using InvertoryHelper.View.Documents.Orders;
+using InvertoryHelper.View.Documents.Recounts;
 using Xamarin.Forms;
 
 namespace InvertoryHelper.ViewModel
@@ -26,5 +27,8 @@ namespace InvertoryHelper.ViewModel
             async () => await navigation.PushAsync(new PriceCheckingPage()));
 
         public ICommand OpenOrdersCmd => new Command(async () => { await navigation?.PushAsync(new OrdersPage()); });
+
+        public ICommand OpenRecountsCmd => new Command(async () => { await navigation?.PushAsync(new RecountsPage()); });
+
     }
 }

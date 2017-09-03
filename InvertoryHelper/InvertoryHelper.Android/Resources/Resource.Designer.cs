@@ -1953,7 +1953,7 @@ namespace InvertoryHelper.Droid
 			public const int abc_textfield_search_material = 2130837578;
 			
 			// aapt resource value: 0x7f02004b
-			public const int Barcode = 2130837579;
+			public const int BarcodeIco = 2130837579;
 			
 			// aapt resource value: 0x7f02004c
 			public const int design_fab_background = 2130837580;
@@ -2166,7 +2166,7 @@ namespace InvertoryHelper.Droid
 			public const int ic_tv_light = 2130837649;
 			
 			// aapt resource value: 0x7f020092
-			public const int icon = 2130837650;
+			public const int Icon = 2130837650;
 			
 			// aapt resource value: 0x7f020093
 			public const int mr_dialog_material_background_dark = 2130837651;
@@ -2213,11 +2213,20 @@ namespace InvertoryHelper.Droid
 			// aapt resource value: 0x7f0200a1
 			public const int mr_ic_play_light = 2130837665;
 			
-			// aapt resource value: 0x7f0200a3
-			public const int notification_template_icon_bg = 2130837667;
+			// aapt resource value: 0x7f0200a6
+			public const int notification_template_icon_bg = 2130837670;
 			
 			// aapt resource value: 0x7f0200a2
-			public const int settings = 2130837666;
+			public const int OrderIco = 2130837666;
+			
+			// aapt resource value: 0x7f0200a3
+			public const int RecountIco = 2130837667;
+			
+			// aapt resource value: 0x7f0200a4
+			public const int SearchIco = 2130837668;
+			
+			// aapt resource value: 0x7f0200a5
+			public const int SettingsIco = 2130837669;
 			
 			static Drawable()
 			{

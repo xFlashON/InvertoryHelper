@@ -47,6 +47,10 @@
     <Compile Include="Model\Documents\Order\OrderModel.cs" />
     <Compile Include="Model\Documents\Order\OrderRow.cs" />
     <Compile Include="Model\Documents\Order\OrderRowModel.cs" />
+    <Compile Include="Model\Documents\Recount\Recount.cs" />
+    <Compile Include="Model\Documents\Recount\RecountModel.cs" />
+    <Compile Include="Model\Documents\Recount\RecountRow.cs" />
+    <Compile Include="Model\Documents\Recount\RecountRowModel.cs" />
     <Compile Include="Resourses\Resource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -66,6 +70,8 @@
     <Compile Include="ViewModel\Characteristics\CharacteristicsViewModel.cs" />
     <Compile Include="ViewModel\Documents\Orders\OrdersViewModel.cs" />
     <Compile Include="ViewModel\Documents\Orders\OrderViewModel.cs" />
+    <Compile Include="ViewModel\Documents\Recounts\RecountsViewModel.cs" />
+    <Compile Include="ViewModel\Documents\Recounts\RecountViewModel.cs" />
     <Compile Include="ViewModel\Nomenclatures\NomenclatureModel.cs" />
     <Compile Include="Model\NomenclaturesKind.cs" />
     <Compile Include="Model\Nomenclature.cs" />
@@ -96,6 +102,12 @@
     </Compile>
     <Compile Include="View\Characteristics\CharacteristicsPage.xaml.cs">
       <DependentUpon>CharacteristicsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Documents\Recounts\RecountPage.xaml.cs">
+      <DependentUpon>RecountPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Documents\Recounts\RecountsPage.xaml.cs">
+      <DependentUpon>RecountsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Documents\Orders\OrderPage.xaml.cs">
       <DependentUpon>OrderPage.xaml</DependentUpon>
@@ -207,7 +219,6 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="View\Nomenclatures\NomenclaturesPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
@@ -300,6 +311,18 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="View\Documents\Orders\OrdersPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="View\Documents\Recounts\RecountPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="View\Documents\Recounts\RecountsPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

@@ -28,7 +28,7 @@ namespace InvertoryHelper.ViewModel.Documents.Orders
         {
             get { return new Command(() => { Navigation?.PushAsync(new OrderPage(new OrderModel()
             {
-                Number = OrdersList.Max(o=>o.Number)+1
+                Number = OrdersList.Any() ? OrdersList.Max(o => o.Number) + 1 : 1
             })); }); }
         }
 

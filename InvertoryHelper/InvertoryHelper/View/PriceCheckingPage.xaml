@@ -22,7 +22,7 @@
                         <Button
                             BackgroundColor="Transparent"
                             Command="{Binding ScanCmd}"
-                            Image="Barcode"
+                            Image="BarcodeIco"
                             VerticalOptions="Center" />
                     </StackLayout>
                 </ViewCell>

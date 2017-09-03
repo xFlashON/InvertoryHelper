@@ -9,6 +9,7 @@ using Android.Util;
 using InvertoryHelper.Common;
 using InvertoryHelper.Model;
 using InvertoryHelper.Model.Documents.Order;
+using InvertoryHelper.Model.Documents.Recount;
 using SQLite.Net;
 using SQLite.Net.Async;
 using SQLite.Net.Platform.XamarinAndroid;
@@ -123,7 +124,6 @@ namespace InvertoryHelper.Model
 
         }
 
-
         public async Task<Order> GetOrderAsync(Guid orderUid)
         {
 
@@ -147,6 +147,43 @@ namespace InvertoryHelper.Model
             {
                 Log.Error("DatabaseError", ex.Message);
                 return new Order();
+
+            }
+
+
+        }
+
+        public async Task<List<Recount>> GetRecountsAsync(Func<Recount, bool> e = null)
+        {
+            await CheckLoad();
+
+            return await _db.GetAllWithChildrenAsync<Recount>();
+
+        }
+
+        public async Task<Recount> GetRecountAsync(Guid recountUid)
+        {
+
+            try
+            {
+
+                Recount recount = await _db.GetWithChildrenAsync<Recount>(recountUid);
+
+                if (recount == null)
+                    return new Recount();
+
+                foreach (var recountRow in recount.RecountRows)
+                {
+                    await _db.GetChildrenAsync(recountRow);
+                }
+
+                return recount;
+
+            }
+            catch (Exception ex)
+            {
+                Log.Error("DatabaseError", ex.Message);
+                return new Recount();
 
             }
 
@@ -337,6 +374,34 @@ namespace InvertoryHelper.Model
             return order.Uid;
         }
 
+        public async Task<Guid> SaveRecountAsync(Recount recount)
+        {
+            try
+            {
+
+                if (recount.Uid != Guid.Empty)
+                {
+                    var rowsToDelete = _db.GetWithChildrenAsync<Recount>(recount.Uid).Result.RecountRows;
+
+                    foreach (var recountRow in rowsToDelete)
+                    {
+                        await _db.DeleteAsync<RecountRow>(recountRow.Uid);
+                    }
+                }
+
+                await _db.InsertOrReplaceWithChildrenAsync(recount);
+                await _db.InsertAllWithChildrenAsync(recount.RecountRows);
+
+            }
+            catch (Exception ex)
+            {
+                Log.Error("DatabaseError", ex.Message);
+                return Guid.Empty;
+            }
+
+            return recount.Uid;
+        }
+
         private async Task CheckLoad()
         {
             while (IsLoading)
@@ -361,6 +426,8 @@ namespace InvertoryHelper.Model
                     await _db.CreateTableAsync<Storage>();
                     await _db.CreateTableAsync<Order>();
                     await _db.CreateTableAsync<OrderRow>();
+                    await _db.CreateTableAsync<Recount>();
+                    await _db.CreateTableAsync<RecountRow>();
 
                     _nomenclaturesList = await _db.GetAllWithChildrenAsync<Nomenclature>();
                     _characteristicsList = await _db.GetAllWithChildrenAsync<Characteristic>();
