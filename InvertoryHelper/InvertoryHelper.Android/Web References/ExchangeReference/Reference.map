@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DiscoveryClientResultsFile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Results>
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.ContractReference" url="http://193.93.76.208:8080/erp_dev1/ws/ExchangeERP_MobApp.1cws?wsdl" filename="ExchangeERP_MobApp.wsdl" />
+  </Results>
+</DiscoveryClientResultsFile>

@@ -15,6 +15,9 @@ namespace InvertoryHelper.ViewModel
         public MainViewModel()
         {
             var repo = DataRepository.Instance;
+
+            DependencyService.Get<IWebExchange>().GetData();
+
         }
 
         public ICommand OpenRefereccesPage => new Command(() =>

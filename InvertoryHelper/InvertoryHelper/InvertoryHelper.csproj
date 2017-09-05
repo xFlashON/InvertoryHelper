@@ -41,6 +41,7 @@
     <Compile Include="Common\BaseViewModel.cs" />
     <Compile Include="Common\BoolToVisibilityReverseConverter.cs" />
     <Compile Include="Common\ILocalize.cs" />
+    <Compile Include="Common\IWebExchange.cs" />
     <Compile Include="Common\NomenclatureEntryValidation.cs" />
     <Compile Include="Common\ObservableObject.cs" />
     <Compile Include="Model\Documents\Order\Order.cs" />

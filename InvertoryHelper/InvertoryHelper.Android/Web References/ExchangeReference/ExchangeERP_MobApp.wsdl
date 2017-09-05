@@ -1,0 +1,720 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:xsd1="http://astelit.com.ua" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:soapbind="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12bind="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsd2="http://www.1c.ru/SSL/Exchange/Message" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:tns="http://astelit.com.ua" name="ExchangeERP_MobApp" targetNamespace="http://astelit.com.ua" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <xs:schema xmlns:tns="http://www.1c.ru/SSL/Exchange/Message" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.1c.ru/SSL/Exchange/Message" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:complexType name="Confirmation">
+        <xs:sequence>
+          <xs:element name="ExchangePlan" type="xs:string" />
+          <xs:element name="To" type="xs:string" />
+          <xs:element name="From" type="xs:string" />
+          <xs:element name="MessageNo" type="xs:integer" />
+          <xs:element name="ReceivedNo" type="xs:integer" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="Header">
+        <xs:sequence>
+          <xs:element name="Format" type="xs:string" />
+          <xs:element name="CreationDate" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="Confirmation" type="tns:Confirmation" />
+          <xs:element maxOccurs="100" name="AvailableVersion" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="Object" abstract="true">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="AdditionalInfo" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:simpleType name="Ref">
+        <xs:restriction base="xs:string" />
+      </xs:simpleType>
+    </xs:schema>
+    <xs:schema xmlns:xs2="http://astelit.com.ua" xmlns:xs1="http://www.1c.ru/SSL/Exchange/Message" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://astelit.com.ua" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:import namespace="http://www.1c.ru/SSL/Exchange/Message" />
+      <xs:complexType name="Document">
+        <xs:sequence>
+          <xs:element name="UID" type="xs:string" />
+          <xs:element name="Number" type="xs:string" />
+          <xs:element name="DateTime" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="Strogage" nillable="true" type="xs2:СправочникСсылка.Склад" />
+          <xs:element minOccurs="0" name="Summ" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="BaseDocument" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ArrivalDate" nillable="true" type="xs:date" />
+          <xs:element minOccurs="0" name="Comment" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="99999" name="Table" nillable="true" type="xs2:DocumentString" />
+          <xs:element name="DeletionMark" type="xs:boolean" />
+          <xs:element name="Posted" type="xs:boolean" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="DocumentList">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="999" name="Documents" nillable="true" type="xs2:Document" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="DocumentString">
+        <xs:sequence>
+          <xs:element name="Count" type="xs:integer" />
+          <xs:element name="Nomenklature" type="xs2:СправочникСсылка.Номенклатура" />
+          <xs:element minOccurs="0" name="Charakteristic" nillable="true" type="xs2:СправочникСсылка.ХарактеристикаНоменклатуры" />
+          <xs:element minOccurs="0" name="Unit" nillable="true" type="xs2:СправочникСсылка.ЕдиницаИзмерения" />
+          <xs:element minOccurs="0" name="Qty" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="Price" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="Sum" nillable="true" type="xs:decimal" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="ВидНоменклатуры">
+        <xs:sequence>
+          <xs:element name="Ссылка" type="xs2:СправочникСсылка.ВидНоменклатуры" />
+          <xs:element name="Наименование" type="xs:string" />
+          <xs:element name="Родитель" nillable="true" type="xs2:СправочникСсылка.ВидНоменклатуры" />
+          <xs:element name="ЭтоГруппа" type="xs:boolean" />
+          <xs:element name="ПометкаУдаления" type="xs:boolean" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="ЕдиницаИзмерения">
+        <xs:sequence>
+          <xs:element name="Ссылка" type="xs2:СправочникСсылка.ЕдиницаИзмерения" />
+          <xs:element name="Код" type="xs:string" />
+          <xs:element name="Наименование" type="xs:string" />
+          <xs:element minOccurs="0" name="Номенклатура" nillable="true" type="xs2:СправочникСсылка.Номенклатура" />
+          <xs:element name="ПометкаУдаления" type="xs:boolean" />
+          <xs:element name="Числитель" type="xs:decimal" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="КаталогВидовНоменклатуры">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="9999" name="ВидНоменклатуры" type="xs2:ВидНоменклатуры" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="КаталогЕдиницИзмерения">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="9999" name="ЕдиницаИзмерения" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="КаталогНоменклатуры">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="99999" name="Номенклатура" type="xs2:Номенклатура" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="КаталогСкладов">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="999" name="Склад" type="xs2:Склад" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="КаталогХарактеристик">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="99999" name="ХарактеристикаНоменклатуры" type="xs2:ХарактеристикаНоменклатуры" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="Номенклатура">
+        <xs:sequence>
+          <xs:element name="Ссылка" type="xs2:СправочникСсылка.Номенклатура" />
+          <xs:element name="Код" type="xs:string" />
+          <xs:element name="Наименование" type="xs:string" />
+          <xs:element name="Родитель" nillable="true" type="xs2:СправочникСсылка.Номенклатура" />
+          <xs:element name="ЭтоГруппа" type="xs:boolean" />
+          <xs:element minOccurs="0" name="ВидНоменклатуры" nillable="true" type="xs2:СправочникСсылка.ВидНоменклатуры" />
+          <xs:element minOccurs="0" name="ЕдиницаИзмерения" nillable="true" type="xs2:СправочникСсылка.ЕдиницаИзмерения" />
+          <xs:element minOccurs="0" name="ВариантИспользованияХарактеристик" nillable="true" type="xs2:Перечисление.ВариантИспользованияХарактеристикНоменклатуры" />
+          <xs:element name="ПометкаУдаления" type="xs:boolean" />
+          <xs:element minOccurs="0" name="Артикул" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:simpleType name="Перечисление.ВариантИспользованияХарактеристикНоменклатуры">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="НеИспользовать" />
+          <xs:enumeration value="ОбщиеДляВидаНоменклатуры" />
+          <xs:enumeration value="ИндивидуальныеДляНоменклатуры" />
+          <xs:enumeration value="ОбщиеСДругимВидомНоменклатуры" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:complexType name="Склад">
+        <xs:sequence>
+          <xs:element name="Ссылка" type="xs2:СправочникСсылка.Склад" />
+          <xs:element name="Наименование" type="xs:string" />
+          <xs:element name="Родитель" nillable="true" type="xs2:СправочникСсылка.Склад" />
+          <xs:element name="ЭтоГруппа" type="xs:boolean" />
+          <xs:element name="ПометкаУдаления" type="xs:boolean" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:simpleType name="СправочникСсылка.ВидНоменклатуры">
+        <xs:restriction base="xs1:Ref" />
+      </xs:simpleType>
+      <xs:simpleType name="СправочникСсылка.ЕдиницаИзмерения">
+        <xs:restriction base="xs1:Ref" />
+      </xs:simpleType>
+      <xs:simpleType name="СправочникСсылка.Номенклатура">
+        <xs:restriction base="xs1:Ref" />
+      </xs:simpleType>
+      <xs:simpleType name="СправочникСсылка.Склад">
+        <xs:restriction base="xs1:Ref" />
+      </xs:simpleType>
+      <xs:simpleType name="СправочникСсылка.ХарактеристикаНоменклатуры">
+        <xs:restriction base="xs1:Ref" />
+      </xs:simpleType>
+      <xs:complexType name="СтрокаЦена">
+        <xs:sequence>
+          <xs:element name="Номенклатура" type="xs2:СправочникСсылка.Номенклатура" />
+          <xs:element name="ХарактеристикаНоменклатуры" type="xs2:СправочникСсылка.ХарактеристикаНоменклатуры" />
+          <xs:element name="Цена" type="xs:decimal" />
+          <xs:element name="Удаление" type="xs:boolean" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="СтрокаШтрихкод">
+        <xs:sequence>
+          <xs:element name="Штрихкод" type="xs:string" />
+          <xs:element name="Номенклатура" type="xs2:СправочникСсылка.Номенклатура" />
+          <xs:element name="ХарактеристикаНоменклатуры" type="xs2:СправочникСсылка.ХарактеристикаНоменклатуры" />
+          <xs:element name="ЕдиницаИзмерения" type="xs2:СправочникСсылка.ЕдиницаИзмерения" />
+          <xs:element name="Удаление" type="xs:boolean" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="ХарактеристикаНоменклатуры">
+        <xs:sequence>
+          <xs:element name="Ссылка" type="xs2:СправочникСсылка.ХарактеристикаНоменклатуры" />
+          <xs:element name="Наименование" type="xs:string" />
+          <xs:element minOccurs="0" name="Владелец" nillable="true" type="xs2:СправочникСсылка.Номенклатура" />
+          <xs:element name="ПометкаУдаления" type="xs:boolean" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="Цены">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="99999" name="Цена" nillable="true" type="xs2:СтрокаЦена" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="Штрихкоды">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="99999" name="Штрихкод" nillable="true" type="xs2:СтрокаШтрихкод" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="GetNomenklatures">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="NodeId" type="xs:string" />
+            <xs:element name="DeleteRegistration" nillable="true" type="xs:boolean" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetNomenklaturesResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="return" nillable="true" type="xs2:КаталогНоменклатуры" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetMeasures">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="NodeId" type="xs:string" />
+            <xs:element name="DeleteRegistration" nillable="true" type="xs:boolean" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetMeasuresResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="return" nillable="true" type="xs2:КаталогЕдиницИзмерения" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetStorages">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="NodeId" type="xs:string" />
+            <xs:element name="DeleteRegistration" nillable="true" type="xs:boolean" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetStoragesResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="return" nillable="true" type="xs2:КаталогСкладов" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetNomenklaturesKind">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="NodeId" type="xs:string" />
+            <xs:element name="DeleteRegistration" nillable="true" type="xs:boolean" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetNomenklaturesKindResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="return" nillable="true" type="xs2:КаталогВидовНоменклатуры" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetCharacteristics">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="NodeId" type="xs:string" />
+            <xs:element name="DeleteRegistration" nillable="true" type="xs:boolean" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetCharacteristicsResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="return" nillable="true" type="xs2:КаталогХарактеристик" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetBarcodes">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="NodeId" type="xs:string" />
+            <xs:element name="DeleteRegistration" nillable="true" type="xs:boolean" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetBarcodesResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="return" nillable="true" type="xs2:Штрихкоды" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetPrices">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="NodeId" type="xs:string" />
+            <xs:element name="StrogageUID" type="xs:string" />
+            <xs:element name="DeleteRegistration" nillable="true" type="xs:boolean" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetPricesResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="return" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="SendRecounts">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="DocumentList" nillable="true" type="xs2:DocumentList" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="SendRecountsResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="return" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="SendOrders">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="DocumentList" nillable="true" type="xs2:DocumentList" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="SendOrdersResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="return" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetRecounts">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="NodeId" type="xs:string" />
+            <xs:element name="StrogageUID" type="xs:string" />
+            <xs:element name="DeleteRegistration" nillable="true" type="xs:boolean" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetRecountsResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="return" nillable="true" type="xs2:DocumentList" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetPassword">
+        <xs:complexType>
+          <xs:sequence />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetPasswordResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="return" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetMinVersion">
+        <xs:complexType>
+          <xs:sequence />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetMinVersionResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="return" type="xs:integer" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+  </types>
+  <message name="GetNomenklaturesRequestMessage">
+    <part name="parameters" element="tns:GetNomenklatures" />
+  </message>
+  <message name="GetNomenklaturesResponseMessage">
+    <part name="parameters" element="tns:GetNomenklaturesResponse" />
+  </message>
+  <message name="GetMeasuresRequestMessage">
+    <part name="parameters" element="tns:GetMeasures" />
+  </message>
+  <message name="GetMeasuresResponseMessage">
+    <part name="parameters" element="tns:GetMeasuresResponse" />
+  </message>
+  <message name="GetStoragesRequestMessage">
+    <part name="parameters" element="tns:GetStorages" />
+  </message>
+  <message name="GetStoragesResponseMessage">
+    <part name="parameters" element="tns:GetStoragesResponse" />
+  </message>
+  <message name="GetNomenklaturesKindRequestMessage">
+    <part name="parameters" element="tns:GetNomenklaturesKind" />
+  </message>
+  <message name="GetNomenklaturesKindResponseMessage">
+    <part name="parameters" element="tns:GetNomenklaturesKindResponse" />
+  </message>
+  <message name="GetCharacteristicsRequestMessage">
+    <part name="parameters" element="tns:GetCharacteristics" />
+  </message>
+  <message name="GetCharacteristicsResponseMessage">
+    <part name="parameters" element="tns:GetCharacteristicsResponse" />
+  </message>
+  <message name="GetBarcodesRequestMessage">
+    <part name="parameters" element="tns:GetBarcodes" />
+  </message>
+  <message name="GetBarcodesResponseMessage">
+    <part name="parameters" element="tns:GetBarcodesResponse" />
+  </message>
+  <message name="GetPricesRequestMessage">
+    <part name="parameters" element="tns:GetPrices" />
+  </message>
+  <message name="GetPricesResponseMessage">
+    <part name="parameters" element="tns:GetPricesResponse" />
+  </message>
+  <message name="SendRecountsRequestMessage">
+    <part name="parameters" element="tns:SendRecounts" />
+  </message>
+  <message name="SendRecountsResponseMessage">
+    <part name="parameters" element="tns:SendRecountsResponse" />
+  </message>
+  <message name="SendOrdersRequestMessage">
+    <part name="parameters" element="tns:SendOrders" />
+  </message>
+  <message name="SendOrdersResponseMessage">
+    <part name="parameters" element="tns:SendOrdersResponse" />
+  </message>
+  <message name="GetRecountsRequestMessage">
+    <part name="parameters" element="tns:GetRecounts" />
+  </message>
+  <message name="GetRecountsResponseMessage">
+    <part name="parameters" element="tns:GetRecountsResponse" />
+  </message>
+  <message name="GetPasswordRequestMessage">
+    <part name="parameters" element="tns:GetPassword" />
+  </message>
+  <message name="GetPasswordResponseMessage">
+    <part name="parameters" element="tns:GetPasswordResponse" />
+  </message>
+  <message name="GetMinVersionRequestMessage">
+    <part name="parameters" element="tns:GetMinVersion" />
+  </message>
+  <message name="GetMinVersionResponseMessage">
+    <part name="parameters" element="tns:GetMinVersionResponse" />
+  </message>
+  <portType name="ExchangeERP_MobAppPortType">
+    <operation name="GetNomenklatures">
+      <input message="tns:GetNomenklaturesRequestMessage" />
+      <output message="tns:GetNomenklaturesResponseMessage" />
+    </operation>
+    <operation name="GetMeasures">
+      <input message="tns:GetMeasuresRequestMessage" />
+      <output message="tns:GetMeasuresResponseMessage" />
+    </operation>
+    <operation name="GetStorages">
+      <input message="tns:GetStoragesRequestMessage" />
+      <output message="tns:GetStoragesResponseMessage" />
+    </operation>
+    <operation name="GetNomenklaturesKind">
+      <input message="tns:GetNomenklaturesKindRequestMessage" />
+      <output message="tns:GetNomenklaturesKindResponseMessage" />
+    </operation>
+    <operation name="GetCharacteristics">
+      <input message="tns:GetCharacteristicsRequestMessage" />
+      <output message="tns:GetCharacteristicsResponseMessage" />
+    </operation>
+    <operation name="GetBarcodes">
+      <input message="tns:GetBarcodesRequestMessage" />
+      <output message="tns:GetBarcodesResponseMessage" />
+    </operation>
+    <operation name="GetPrices">
+      <input message="tns:GetPricesRequestMessage" />
+      <output message="tns:GetPricesResponseMessage" />
+    </operation>
+    <operation name="SendRecounts">
+      <input message="tns:SendRecountsRequestMessage" />
+      <output message="tns:SendRecountsResponseMessage" />
+    </operation>
+    <operation name="SendOrders">
+      <input message="tns:SendOrdersRequestMessage" />
+      <output message="tns:SendOrdersResponseMessage" />
+    </operation>
+    <operation name="GetRecounts">
+      <input message="tns:GetRecountsRequestMessage" />
+      <output message="tns:GetRecountsResponseMessage" />
+    </operation>
+    <operation name="GetPassword">
+      <input message="tns:GetPasswordRequestMessage" />
+      <output message="tns:GetPasswordResponseMessage" />
+    </operation>
+    <operation name="GetMinVersion">
+      <input message="tns:GetMinVersionRequestMessage" />
+      <output message="tns:GetMinVersionResponseMessage" />
+    </operation>
+  </portType>
+  <binding name="ExchangeERP_MobAppSoapBinding" type="tns:ExchangeERP_MobAppPortType">
+    <soapbind:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="GetNomenklatures">
+      <soapbind:operation soapAction="http://astelit.com.ua#ExchangeERP_MobApp:GetNomenklatures" style="document" />
+      <input>
+        <soapbind:body use="literal" />
+      </input>
+      <output>
+        <soapbind:body use="literal" />
+      </output>
+    </operation>
+    <operation name="GetMeasures">
+      <soapbind:operation soapAction="http://astelit.com.ua#ExchangeERP_MobApp:GetMeasures" style="document" />
+      <input>
+        <soapbind:body use="literal" />
+      </input>
+      <output>
+        <soapbind:body use="literal" />
+      </output>
+    </operation>
+    <operation name="GetStorages">
+      <soapbind:operation soapAction="http://astelit.com.ua#ExchangeERP_MobApp:GetStorages" style="document" />
+      <input>
+        <soapbind:body use="literal" />
+      </input>
+      <output>
+        <soapbind:body use="literal" />
+      </output>
+    </operation>
+    <operation name="GetNomenklaturesKind">
+      <soapbind:operation soapAction="http://astelit.com.ua#ExchangeERP_MobApp:GetNomenklaturesKind" style="document" />
+      <input>
+        <soapbind:body use="literal" />
+      </input>
+      <output>
+        <soapbind:body use="literal" />
+      </output>
+    </operation>
+    <operation name="GetCharacteristics">
+      <soapbind:operation soapAction="http://astelit.com.ua#ExchangeERP_MobApp:GetCharacteristics" style="document" />
+      <input>
+        <soapbind:body use="literal" />
+      </input>
+      <output>
+        <soapbind:body use="literal" />
+      </output>
+    </operation>
+    <operation name="GetBarcodes">
+      <soapbind:operation soapAction="http://astelit.com.ua#ExchangeERP_MobApp:GetBarcodes" style="document" />
+      <input>
+        <soapbind:body use="literal" />
+      </input>
+      <output>
+        <soapbind:body use="literal" />
+      </output>
+    </operation>
+    <operation name="GetPrices">
+      <soapbind:operation soapAction="http://astelit.com.ua#ExchangeERP_MobApp:GetPrices" style="document" />
+      <input>
+        <soapbind:body use="literal" />
+      </input>
+      <output>
+        <soapbind:body use="literal" />
+      </output>
+    </operation>
+    <operation name="SendRecounts">
+      <soapbind:operation soapAction="http://astelit.com.ua#ExchangeERP_MobApp:SendRecounts" style="document" />
+      <input>
+        <soapbind:body use="literal" />
+      </input>
+      <output>
+        <soapbind:body use="literal" />
+      </output>
+    </operation>
+    <operation name="SendOrders">
+      <soapbind:operation soapAction="http://astelit.com.ua#ExchangeERP_MobApp:SendOrders" style="document" />
+      <input>
+        <soapbind:body use="literal" />
+      </input>
+      <output>
+        <soapbind:body use="literal" />
+      </output>
+    </operation>
+    <operation name="GetRecounts">
+      <soapbind:operation soapAction="http://astelit.com.ua#ExchangeERP_MobApp:GetRecounts" style="document" />
+      <input>
+        <soapbind:body use="literal" />
+      </input>
+      <output>
+        <soapbind:body use="literal" />
+      </output>
+    </operation>
+    <operation name="GetPassword">
+      <soapbind:operation soapAction="http://astelit.com.ua#ExchangeERP_MobApp:GetPassword" style="document" />
+      <input>
+        <soapbind:body use="literal" />
+      </input>
+      <output>
+        <soapbind:body use="literal" />
+      </output>
+    </operation>
+    <operation name="GetMinVersion">
+      <soapbind:operation soapAction="http://astelit.com.ua#ExchangeERP_MobApp:GetMinVersion" style="document" />
+      <input>
+        <soapbind:body use="literal" />
+      </input>
+      <output>
+        <soapbind:body use="literal" />
+      </output>
+    </operation>
+  </binding>
+  <binding name="ExchangeERP_MobAppSoap12Binding" type="tns:ExchangeERP_MobAppPortType">
+    <soap12bind:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="GetNomenklatures">
+      <soap12bind:operation soapAction="http://astelit.com.ua#ExchangeERP_MobApp:GetNomenklatures" style="document" />
+      <input>
+        <soap12bind:body use="literal" />
+      </input>
+      <output>
+        <soap12bind:body use="literal" />
+      </output>
+    </operation>
+    <operation name="GetMeasures">
+      <soap12bind:operation soapAction="http://astelit.com.ua#ExchangeERP_MobApp:GetMeasures" style="document" />
+      <input>
+        <soap12bind:body use="literal" />
+      </input>
+      <output>
+        <soap12bind:body use="literal" />
+      </output>
+    </operation>
+    <operation name="GetStorages">
+      <soap12bind:operation soapAction="http://astelit.com.ua#ExchangeERP_MobApp:GetStorages" style="document" />
+      <input>
+        <soap12bind:body use="literal" />
+      </input>
+      <output>
+        <soap12bind:body use="literal" />
+      </output>
+    </operation>
+    <operation name="GetNomenklaturesKind">
+      <soap12bind:operation soapAction="http://astelit.com.ua#ExchangeERP_MobApp:GetNomenklaturesKind" style="document" />
+      <input>
+        <soap12bind:body use="literal" />
+      </input>
+      <output>
+        <soap12bind:body use="literal" />
+      </output>
+    </operation>
+    <operation name="GetCharacteristics">
+      <soap12bind:operation soapAction="http://astelit.com.ua#ExchangeERP_MobApp:GetCharacteristics" style="document" />
+      <input>
+        <soap12bind:body use="literal" />
+      </input>
+      <output>
+        <soap12bind:body use="literal" />
+      </output>
+    </operation>
+    <operation name="GetBarcodes">
+      <soap12bind:operation soapAction="http://astelit.com.ua#ExchangeERP_MobApp:GetBarcodes" style="document" />
+      <input>
+        <soap12bind:body use="literal" />
+      </input>
+      <output>
+        <soap12bind:body use="literal" />
+      </output>
+    </operation>
+    <operation name="GetPrices">
+      <soap12bind:operation soapAction="http://astelit.com.ua#ExchangeERP_MobApp:GetPrices" style="document" />
+      <input>
+        <soap12bind:body use="literal" />
+      </input>
+      <output>
+        <soap12bind:body use="literal" />
+      </output>
+    </operation>
+    <operation name="SendRecounts">
+      <soap12bind:operation soapAction="http://astelit.com.ua#ExchangeERP_MobApp:SendRecounts" style="document" />
+      <input>
+        <soap12bind:body use="literal" />
+      </input>
+      <output>
+        <soap12bind:body use="literal" />
+      </output>
+    </operation>
+    <operation name="SendOrders">
+      <soap12bind:operation soapAction="http://astelit.com.ua#ExchangeERP_MobApp:SendOrders" style="document" />
+      <input>
+        <soap12bind:body use="literal" />
+      </input>
+      <output>
+        <soap12bind:body use="literal" />
+      </output>
+    </operation>
+    <operation name="GetRecounts">
+      <soap12bind:operation soapAction="http://astelit.com.ua#ExchangeERP_MobApp:GetRecounts" style="document" />
+      <input>
+        <soap12bind:body use="literal" />
+      </input>
+      <output>
+        <soap12bind:body use="literal" />
+      </output>
+    </operation>
+    <operation name="GetPassword">
+      <soap12bind:operation soapAction="http://astelit.com.ua#ExchangeERP_MobApp:GetPassword" style="document" />
+      <input>
+        <soap12bind:body use="literal" />
+      </input>
+      <output>
+        <soap12bind:body use="literal" />
+      </output>
+    </operation>
+    <operation name="GetMinVersion">
+      <soap12bind:operation soapAction="http://astelit.com.ua#ExchangeERP_MobApp:GetMinVersion" style="document" />
+      <input>
+        <soap12bind:body use="literal" />
+      </input>
+      <output>
+        <soap12bind:body use="literal" />
+      </output>
+    </operation>
+  </binding>
+  <service name="ExchangeERP_MobApp">
+    <port name="ExchangeERP_MobAppSoap" binding="tns:ExchangeERP_MobAppSoapBinding">
+      <documentation>
+        <wsi:Claim xmlns:wsi="http://ws-i.org/schemas/conformanceClaim/" conformsTo="http://ws-i.org/profiles/basic/1.1" />
+      </documentation>
+      <soapbind:address location="http://193.93.76.208:8080/erp_dev1/ws/ExchangeERP_MobApp.1cws" />
+    </port>
+    <port name="ExchangeERP_MobAppSoap12" binding="tns:ExchangeERP_MobAppSoap12Binding">
+      <soap12bind:address location="http://193.93.76.208:8080/erp_dev1/ws/ExchangeERP_MobApp.1cws" />
+    </port>
+  </service>
+</definitions>
