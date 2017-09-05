@@ -1,4 +1,9 @@
-﻿using InvertoryHelper.ViewModel;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using InvertoryHelper.ViewModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -11,7 +16,11 @@ namespace InvertoryHelper.View
         {
             InitializeComponent();
 
-            BindingContext = new SettingsViewModel {navigation = Navigation};
+            var vm = new SettingsViewModel();
+
+            vm.Navigation = Navigation;
+
+            BindingContext = vm;
         }
     }
 }

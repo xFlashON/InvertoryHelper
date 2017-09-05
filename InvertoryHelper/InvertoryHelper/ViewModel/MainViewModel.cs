@@ -1,4 +1,6 @@
-﻿using System.Windows.Input;
+﻿using System.Threading.Tasks;
+using System.Windows.Input;
+using Android.OS;
 using InvertoryHelper.Common;
 using InvertoryHelper.Model;
 using InvertoryHelper.View;
@@ -15,12 +17,15 @@ namespace InvertoryHelper.ViewModel
         public MainViewModel()
         {
             var repo = DataRepository.Instance;
-
-            DependencyService.Get<IWebExchange>().GetData();
-
         }
 
-        public ICommand OpenRefereccesPage => new Command(() =>
+        public ICommand OpenReferencesPage => new Command(() =>
+        {
+            if (navigation != null)
+                navigation.PushAsync(new ReferencesPage());
+        });
+
+        public ICommand OpenSettingsPage => new Command(() =>
         {
             if (navigation != null)
                 navigation.PushAsync(new SettingsPage());

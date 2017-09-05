@@ -1,4 +1,6 @@
-﻿using InvertoryHelper.Resourses;
+﻿using System;
+using Android.Util;
+using InvertoryHelper.Resourses;
 using InvertoryHelper.ViewModel;
 using Xamarin.Forms;
 
@@ -19,7 +21,15 @@ namespace InvertoryHelper.View
 
         private async void DisplayMessage(string message)
         {
-            await DisplayAlert(Resource.Message, message, Resource.Close);
+            try
+            {
+                await DisplayAlert(Resource.Message, message, Resource.Close);
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Error", ex.Message);
+            }
+            
         }
     }
 }

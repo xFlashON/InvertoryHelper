@@ -17,10 +17,13 @@
     <ContentPage.ToolbarItems>
 
         <ToolbarItem
-            Command="{Binding OpenRefereccesPage}"
+            Command="{Binding OpenReferencesPage}"
             Order="Secondary"
             Text="{common:Translate References}" />
-        <ToolbarItem Order="Secondary" Text="{common:Translate Settings}" />
+        <ToolbarItem
+            Command="{Binding OpenSettingsPage}"
+            Order="Secondary"
+            Text="{common:Translate Settings}" />
     </ContentPage.ToolbarItems>
 
     <Grid Padding="10">

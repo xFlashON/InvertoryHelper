@@ -14,39 +14,68 @@ using Android.Views;
 using Android.Widget;
 using InvertoryHelper.Common;
 using InvertoryHelper.Droid.Common;
+using Java.Security;
 using Xamarin.Forms;
 
 [assembly: Dependency(typeof(ExchangeService))]
 namespace InvertoryHelper.Droid.Common
 {
-    public class ExchangeService : IWebExchange
+    public class ExchangeService:IWebExchange
     {
 
-        public Boolean GetData()
+        private static Boolean isBusy;
+
+        public ExchangeResult GetData()
         {
+            if (isBusy)
+                return  new ExchangeResult(){Sucsess = false, Message = "Exchange in process"};
 
             try
             {
+                isBusy = true;
+
+                string url = string.Empty;
+                string login = string.Empty;
+                string pwd = string.Empty;
+                string node = string.Empty;
+
+                if (App.Current.Properties.ContainsKey("ExchangeUrl"))
+                    url = (string) App.Current.Properties["ExchangeUrl"];
+
+                if (App.Current.Properties.ContainsKey("Login"))
+                    login = (string)App.Current.Properties["Login"];
+
+                if (App.Current.Properties.ContainsKey("Password"))
+                    pwd = (string)App.Current.Properties["Password"];
+
+                if (App.Current.Properties.ContainsKey("NodeId"))
+                    node = (string)App.Current.Properties["NodeId"];
+
                 var srv = new ExchangeReference.ExchangeERP_MobApp();
 
-                srv.Url = "http://193.93.76.208:8080/erp_dev1/ws/ExchangeERP_MobApp.1cws";
+                srv.Url = url;
 
                 srv.PreAuthenticate = true;
-                srv.Credentials = new NetworkCredential("test", "test");
+                srv.Credentials = new NetworkCredential(login, pwd);
 
-                var res = srv.GetNomenklatures("002", false);
-
+                var res = srv.GetNomenklatures(node, false);
+                
             }
             catch (Exception ex)
             {
                 Log.Error("Error", ex.Message);
+                return new ExchangeResult() {Sucsess = false, Message = ex.Message};
+            }
+            finally
+            {
+                isBusy = false;
             }
 
-            return true;
+            return new ExchangeResult(){Sucsess = true};
 
         }
 
-        public bool SendData()
+        public ExchangeResult SendData()
         {
             throw new NotImplementedException();
         }

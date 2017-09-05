@@ -1,69 +1,137 @@
-﻿using System.Windows.Input;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using InvertoryHelper.Common;
-using InvertoryHelper.View.Barcodes;
-using InvertoryHelper.View.Characteristics;
-using InvertoryHelper.View.NomenclatureKinds;
-using InvertoryHelper.View.Nomenclatures;
-using InvertoryHelper.View.Prices;
-using InvertoryHelper.View.Units;
 using Xamarin.Forms;
+
 
 namespace InvertoryHelper.ViewModel
 {
-    public class SettingsViewModel : BaseViewModel
+    public class SettingsViewModel:BaseViewModel
     {
-        public INavigation navigation;
+        public INavigation Navigation;
 
-        public ICommand OpenReference => new Command(OpenReferenceCmd);
-
-        private async void OpenReferenceCmd(object param)
+        public string ExchangeUrl
         {
-            switch (param)
+            get
             {
-                case "Nomenclatures":
+                string key = "ExchangeUrl";
+                string defaultValue = @"http://{ip}/erp/ws/ExchangeERP_MobApp.1cws";
+
+                if (!App.Current.Properties.ContainsKey(key))
                 {
-                    if (navigation != null)
-                        await navigation?.PushAsync(new NomenclaturesPage());
-                }
-                    break;
-                case "Units":
-                {
-                    if (navigation != null)
-                        await navigation?.PushAsync(new UnitsPage());
+                    App.Current.Properties.Add(key, defaultValue);
                 }
 
-                    break;
-                case "NomenclatureKinds":
-                {
-                    if (navigation != null)
-                        await navigation?.PushAsync(new NomenclatureKindsPage());
-                }
-                    break;
-
-                case "Characteristics":
-                {
-                    if (navigation != null)
-                        await navigation?.PushAsync(new CharacteristicsPage());
-                }
-
-                    break;
-
-                case "Barcodes":
-                {
-                    if (navigation != null)
-                        await navigation?.PushAsync(new BarcodesPage());
-                }
-
-                    break;
-
-                case "Prices":
-                {
-                    if (navigation != null)
-                        await navigation?.PushAsync(new PricesPage());
-                }
-
-                    break;
+                return (string)App.Current.Properties[key];
             }
+
+            set
+            {
+                string key = "ExchangeUrl";
+
+                if (!App.Current.Properties.ContainsKey(key))
+                    App.Current.Properties.Add(key, value);
+                else
+                    App.Current.Properties[key] = value;
+
+                OnPropertyChanged("ExchangeUrl");
+
+            }
+
         }
+
+        public string Login
+        {
+            get
+            {
+                string key = "Login";
+                string defaultValue = "";
+
+                if (!App.Current.Properties.ContainsKey(key))
+                {
+                    App.Current.Properties.Add(key, defaultValue);
+                }
+
+                return (string)App.Current.Properties[key];
+            }
+
+            set
+            {
+                string key = "Login";
+
+                if (!App.Current.Properties.ContainsKey(key))
+                    App.Current.Properties.Add(key, value);
+                else
+                    App.Current.Properties[key] = value;
+
+                OnPropertyChanged("Login");
+
+            }
+
+        }
+
+        public string Password
+        {
+            get
+            {
+                string key = "Password";
+                string defaultValue = "";
+
+                if (!App.Current.Properties.ContainsKey(key))
+                {
+                    App.Current.Properties.Add(key, defaultValue);
+                }
+
+                return (string)App.Current.Properties[key];
+            }
+
+            set
+            {
+                string key = "Password";
+
+                if (!App.Current.Properties.ContainsKey(key))
+                    App.Current.Properties.Add(key, value);
+                else
+                    App.Current.Properties[key] = value;
+
+                OnPropertyChanged("Password");
+
+            }
+
+        }
+
+        public string NodeId
+        {
+            get
+            {
+                string key = "NodeId";
+                string defaultValue = "";
+
+                if (!App.Current.Properties.ContainsKey(key))
+                {
+                    App.Current.Properties.Add(key, defaultValue);
+                }
+
+                return (string)App.Current.Properties[key];
+            }
+
+            set
+            {
+                string key = "NodeId";
+
+                if (!App.Current.Properties.ContainsKey(key))
+                    App.Current.Properties.Add(key, value);
+                else
+                    App.Current.Properties[key] = value;
+
+                OnPropertyChanged("NodeId");
+
+            }
+
+        }
+
     }
 }

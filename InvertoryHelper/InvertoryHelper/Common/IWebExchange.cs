@@ -8,9 +8,16 @@ namespace InvertoryHelper.Common
 {
     public interface IWebExchange
     {
-        bool GetData();
+        ExchangeResult GetData();
 
-        bool SendData();
+        ExchangeResult SendData();
+
+    }
+
+    public struct ExchangeResult
+    {
+        public bool Sucsess;
+        public string Message;
 
     }
 }

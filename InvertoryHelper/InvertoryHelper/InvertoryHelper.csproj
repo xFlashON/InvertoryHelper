@@ -88,6 +88,7 @@
     <Compile Include="ViewModel\Prices\PriceItemViewModel.cs" />
     <Compile Include="ViewModel\Prices\PriceModel.cs" />
     <Compile Include="ViewModel\Prices\PricesViewModel.cs" />
+    <Compile Include="ViewModel\ReferencesViewModel.cs" />
     <Compile Include="ViewModel\SettingsViewModel.cs" />
     <Compile Include="ViewModel\Units\UnitItemViewModel.cs" />
     <Compile Include="ViewModel\Units\UnitModel.cs" />
@@ -141,6 +142,9 @@
     </Compile>
     <Compile Include="View\Prices\PricesPage.xaml.cs">
       <DependentUpon>PricesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ReferencesPage.xaml.cs">
+      <DependentUpon>ReferencesPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
@@ -233,7 +237,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="View\SettingsPage.xaml">
+    <EmbeddedResource Include="View\ReferencesPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -324,6 +328,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="View\Documents\Recounts\RecountsPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="View\SettingsPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
