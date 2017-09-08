@@ -8,9 +8,9 @@ namespace InvertoryHelper.Common
 {
     public interface IWebExchange
     {
-        ExchangeResult GetData();
+        Task<ExchangeResult> GetData();
 
-        ExchangeResult SendData();
+        Task<ExchangeResult> SendData();
 
     }
 

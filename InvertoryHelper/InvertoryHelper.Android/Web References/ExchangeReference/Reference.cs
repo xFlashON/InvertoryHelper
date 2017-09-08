@@ -330,13 +330,14 @@ namespace InvertoryHelper.Droid.ExchangeReference {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://astelit.com.ua#ExchangeERP_MobApp:GetPrices", RequestNamespace="http://astelit.com.ua", ResponseNamespace="http://astelit.com.ua", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        [return: System.Xml.Serialization.XmlElementAttribute("return", IsNullable=true)]
-        public string GetPrices(string NodeId, string StrogageUID, [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] System.Nullable<bool> DeleteRegistration) {
+        [return: System.Xml.Serialization.XmlArrayAttribute("return", IsNullable=true)]
+        [return: System.Xml.Serialization.XmlArrayItemAttribute("Цена")]
+        public СтрокаЦена[] GetPrices(string NodeId, string StrogageUID, [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] System.Nullable<bool> DeleteRegistration) {
             object[] results = this.Invoke("GetPrices", new object[] {
                         NodeId,
                         StrogageUID,
                         DeleteRegistration});
-            return ((string)(results[0]));
+            return ((СтрокаЦена[])(results[0]));
         }
         
         /// <remarks/>
@@ -1739,10 +1740,10 @@ namespace InvertoryHelper.Droid.ExchangeReference {
         }
         
         /// <remarks/>
-        public string Result {
+        public СтрокаЦена[] Result {
             get {
                 this.RaiseExceptionIfNecessary();
-                return ((string)(this.results[0]));
+                return ((СтрокаЦена[])(this.results[0]));
             }
         }
     }

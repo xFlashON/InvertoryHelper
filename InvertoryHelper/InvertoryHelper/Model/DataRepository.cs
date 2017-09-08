@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading;
 using System.Threading.Tasks;
 using Android.Util;
 using InvertoryHelper.Common;
@@ -192,6 +193,8 @@ namespace InvertoryHelper.Model
 
         public async Task<Guid> SaveNomenclatureAsync(Nomenclature nomenclature)
         {
+            await CheckLoad();
+
             try
             {
                 var index = _nomenclaturesList.FindIndex(N => N.Uid == nomenclature.Uid);
@@ -218,6 +221,8 @@ namespace InvertoryHelper.Model
 
         public async Task<Guid> SaveUnitAsync(Unit unit)
         {
+            await CheckLoad();
+
             try
             {
                 var index = _unitList.FindIndex(N => N.Uid == unit.Uid);
@@ -244,6 +249,9 @@ namespace InvertoryHelper.Model
 
         public async Task<Guid> SaveCharacteristicAsync(Characteristic characteristic)
         {
+
+            await CheckLoad();
+
             try
             {
                 var index = _characteristicsList.FindIndex(N => N.Uid == characteristic.Uid);
@@ -270,6 +278,9 @@ namespace InvertoryHelper.Model
 
         public async Task<Guid> SaveNomenclatureKindAsync(NomenclaturesKind nomenclatureKind)
         {
+
+            await CheckLoad();
+
             try
             {
                 var index = _nomenclatureKindsList.FindIndex(N => N.Uid == nomenclatureKind.Uid);
@@ -296,6 +307,9 @@ namespace InvertoryHelper.Model
 
         public async Task<Guid> SaveBarcodeAsync(Barcode barcode)
         {
+
+            await CheckLoad();
+
             try
             {
                 var index = _barcodesList.FindIndex(N => N.Uid == barcode.Uid);
@@ -322,6 +336,9 @@ namespace InvertoryHelper.Model
 
         public async Task<Guid> SavePriceAsync(Price price)
         {
+
+            await CheckLoad();
+
             try
             {
                 var index = _priceList.FindIndex(N => N.Uid == price.Uid);
@@ -348,6 +365,9 @@ namespace InvertoryHelper.Model
 
         public async Task<Guid> SaveOrderAsync(Order order)
         {
+
+            await CheckLoad();
+
             try
             {
 
@@ -376,6 +396,9 @@ namespace InvertoryHelper.Model
 
         public async Task<Guid> SaveRecountAsync(Recount recount)
         {
+
+            await CheckLoad();
+
             try
             {
 

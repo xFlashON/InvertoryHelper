@@ -288,7 +288,7 @@
       <xs:element name="GetPricesResponse">
         <xs:complexType>
           <xs:sequence>
-            <xs:element name="return" nillable="true" type="xs:string" />
+            <xs:element name="return" nillable="true" type="xs2:Цены" />
           </xs:sequence>
         </xs:complexType>
       </xs:element>

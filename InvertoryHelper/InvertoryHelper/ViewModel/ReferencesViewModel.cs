@@ -17,19 +17,16 @@ namespace InvertoryHelper.ViewModel
 
         public ICommand OpenReference => new Command(OpenReferenceCmd);
 
-        public ICommand LoadDictionariesCmd => new Command(()=>
+        public ICommand LoadDictionariesCmd => new Command(async ()=>
         {
-            var t = new Task<ExchangeResult>(()=> DependencyService.Get<IWebExchange>().GetData());
 
-            t.Start();
+            var result = await DependencyService.Get<IWebExchange>().GetData();
 
-            t.ContinueWith((r) =>
-            {
-                if (r.Result.Sucsess)
-                    MessagingCenter.Send( "Loading complete", "DisplayAlert");
-                else
-                    MessagingCenter.Send( r.Result.Message, "DisplayAlert");
-            });
+            if (result.Sucsess)
+                MessagingCenter.Send("Loading complete", "DisplayAlert");
+            else
+                MessagingCenter.Send(result.Message, "DisplayAlert");
+
         });
    
 

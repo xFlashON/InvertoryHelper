@@ -182,6 +182,9 @@
     <None Include="Web References\ExchangeReference\Склад.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
+    <None Include="Web References\ExchangeReference\СтрокаЦена.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
     <None Include="Web References\ExchangeReference\СтрокаШтрихкод.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
