@@ -16,25 +16,25 @@ namespace InvertoryHelper.Model.Documents.Recount
         [ForeignKey(typeof(Recount))]
         public Guid RecountUid { get; set; }
 
-        [ManyToOne]
+        [ManyToOne(CascadeOperations = CascadeOperation.None)]
         public Recount Recount { get; set; }
 
         [ForeignKey(typeof(Nomenclature))]
         public Guid NomenclatureUid { get; set; }
 
-        [ManyToOne]
+        [ManyToOne(CascadeOperations = CascadeOperation.None)]
         public Nomenclature Nomenclature { get; set; }
 
         [ForeignKey(typeof(Unit))]
         public Guid UnitUid { get; set; }
 
-        [ManyToOne]
+        [ManyToOne(CascadeOperations = CascadeOperation.None)]
         public Unit Unit { get; set; }
 
         [ForeignKey(typeof(Characteristic))]
         public Guid CharacteristicUid { get; set; }
 
-        [ManyToOne]
+        [ManyToOne(CascadeOperations = CascadeOperation.None)]
         public Characteristic Characteristic { get; set; }
 
         public decimal Amount { get; set; }

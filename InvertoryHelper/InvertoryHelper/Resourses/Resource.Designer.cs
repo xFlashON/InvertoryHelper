@@ -404,6 +404,15 @@ namespace InvertoryHelper.Resourses {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Загрузить справочники.
+        /// </summary>
+        internal static string LoadDictionaries {
+            get {
+                return ResourceManager.GetString("LoadDictionaries", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Загрузка.
         /// </summary>
         internal static string Loading {
@@ -436,6 +445,15 @@ namespace InvertoryHelper.Resourses {
         internal static string Name {
             get {
                 return ResourceManager.GetString("Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Код узла.
+        /// </summary>
+        internal static string NodeId {
+            get {
+                return ResourceManager.GetString("NodeId", resourceCulture);
             }
         }
         
@@ -625,6 +643,51 @@ namespace InvertoryHelper.Resourses {
         internal static string Storage {
             get {
                 return ResourceManager.GetString("Storage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Пароль.
+        /// </summary>
+        internal static string SyncPwd {
+            get {
+                return ResourceManager.GetString("SyncPwd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Синхронизация.
+        /// </summary>
+        internal static string Syncronization {
+            get {
+                return ResourceManager.GetString("Syncronization", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Настройки синхронизции.
+        /// </summary>
+        internal static string SyncronizationSettings {
+            get {
+                return ResourceManager.GetString("SyncronizationSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to URL.
+        /// </summary>
+        internal static string SyncUrl {
+            get {
+                return ResourceManager.GetString("SyncUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Логин.
+        /// </summary>
+        internal static string SyncUser {
+            get {
+                return ResourceManager.GetString("SyncUser", resourceCulture);
             }
         }
         

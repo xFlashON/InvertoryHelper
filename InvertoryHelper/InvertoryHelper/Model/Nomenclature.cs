@@ -22,7 +22,7 @@ namespace InvertoryHelper.Model
             BaseUnit = nomenclatureModel.BaseUnit;
             NomenclaturesKind = nomenclatureModel.NomenclaturesKind;
         }
-
+        
         [PrimaryKey]
         [Unique]
         [AutoIncrement]
@@ -38,13 +38,13 @@ namespace InvertoryHelper.Model
         [ForeignKey(typeof(Unit))]
         public Guid BaseUnitUid { get; set; }
 
-        [ManyToOne]
+        [ManyToOne(CascadeOperations = CascadeOperation.None)]
         public Unit BaseUnit { get; set; }
 
         [ForeignKey(typeof(NomenclaturesKind))]
         public Guid NomenclaturesKindUid { get; set; }
 
-        [ManyToOne]
+        [ManyToOne(CascadeOperations = CascadeOperation.None)]
         public NomenclaturesKind NomenclaturesKind { get; set; }
 
         public override bool Equals(object obj)

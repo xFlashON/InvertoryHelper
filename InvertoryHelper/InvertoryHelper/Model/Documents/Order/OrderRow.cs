@@ -17,25 +17,25 @@ namespace InvertoryHelper.Model.Documents.Order
         [ForeignKey(typeof(Order))]
         public Guid OrderUid { get; set; }
 
-        [ManyToOne]
+        [ManyToOne(CascadeOperations = CascadeOperation.None)]
         public Order Order { get; set; }
 
         [ForeignKey(typeof(Nomenclature))]
         public Guid NomenclatureUid { get; set; }
 
-        [ManyToOne]
+        [ManyToOne(CascadeOperations = CascadeOperation.None)]
         public Nomenclature Nomenclature { get; set; }
 
         [ForeignKey(typeof(Unit))]
         public Guid UnitUid { get; set; }
 
-        [ManyToOne]
+        [ManyToOne(CascadeOperations = CascadeOperation.None)]
         public Unit Unit { get; set; }
 
         [ForeignKey(typeof(Characteristic))]
         public Guid CharacteristicUid { get; set; }
 
-        [ManyToOne]
+        [ManyToOne(CascadeOperations = CascadeOperation.None)]
         public Characteristic Characteristic { get; set; }
 
         public decimal Amount { get; set; }

@@ -18,10 +18,10 @@ namespace InvertoryHelper.Model.Documents.Recount
         [ForeignKey(typeof(Storage))]
         public Guid StorageUid { get; set; }
 
-        [ManyToOne]
+        [ManyToOne(CascadeOperations = CascadeOperation.None)]
         public Storage Storage { get; set; }
 
-        [OneToMany]
+        [OneToMany(CascadeOperations = CascadeOperation.None)]
         public List<RecountRow> RecountRows { get; set; }
 
         public string Comment { get; set; }

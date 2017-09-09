@@ -20,7 +20,7 @@ namespace InvertoryHelper.Model
         [ForeignKey(typeof(NomenclaturesKind))]
         public Guid NomenclaturesKindUid { get; set; }
 
-        [ManyToOne]
+        [ManyToOne(CascadeOperations = CascadeOperation.None)]
         public NomenclaturesKind NomenclaturesKind { get; set; }
 
         public override string ToString()

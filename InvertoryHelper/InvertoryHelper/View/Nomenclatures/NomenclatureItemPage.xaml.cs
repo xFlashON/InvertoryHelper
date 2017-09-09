@@ -1,4 +1,5 @@
 ﻿using System;
+using InvertoryHelper.ViewModel.Barcodes;
 using InvertoryHelper.ViewModel.Nomenclatures;
 using InvertoryHelper.ViewModel.Prices;
 using Xamarin.Forms;
@@ -31,6 +32,15 @@ namespace InvertoryHelper.View.Nomenclatures
                 var vm = (PricesViewModel) currentPage.BindingContext;
 
                 vm.SearchText = ((NomenclatureItemViewModel) BindingContext).Name;
+
+                vm.SearchCommand.Execute(null);
+            }
+
+            if (currentPage == BarcodesPage)
+            {
+                var vm = (BarcodesViewModel)currentPage.BindingContext;
+
+                vm.SearchText = ((NomenclatureItemViewModel)BindingContext).Name;
 
                 vm.SearchCommand.Execute(null);
             }

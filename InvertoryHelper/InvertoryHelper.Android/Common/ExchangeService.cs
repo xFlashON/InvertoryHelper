@@ -47,7 +47,7 @@ namespace InvertoryHelper.Droid.Common
                 string node = string.Empty;
 
                 if (App.Current.Properties.ContainsKey("ExchangeUrl"))
-                    url = (string) App.Current.Properties["ExchangeUrl"];
+                    url = ((string) App.Current.Properties["ExchangeUrl"]).Replace("\n",string.Empty);
 
                 if (App.Current.Properties.ContainsKey("Login"))
                     login = (string)App.Current.Properties["Login"];
@@ -132,7 +132,7 @@ namespace InvertoryHelper.Droid.Common
                 {
 
                     //too long loading
-                    if(count++>1000)
+                    if(count++>100)
                         break;
 
                     if (nomenclature.ЭтоГруппа == true)
@@ -183,10 +183,6 @@ namespace InvertoryHelper.Droid.Common
                 foreach (var price in prices)
                 {
 
-                    //too long loading
-                    if (count++ > 1000)
-                        break;
-
                     Nomenclature nomenclature = null;
                     Characteristic characteristic = null;
 
@@ -199,6 +195,9 @@ namespace InvertoryHelper.Droid.Common
                     if(nomenclature != null)
                     {
 
+                        //too long loading
+                        if (count++ > 100)
+                            break;
 
                         var exRows = await repo.GetPricesAsync(new Func<Price, bool>((p) =>
                         {
@@ -235,9 +234,6 @@ namespace InvertoryHelper.Droid.Common
                 foreach (var barcode in barcodes)
                 {
 
-                    //too long loading
-                    if (count++ > 1000)
-                        break;
 
                     Nomenclature nomenclature = null;
                     Characteristic characteristic = null;
@@ -251,6 +247,9 @@ namespace InvertoryHelper.Droid.Common
                     if (nomenclature != null)
                     {
 
+                        //too long loading
+                        if (count++ > 100)
+                            break;
 
                         var exRows = await repo.GetBarcodesAsync(new Func<Barcode, bool>((p) =>
                         {

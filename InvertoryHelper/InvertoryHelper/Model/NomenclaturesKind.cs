@@ -16,7 +16,7 @@ namespace InvertoryHelper.Model
         [MaxLength(150)]
         public string Name { get; set; }
 
-        [OneToMany]
+        [OneToMany(CascadeOperations = CascadeOperation.None)]
         public List<Characteristic> CharacteristicsList { get; set; }
 
         public override string ToString()
