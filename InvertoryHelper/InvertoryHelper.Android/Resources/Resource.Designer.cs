@@ -2213,8 +2213,8 @@ namespace InvertoryHelper.Droid
 			// aapt resource value: 0x7f0200a1
 			public const int mr_ic_play_light = 2130837665;
 			
-			// aapt resource value: 0x7f0200a6
-			public const int notification_template_icon_bg = 2130837670;
+			// aapt resource value: 0x7f0200a8
+			public const int notification_template_icon_bg = 2130837672;
 			
 			// aapt resource value: 0x7f0200a2
 			public const int OrderIco = 2130837666;
@@ -2227,6 +2227,12 @@ namespace InvertoryHelper.Droid
 			
 			// aapt resource value: 0x7f0200a5
 			public const int SettingsIco = 2130837669;
+			
+			// aapt resource value: 0x7f0200a6
+			public const int splash_logo = 2130837670;
+			
+			// aapt resource value: 0x7f0200a7
+			public const int splash_screen = 2130837671;
 			
 			static Drawable()
 			{
@@ -3643,6 +3649,9 @@ namespace InvertoryHelper.Droid
 			
 			// aapt resource value: 0x7f0a0050
 			public const int RtlUnderlay_Widget_AppCompat_ActionButton_Overflow = 2131361872;
+			
+			// aapt resource value: 0x7f0a0175
+			public const int SplashScreenTheme = 2131362165;
 			
 			// aapt resource value: 0x7f0a00d1
 			public const int TextAppearance_AppCompat = 2131362001;

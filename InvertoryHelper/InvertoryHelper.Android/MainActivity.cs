@@ -7,7 +7,7 @@ using ZXing.Mobile;
 
 namespace InvertoryHelper.Droid
 {
-    [Activity(Label = "InvertoryHelper", Icon = "@drawable/icon", Theme = "@style/MainTheme", MainLauncher = true,
+    [Activity(Label = "Invertory Helper", Icon = "@drawable/Icon", Theme = "@style/MainTheme", MainLauncher = false,
         ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : FormsAppCompatActivity
     {
