@@ -31,7 +31,7 @@
 
   <style name="SplashScreenTheme" parent="MainTheme.Base">
     <item name="android:windowBackground">@drawable/splash_screen</item>
-    <item name="android:windowNoTitle">true</item>  
-    <item name="android:windowFullscreen">true</item>  
+    <item name="android:windowNoTitle">true</item>
+    <item name="android:windowFullscreen">true</item>
   </style>
 </resources>

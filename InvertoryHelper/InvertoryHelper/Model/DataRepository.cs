@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Threading;
 using System.Threading.Tasks;
 using Android.Util;
 using InvertoryHelper.Common;
@@ -122,73 +120,6 @@ namespace InvertoryHelper.Model
             await CheckLoad();
 
             return await _db.GetAllWithChildrenAsync<Order>();
-
-        }
-
-        public async Task<Order> GetOrderAsync(Guid orderUid)
-        {
-
-            try
-            {
-
-                Order order = await _db.GetWithChildrenAsync<Order>(orderUid);
-
-                if (order == null)
-                    return new Order();
-
-                foreach (var orderRow in order.OrderRows)
-                {
-                    await _db.GetChildrenAsync(orderRow);
-                }
-
-                return order;
-
-            }
-            catch (Exception ex)
-            {
-                Log.Error("DatabaseError", ex.Message);
-                return new Order();
-
-            }
-
-
-        }
-
-        public async Task<List<Recount>> GetRecountsAsync(Func<Recount, bool> e = null)
-        {
-            await CheckLoad();
-
-            return await _db.GetAllWithChildrenAsync<Recount>();
-
-        }
-
-        public async Task<Recount> GetRecountAsync(Guid recountUid)
-        {
-
-            try
-            {
-
-                Recount recount = await _db.GetWithChildrenAsync<Recount>(recountUid);
-
-                if (recount == null)
-                    return new Recount();
-
-                foreach (var recountRow in recount.RecountRows)
-                {
-                    await _db.GetChildrenAsync(recountRow);
-                }
-
-                return recount;
-
-            }
-            catch (Exception ex)
-            {
-                Log.Error("DatabaseError", ex.Message);
-                return new Recount();
-
-            }
-
-
         }
 
         public async Task<Guid> SaveNomenclatureAsync(Nomenclature nomenclature)
@@ -249,7 +180,6 @@ namespace InvertoryHelper.Model
 
         public async Task<Guid> SaveCharacteristicAsync(Characteristic characteristic)
         {
-
             await CheckLoad();
 
             try
@@ -278,7 +208,6 @@ namespace InvertoryHelper.Model
 
         public async Task<Guid> SaveNomenclatureKindAsync(NomenclaturesKind nomenclatureKind)
         {
-
             await CheckLoad();
 
             try
@@ -307,7 +236,6 @@ namespace InvertoryHelper.Model
 
         public async Task<Guid> SaveBarcodeAsync(Barcode barcode)
         {
-
             await CheckLoad();
 
             try
@@ -336,7 +264,6 @@ namespace InvertoryHelper.Model
 
         public async Task<Guid> SavePriceAsync(Price price)
         {
-
             await CheckLoad();
 
             try
@@ -365,25 +292,20 @@ namespace InvertoryHelper.Model
 
         public async Task<Guid> SaveOrderAsync(Order order)
         {
-
             await CheckLoad();
 
             try
             {
-
                 if (order.Uid != Guid.Empty)
                 {
                     var rowsToDelete = _db.GetWithChildrenAsync<Order>(order.Uid).Result.OrderRows;
 
                     foreach (var orderRow in rowsToDelete)
-                    {
                         await _db.DeleteAsync<OrderRow>(orderRow.Uid);
-                    }
                 }
 
                 await _db.InsertOrReplaceWithChildrenAsync(order);
                 await _db.InsertAllWithChildrenAsync(order.OrderRows);
-
             }
             catch (Exception ex)
             {
@@ -394,27 +316,71 @@ namespace InvertoryHelper.Model
             return order.Uid;
         }
 
+        public async Task<Order> GetOrderAsync(Guid orderUid)
+        {
+            try
+            {
+                var order = await _db.GetWithChildrenAsync<Order>(orderUid);
+
+                if (order == null)
+                    return new Order();
+
+                foreach (var orderRow in order.OrderRows)
+                    await _db.GetChildrenAsync(orderRow);
+
+                return order;
+            }
+            catch (Exception ex)
+            {
+                Log.Error("DatabaseError", ex.Message);
+                return new Order();
+            }
+        }
+
+        public async Task<List<Recount>> GetRecountsAsync(Func<Recount, bool> e = null)
+        {
+            await CheckLoad();
+
+            return await _db.GetAllWithChildrenAsync<Recount>();
+        }
+
+        public async Task<Recount> GetRecountAsync(Guid recountUid)
+        {
+            try
+            {
+                var recount = await _db.GetWithChildrenAsync<Recount>(recountUid);
+
+                if (recount == null)
+                    return new Recount();
+
+                foreach (var recountRow in recount.RecountRows)
+                    await _db.GetChildrenAsync(recountRow);
+
+                return recount;
+            }
+            catch (Exception ex)
+            {
+                Log.Error("DatabaseError", ex.Message);
+                return new Recount();
+            }
+        }
+
         public async Task<Guid> SaveRecountAsync(Recount recount)
         {
-
             await CheckLoad();
 
             try
             {
-
                 if (recount.Uid != Guid.Empty)
                 {
                     var rowsToDelete = _db.GetWithChildrenAsync<Recount>(recount.Uid).Result.RecountRows;
 
                     foreach (var recountRow in rowsToDelete)
-                    {
                         await _db.DeleteAsync<RecountRow>(recountRow.Uid);
-                    }
                 }
 
                 await _db.InsertOrReplaceWithChildrenAsync(recount);
                 await _db.InsertAllWithChildrenAsync(recount.RecountRows);
-
             }
             catch (Exception ex)
             {
@@ -439,7 +405,6 @@ namespace InvertoryHelper.Model
 
                 try
                 {
-
                     await _db.CreateTableAsync<Unit>();
                     await _db.CreateTableAsync<NomenclaturesKind>();
                     await _db.CreateTableAsync<Nomenclature>();
@@ -470,6 +435,5 @@ namespace InvertoryHelper.Model
                 }
             }
         }
-
     }
 }

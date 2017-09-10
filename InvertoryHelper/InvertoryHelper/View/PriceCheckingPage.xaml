@@ -4,9 +4,15 @@
     x:Class="InvertoryHelper.View.PriceCheckingPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:behaviorsPack="clr-namespace:Xamarin.Forms.BehaviorsPack;assembly=Xamarin.Forms.BehaviorsPack"
     xmlns:common="clr-namespace:InvertoryHelper.Common"
     Title="{common:Translate PriceChecking}"
     BackgroundColor="{StaticResource FormBackground}">
+
+    <ContentPage.Behaviors>
+        <behaviorsPack:EventToCommandBehavior Command="{Binding AppearingCmd}" EventName="Appearing" />
+        <behaviorsPack:EventToCommandBehavior Command="{Binding DisappearingCmd}" EventName="Disappearing" />
+    </ContentPage.Behaviors>
 
     <TableView>
         <TableRoot>
@@ -30,13 +36,13 @@
             <TableSection Title="{common:Translate Nomenclature}">
                 <ViewCell>
                     <Label
-                        FontSize="Large"
+                        FontSize="Medium"
                         HorizontalOptions="FillAndExpand"
                         Text="{Binding Nomenclature.Name}" />
                 </ViewCell>
                 <ViewCell>
                     <Label
-                        FontSize="Large"
+                        FontSize="Medium"
                         HorizontalOptions="FillAndExpand"
                         Text="{Binding Characteristic.Name}" />
                 </ViewCell>

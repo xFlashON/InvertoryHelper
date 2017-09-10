@@ -1,9 +1,6 @@
-﻿using System;
-using Android.Util;
-using InvertoryHelper.Resourses;
+﻿using InvertoryHelper.Resourses;
 using InvertoryHelper.ViewModel;
 using Xamarin.Forms;
-using Xamarin.Forms.BehaviorsPack;
 
 namespace InvertoryHelper.View
 {
@@ -24,13 +21,12 @@ namespace InvertoryHelper.View
         {
             //try
             //{
-                await DisplayAlert(Resource.Message, message, Resource.Close);
+            await DisplayAlert(Resource.Message, message, Resource.Close);
             //}
             //catch (Exception ex)
             //{
             //    Log.Error("Error", ex.Message);
             //}
-            
         }
     }
 }

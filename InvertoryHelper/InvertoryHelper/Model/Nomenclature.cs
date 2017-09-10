@@ -22,7 +22,7 @@ namespace InvertoryHelper.Model
             BaseUnit = nomenclatureModel.BaseUnit;
             NomenclaturesKind = nomenclatureModel.NomenclaturesKind;
         }
-        
+
         [PrimaryKey]
         [Unique]
         [AutoIncrement]

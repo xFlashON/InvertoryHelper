@@ -1,8 +1,8 @@
 ﻿using System;
+using InvertoryHelper.Model.Documents.Order;
 using InvertoryHelper.ViewModel.Documents.Orders;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using InvertoryHelper.Model.Documents.Order;
 
 namespace InvertoryHelper.View.Documents.Orders
 {
@@ -20,26 +20,18 @@ namespace InvertoryHelper.View.Documents.Orders
 
         private void OrdersPage_OnAppearing(object sender, EventArgs e)
         {
-            OrdersViewModel vm = BindingContext as OrdersViewModel;
+            var vm = BindingContext as OrdersViewModel;
 
             if (vm != null)
-            {
-                MessagingCenter.Subscribe<Order>(vm, "SaveOrder", (o)=> { vm.LoadOrders(); });
-            }
-
-            
+                MessagingCenter.Subscribe<Order>(vm, "SaveOrder", o => { vm.LoadOrders(); });
         }
 
         private void OrdersPage_OnDisappearing(object sender, EventArgs e)
         {
-            OrdersViewModel vm = BindingContext as OrdersViewModel;
+            var vm = BindingContext as OrdersViewModel;
 
             if (vm != null)
-            {
                 MessagingCenter.Unsubscribe<Order>(vm, "SaveOrder");
-            }
         }
-
     }
-
 }

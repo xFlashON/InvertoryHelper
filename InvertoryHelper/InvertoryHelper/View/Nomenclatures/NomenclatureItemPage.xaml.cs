@@ -38,9 +38,9 @@ namespace InvertoryHelper.View.Nomenclatures
 
             if (currentPage == BarcodesPage)
             {
-                var vm = (BarcodesViewModel)currentPage.BindingContext;
+                var vm = (BarcodesViewModel) currentPage.BindingContext;
 
-                vm.SearchText = ((NomenclatureItemViewModel)BindingContext).Name;
+                vm.SearchText = ((NomenclatureItemViewModel) BindingContext).Name;
 
                 vm.SearchCommand.Execute(null);
             }

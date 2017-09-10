@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using Android.Util;
 using InvertoryHelper.Common;
 using InvertoryHelper.Model;
@@ -60,6 +61,65 @@ namespace InvertoryHelper.ViewModel
 
         public Command ScanCmd => _scanCommand ?? (_scanCommand = new Command(Scan));
 
+        public Command AppearingCmd => new Command(async () =>
+        {
+
+            bool useScanner = false;
+            if (App.Current.Properties.ContainsKey("UseScanner"))
+                useScanner = (bool) App.Current.Properties["UseScanner"];
+
+            if (useScanner)
+            {
+                string deviceName = string.Empty;
+
+                if (App.Current.Properties.ContainsKey("DeviceName"))
+                    deviceName = (string) App.Current.Properties["DeviceName"];
+
+                var connectDevice = DependencyService.Get<IScanner>()?.ConnectDevice(deviceName);
+                if (connectDevice != null)
+                {
+                    var result = await connectDevice;
+
+                    if (result == null)
+                    {
+                        MessagingCenter.Subscribe<string>(this, "ScannedCode",BarcodeHandling);
+
+                        Task task = new Task(() =>
+                        {
+                            DependencyService.Get<IScanner>().GetBarcode();
+                        });
+
+                        task.Start(); 
+                    }
+                    else
+                    {
+                        MessagingCenter.Send("Scanner: "+result.Message, "DisplayAlert");
+                    }
+                        
+                }
+            }
+
+
+        });
+
+        public Command DisappearingCmd => new Command(() =>
+        {
+            bool useScanner = false;
+            if (App.Current.Properties.ContainsKey("UseScanner"))
+                useScanner = (bool)App.Current.Properties["UseScanner"];
+
+            if (useScanner)
+            {
+               MessagingCenter.Unsubscribe<string>(this, "ScannedCode");
+
+                var result = DependencyService.Get<IScanner>()?.DisconnectDevice(); ;
+
+                if (result != null)
+                    MessagingCenter.Send(result.Message, "DisplayAlert");
+            }
+
+        });
+
         private async void Scan()
         {
             try
@@ -106,7 +166,9 @@ namespace InvertoryHelper.ViewModel
 
             var priceList =
                 await DataRepository.Instance.GetPricesAsync(
-                    p => Nomenclature.Equals(p.Nomenclature) && (Characteristic == null ? p.Characteristic == null : Characteristic?.Equals(p.Characteristic)==true));
+                    p => Nomenclature.Equals(p.Nomenclature) && (Characteristic == null
+                             ? p.Characteristic == null
+                             : Characteristic?.Equals(p.Characteristic) == true));
 
             var resultPrice = priceList.FirstOrDefault();
 

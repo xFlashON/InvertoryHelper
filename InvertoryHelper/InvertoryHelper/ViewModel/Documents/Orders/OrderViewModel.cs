@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using Android.OS;
+using System.Threading.Tasks;
 using Android.Util;
 using InvertoryHelper.Common;
 using InvertoryHelper.Model;
@@ -18,14 +18,14 @@ namespace InvertoryHelper.ViewModel.Documents.Orders
 
         public INavigation Navigation;
 
-        public OrderModel Order { get; set; }
-
         public OrderViewModel(OrderModel order = null)
         {
             Order = order ?? new OrderModel();
 
             MessagingCenter.Subscribe<Nomenclature>(this, "SelectedNomenclature", SelectedNomenclature);
         }
+
+        public OrderModel Order { get; set; }
 
         public OrderRowModel SelectedRow
         {
@@ -37,7 +37,6 @@ namespace InvertoryHelper.ViewModel.Documents.Orders
             }
         }
 
-  
 
         public Command AddRowCommand => new Command(() =>
         {
@@ -46,7 +45,6 @@ namespace InvertoryHelper.ViewModel.Documents.Orders
             Order.OrderRows?.Add(newRow);
 
             SelectedRow = newRow;
-
         });
 
         public Command DeleteRowCommand => new Command(() =>
@@ -78,7 +76,7 @@ namespace InvertoryHelper.ViewModel.Documents.Orders
         {
             var order = Order.GetOrder();
 
-            if(order==null)
+            if (order == null)
                 return;
 
             var uid = await DataRepository.Instance.SaveOrderAsync(order);
@@ -92,8 +90,67 @@ namespace InvertoryHelper.ViewModel.Documents.Orders
             await Navigation?.PopAsync();
 
             MessagingCenter.Send(order, "SaveOrder");
+        });
+
+        public Command AppearingCmd => new Command(async () =>
+        {
+
+            bool useScanner = false;
+            if (App.Current.Properties.ContainsKey("UseScanner"))
+                useScanner = (bool)App.Current.Properties["UseScanner"];
+
+            if (useScanner)
+            {
+                string deviceName = string.Empty;
+
+                if (App.Current.Properties.ContainsKey("DeviceName"))
+                    deviceName = (string)App.Current.Properties["DeviceName"];
+
+                var connectDevice = DependencyService.Get<IScanner>()?.ConnectDevice(deviceName);
+                if (connectDevice != null)
+                {
+                    var result = await connectDevice;
+
+                    if (result == null)
+                    {
+                        MessagingCenter.Subscribe<string>(this, "ScannedCode", BarcodeHandling);
+
+                        Task task = new Task(() =>
+                        {
+                            DependencyService.Get<IScanner>().GetBarcode();
+                        });
+
+                        task.Start();
+                    }
+                    else
+                    {
+                        MessagingCenter.Send("Scanner: " + result.Message, "DisplayAlert");
+                    }
+
+                }
+            }
+
 
         });
+
+        public Command DisappearingCmd => new Command(() =>
+        {
+            bool useScanner = false;
+            if (App.Current.Properties.ContainsKey("UseScanner"))
+                useScanner = (bool)App.Current.Properties["UseScanner"];
+
+            if (useScanner)
+            {
+                MessagingCenter.Unsubscribe<string>(this, "ScannedCode");
+
+                var result = DependencyService.Get<IScanner>()?.DisconnectDevice(); ;
+
+                if (result != null)
+                    MessagingCenter.Send(result.Message, "DisplayAlert");
+            }
+
+        });
+
 
         private void SelectedNomenclature(Nomenclature nomenclature)
         {
@@ -120,60 +177,69 @@ namespace InvertoryHelper.ViewModel.Documents.Orders
 
         private async void BarcodeHandling(string barcode)
         {
-            if (barcode == string.Empty)
-                return;
-
-            var Code = barcode;
-
-            var barcodesList = await DataRepository.Instance.GetBarcodesAsync(b => b.Code == barcode);
-
-            var resultBarcode = barcodesList.FirstOrDefault();
-
-            if (resultBarcode == null)
+            try
             {
-                DependencyService.Get<IOnPlatform>().PlaySound("err.wav");
+                if (barcode == string.Empty)
+                    return;
 
-                return;
+                var Code = barcode;
+
+                var barcodesList = await DataRepository.Instance.GetBarcodesAsync(b => b.Code == barcode);
+
+                var resultBarcode = barcodesList.FirstOrDefault();
+
+                if (resultBarcode == null)
+                {
+                    DependencyService.Get<IOnPlatform>().PlaySound("err.wav");
+
+                    return;
+                }
+
+                DependencyService.Get<IOnPlatform>().PlaySound("sucsess.wav");
+
+                var nomenclature = resultBarcode.Nomenclature;
+                var characteristic = resultBarcode.Characteristic;
+
+                var priceList =
+                    await DataRepository.Instance.GetPricesAsync(
+                        p => nomenclature.Equals(p.Nomenclature) && (characteristic == null
+                                 ? p.Characteristic == null
+                                 : characteristic?.Equals(p.Characteristic) == true));
+
+                var resultPrice = priceList.FirstOrDefault();
+
+                var price = resultPrice?.price ?? 0;
+
+                OrderRowModel exRow = null;
+
+                exRow = Order.OrderRows
+                    .FirstOrDefault(r => nomenclature.Equals(r.Nomenclature) && characteristic == null
+                        ? r.Characteristic == null
+                        : characteristic?.Equals(r.Characteristic) == true);
+
+
+                if (exRow != null)
+                {
+                    exRow.Amount += 1;
+                }
+                else
+                {
+                    var newRow = new OrderRowModel();
+                    newRow.Nomenclature = nomenclature;
+                    newRow.Characteristic = characteristic;
+                    newRow.Price = price;
+                    newRow.Amount = 1;
+
+                    Order.OrderRows.Add(newRow);
+
+                    SelectedRow = newRow;
+                }
             }
-
-            DependencyService.Get<IOnPlatform>().PlaySound("sucsess.wav");
-
-            var nomenclature = resultBarcode.Nomenclature;
-            var characteristic = resultBarcode.Characteristic;
-
-            var priceList =
-                await DataRepository.Instance.GetPricesAsync(
-                    p => nomenclature.Equals(p.Nomenclature) && (characteristic == null ? p.Characteristic == null : characteristic?.Equals(p.Characteristic) == true));
-
-            var resultPrice = priceList.FirstOrDefault();
-
-            var price = resultPrice?.price ?? 0;
-
-            OrderRowModel exRow = null;
-
-            exRow = Order.OrderRows
-                .FirstOrDefault(r => nomenclature.Equals(r.Nomenclature) && characteristic == null
-                    ? r.Characteristic == null
-                    : characteristic?.Equals(r.Characteristic) == true);
-
-
-            if (exRow != null)
+            catch (Exception e)
             {
-                exRow.Amount += 1;
+                MessagingCenter.Send(e.Message, "DisplayAlert");
             }
-            else
-            {
-                var newRow = new OrderRowModel();
-                newRow.Nomenclature = nomenclature;
-                newRow.Characteristic = characteristic;
-                newRow.Price = price;
-                newRow.Amount = 1;
-
-                Order.OrderRows.Add(newRow);
-
-                SelectedRow = newRow;
-
-            }
+            
         }
     }
 }

@@ -10,6 +10,11 @@
     x:Name="CurrentRecountPage"
     Title="{common:Translate Recount}"
     BackgroundColor="{StaticResource FormBackground}">
+   
+    <TabbedPage.Behaviors>
+        <behaviorsPack:EventToCommandBehavior Command="{Binding AppearingCmd}" EventName="Appearing" />
+        <behaviorsPack:EventToCommandBehavior Command="{Binding DisappearingCmd}" EventName="Disappearing" />
+    </TabbedPage.Behaviors>
 
     <TabbedPage.Children>
         <ContentPage Title="{common:Translate Data}">

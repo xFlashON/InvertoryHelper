@@ -7,7 +7,6 @@ namespace InvertoryHelper.Model.Documents.Order
     [Table("OrderRows")]
     public class OrderRow
     {
-
         [PrimaryKey]
         [Unique]
         [AutoIncrement]

@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using InvertoryHelper.Common;
 using Xamarin.Forms;
 
-
 namespace InvertoryHelper.ViewModel
 {
-    public class SettingsViewModel:BaseViewModel
+    public class SettingsViewModel : BaseViewModel
     {
         public INavigation Navigation;
 
@@ -17,121 +12,164 @@ namespace InvertoryHelper.ViewModel
         {
             get
             {
-                string key = "ExchangeUrl";
-                string defaultValue = @"http://{ip}/erp/ws/ExchangeERP_MobApp.1cws";
+                var key = "ExchangeUrl";
+                var defaultValue = @"http://{ip}/erp/ws/ExchangeERP_MobApp.1cws";
 
-                if (!App.Current.Properties.ContainsKey(key))
-                {
-                    App.Current.Properties.Add(key, defaultValue);
-                }
+                if (!Application.Current.Properties.ContainsKey(key))
+                    Application.Current.Properties.Add(key, defaultValue);
 
-                return (string)App.Current.Properties[key];
+                return (string) Application.Current.Properties[key];
             }
 
             set
             {
-                string key = "ExchangeUrl";
+                var key = "ExchangeUrl";
 
-                if (!App.Current.Properties.ContainsKey(key))
-                    App.Current.Properties.Add(key, value);
+                if (!Application.Current.Properties.ContainsKey(key))
+                    Application.Current.Properties.Add(key, value);
                 else
-                    App.Current.Properties[key] = value;
+                    Application.Current.Properties[key] = value;
 
                 OnPropertyChanged("ExchangeUrl");
-
             }
-
         }
 
         public string Login
         {
             get
             {
-                string key = "Login";
-                string defaultValue = "";
+                var key = "Login";
+                var defaultValue = "";
 
-                if (!App.Current.Properties.ContainsKey(key))
-                {
-                    App.Current.Properties.Add(key, defaultValue);
-                }
+                if (!Application.Current.Properties.ContainsKey(key))
+                    Application.Current.Properties.Add(key, defaultValue);
 
-                return (string)App.Current.Properties[key];
+                return (string) Application.Current.Properties[key];
             }
 
             set
             {
-                string key = "Login";
+                var key = "Login";
 
-                if (!App.Current.Properties.ContainsKey(key))
-                    App.Current.Properties.Add(key, value);
+                if (!Application.Current.Properties.ContainsKey(key))
+                    Application.Current.Properties.Add(key, value);
                 else
-                    App.Current.Properties[key] = value;
+                    Application.Current.Properties[key] = value;
 
                 OnPropertyChanged("Login");
-
             }
-
         }
 
         public string Password
         {
             get
             {
-                string key = "Password";
-                string defaultValue = "";
+                var key = "Password";
+                var defaultValue = "";
 
-                if (!App.Current.Properties.ContainsKey(key))
-                {
-                    App.Current.Properties.Add(key, defaultValue);
-                }
+                if (!Application.Current.Properties.ContainsKey(key))
+                    Application.Current.Properties.Add(key, defaultValue);
 
-                return (string)App.Current.Properties[key];
+                return (string) Application.Current.Properties[key];
             }
 
             set
             {
-                string key = "Password";
+                var key = "Password";
 
-                if (!App.Current.Properties.ContainsKey(key))
-                    App.Current.Properties.Add(key, value);
+                if (!Application.Current.Properties.ContainsKey(key))
+                    Application.Current.Properties.Add(key, value);
                 else
-                    App.Current.Properties[key] = value;
+                    Application.Current.Properties[key] = value;
 
                 OnPropertyChanged("Password");
-
             }
-
         }
 
         public string NodeId
         {
             get
             {
-                string key = "NodeId";
-                string defaultValue = "";
+                var key = "NodeId";
+                var defaultValue = "";
 
-                if (!App.Current.Properties.ContainsKey(key))
-                {
-                    App.Current.Properties.Add(key, defaultValue);
-                }
+                if (!Application.Current.Properties.ContainsKey(key))
+                    Application.Current.Properties.Add(key, defaultValue);
 
-                return (string)App.Current.Properties[key];
+                return (string) Application.Current.Properties[key];
             }
 
             set
             {
-                string key = "NodeId";
+                var key = "NodeId";
 
-                if (!App.Current.Properties.ContainsKey(key))
-                    App.Current.Properties.Add(key, value);
+                if (!Application.Current.Properties.ContainsKey(key))
+                    Application.Current.Properties.Add(key, value);
                 else
-                    App.Current.Properties[key] = value;
+                    Application.Current.Properties[key] = value;
 
                 OnPropertyChanged("NodeId");
-
             }
-
         }
 
+        public string DeviceName
+        {
+            get
+            {
+                var key = "DeviceName";
+                var defaultValue = "";
+
+                if (!Application.Current.Properties.ContainsKey(key))
+                    Application.Current.Properties.Add(key, defaultValue);
+
+                return (string)Application.Current.Properties[key];
+            }
+
+            set
+            {
+                var key = "DeviceName";
+
+                if (!Application.Current.Properties.ContainsKey(key))
+                    Application.Current.Properties.Add(key, value);
+                else
+                    Application.Current.Properties[key] = value;
+
+                OnPropertyChanged("DeviceName");
+            }
+        }
+
+        public bool UseScanner
+        {
+            get
+            {
+                var key = "UseScanner";
+                var defaultValue = false;
+
+                if (!Application.Current.Properties.ContainsKey(key))
+                    Application.Current.Properties.Add(key, defaultValue);
+
+                return (bool) Application.Current.Properties[key];
+            }
+
+            set
+            {
+                var key = "UseScanner";
+
+                if (!Application.Current.Properties.ContainsKey(key))
+                    Application.Current.Properties.Add(key, value);
+                else
+                    Application.Current.Properties[key] = value;
+
+                OnPropertyChanged("UseScanner");
+            }
+        }
+
+        public List<string> DevicesList
+        {
+            get
+            {
+                return DependencyService.Get<IScanner>()?.GetDeviceList() ?? new List<string>();
+            }
+        } 
     }
 }

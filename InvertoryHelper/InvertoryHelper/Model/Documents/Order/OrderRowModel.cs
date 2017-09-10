@@ -144,16 +144,17 @@ namespace InvertoryHelper.Model.Documents.Order
                 return;
             }
 
-            var prices = await DataRepository.Instance.GetPricesAsync(new Func<Price, bool>((p)=>
-                {
-                    return Nomenclature.Equals(p.Nomenclature) && (Characteristic == null? p.Characteristic == null: Characteristic?.Equals(p.Characteristic) == true);
-                }));
+            var prices = await DataRepository.Instance.GetPricesAsync(p =>
+            {
+                return Nomenclature.Equals(p.Nomenclature) && (Characteristic == null
+                           ? p.Characteristic == null
+                           : Characteristic?.Equals(p.Characteristic) == true);
+            });
 
             var priceItem = prices.FirstOrDefault();
 
             if (priceItem != null)
                 Price = priceItem.price;
-
         }
     }
 }

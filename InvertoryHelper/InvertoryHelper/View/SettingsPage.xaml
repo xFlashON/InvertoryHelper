@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
+
 <ContentPage
     x:Class="InvertoryHelper.View.SettingsPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
@@ -9,7 +10,7 @@
 
             <ViewCell>
                 <StackLayout Padding="10,0,0,0" Orientation="Horizontal">
-                    <Label Text="{common:Translate SyncUrl}" MinimumWidthRequest="50" />
+                    <Label MinimumWidthRequest="50" Text="{common:Translate SyncUrl}" />
                     <Editor HeightRequest="100" Text="{Binding ExchangeUrl}" />
                 </StackLayout>
             </ViewCell>
@@ -28,6 +29,15 @@
                 </StackLayout>
             </ViewCell>
             <EntryCell Label="{common:Translate NodeId}" Text="{Binding NodeId}" />
+        </TableSection>
+        <TableSection Title="{common:Translate Devices}">
+            <SwitchCell On="{Binding UseScanner}" Text="{common:Translate UseScanner}" />
+            <ViewCell>
+                <Picker
+                    Title="{common:Translate DeviceName}"
+                    ItemsSource="{Binding DevicesList}"
+                    SelectedItem="{Binding DeviceName}" />
+            </ViewCell>
         </TableSection>
     </TableView>
 </ContentPage>

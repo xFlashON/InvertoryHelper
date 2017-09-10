@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace InvertoryHelper.Common
 {
@@ -11,13 +7,11 @@ namespace InvertoryHelper.Common
         Task<ExchangeResult> GetData();
 
         Task<ExchangeResult> SendData();
-
     }
 
     public struct ExchangeResult
     {
         public bool Sucsess;
         public string Message;
-
     }
 }

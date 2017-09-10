@@ -149,6 +149,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\ExchangeService.cs" />
+    <Compile Include="Common\ExternalScanner.cs" />
     <Compile Include="Common\Localize.cs" />
     <Compile Include="Common\OnPlatform.cs" />
     <Compile Include="MainActivity.cs" />

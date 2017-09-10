@@ -8,7 +8,6 @@ namespace InvertoryHelper.Model.Documents.Order
     [Table("Orders")]
     public class Order
     {
-
         [PrimaryKey]
         [Unique]
         [AutoIncrement]

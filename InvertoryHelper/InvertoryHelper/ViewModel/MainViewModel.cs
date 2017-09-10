@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-using System.Windows.Input;
-using Android.OS;
+﻿using System.Windows.Input;
 using InvertoryHelper.Common;
 using InvertoryHelper.Model;
 using InvertoryHelper.View;
@@ -36,7 +34,9 @@ namespace InvertoryHelper.ViewModel
 
         public ICommand OpenOrdersCmd => new Command(async () => { await navigation?.PushAsync(new OrdersPage()); });
 
-        public ICommand OpenRecountsCmd => new Command(async () => { await navigation?.PushAsync(new RecountsPage()); });
-
+        public ICommand OpenRecountsCmd => new Command(async () =>
+        {
+            await navigation?.PushAsync(new RecountsPage());
+        });
     }
 }

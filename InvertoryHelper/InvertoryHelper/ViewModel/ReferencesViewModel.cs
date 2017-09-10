@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using InvertoryHelper.Common;
 using InvertoryHelper.View.Barcodes;
 using InvertoryHelper.View.Characteristics;
@@ -17,18 +16,16 @@ namespace InvertoryHelper.ViewModel
 
         public ICommand OpenReference => new Command(OpenReferenceCmd);
 
-        public ICommand LoadDictionariesCmd => new Command(async ()=>
+        public ICommand LoadDictionariesCmd => new Command(async () =>
         {
-
             var result = await DependencyService.Get<IWebExchange>().GetData();
 
             if (result.Sucsess)
                 MessagingCenter.Send("Loading complete", "DisplayAlert");
             else
                 MessagingCenter.Send(result.Message, "DisplayAlert");
-
         });
-   
+
 
         private async void OpenReferenceCmd(object param)
         {

@@ -39,7 +39,7 @@ namespace InvertoryHelper.ViewModel.Documents.Recounts
                 {
                     Navigation?.PushAsync(new RecountPage(new RecountModel
                     {
-                        Number = RecountsList.Any()?RecountsList.Max(o => o.Number) + 1 : 1
+                        Number = RecountsList.Any() ? RecountsList.Max(o => o.Number) + 1 : 1
                     }));
                 });
             }
@@ -50,7 +50,8 @@ namespace InvertoryHelper.ViewModel.Documents.Recounts
             var recountsList = await DataRepository.Instance.GetRecountsAsync();
 
             RecountsList =
-                new ObservableCollection<RecountModel>(recountsList.Select(o => new RecountModel(o)).OrderBy(o => o.Number));
+                new ObservableCollection<RecountModel>(recountsList.Select(o => new RecountModel(o))
+                    .OrderBy(o => o.Number));
 
             OnPropertyChanged("RecountsList");
         }
