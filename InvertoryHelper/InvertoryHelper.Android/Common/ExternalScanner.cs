@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Android.App;
 using Android.Bluetooth;
 using InvertoryHelper.Common;
 using InvertoryHelper.Droid.Common;
@@ -100,21 +101,27 @@ namespace InvertoryHelper.Droid.Common
             {
                 if (DeviceConnected)
                 {
-                    var buffer = new byte[128];
+                    var buffer = new byte[1024];
 
                     var encoder = new ASCIIEncoding();
 
                     while (true)
                     {
-                        var bytesRead = socket.InputStream.Read(buffer, 0, buffer.Length);
+                        if (socket.InputStream.CanRead)
+                        {
+                            var bytesRead = socket.InputStream.Read(buffer, 0, buffer.Length);
 
-                        var result = encoder.GetString(buffer, 0, 13);
+                            var result = encoder.GetString(buffer, 0, buffer.Length);
 
-                        result = result.Replace("\r", string.Empty);
+                            result = result.Replace("\r", string.Empty);
+                            result = result.Replace("\0", string.Empty);
 
-                        if (result != string.Empty)
-                            MessagingCenter.Send<string>(result,"ScannedCode");
-
+                            if (result != string.Empty)
+                                Device.BeginInvokeOnMainThread(() =>
+                                {
+                                    MessagingCenter.Send<string>(result, "ScannedCode");
+                                });
+                        }
                     }
                 }
                 return null;
